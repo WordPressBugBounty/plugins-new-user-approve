@@ -1,0 +1,611 @@
+# Translation of Plugins - New User Approve - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - New User Approve - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-05-02 04:51+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Language: de-DE\n"
+"Project-Id-Version: Plugins - New User Approve - Stable (latest release)\n"
+"\n"
+"Language-Team: German"
+
+#: new-user-approve.php:1095
+msgid ""
+" To start using New User Approve Options, please <a href=\"https://users."
+"freemius.com\" target=\"_blank\"> login to your freemius account</a> in "
+"order to download the premium version <br /> For more details <a "
+"target=\"_blank\" href=\"https://newuserapprove.com/\">Click here</a>!"
+msgstr ""
+"Um die Genehmigungsoptionen für neue Benutzer zu nutzen, <a href=\"https:"
+"//users.freemius.com\" target=\"_blank\">melden Sie sich bitte bei Ihrem "
+"Freemius-Konto an</a>, um die Premium-Version herunterzuladen <br /> Für "
+"weitere Details <a target=\"_blank\" href=\"https://newuserapprove.com/\">"
+"Klicken Sie hier</a>!"
+
+#: includes/user-list.php:401
+msgid "-- Status --"
+msgstr "-- Status --"
+
+#: includes/invitation-code.php:735
+msgid "<strong>ERROR</strong>: Invitation code has been expired"
+msgstr "<strong>FEHLER</strong>: Der Einladungscode ist abgelaufen"
+
+#: includes/invitation-code.php:740
+msgid "<strong>ERROR</strong>: Invitation code limit_exceeded"
+msgstr "<strong>FEHLER</strong>: Einladungscode limit_exceeded"
+
+#: includes/invitation-code.php:800
+msgid "<strong>ERROR</strong>: Please add an Invitation code."
+msgstr "<strong>FEHLER</strong>: Bitte fügen Sie einen Einladungscode hinzu."
+
+#: includes/invitation-code.php:797
+msgid "<strong>ERROR</strong>: The Invitation code is invalid"
+msgstr "<strong>FEHLER</strong>: Der Einladungscode ist ungültig"
+
+#: new-user-approve.php:925
+msgid "<strong>ERROR</strong>: User has not been approved."
+msgstr "<strong>ERROR</strong>: Benutzer wurde nicht genehmigt."
+
+#: new-user-approve.php:372
+msgid ""
+"<strong>ERROR</strong>: Your account has been denied access to this site."
+msgstr ""
+"<strong> FEHLER </strong>: Deinem Konto wurde der Zugriff auf diese Website "
+"verweigert."
+
+#: new-user-approve.php:367
+msgid "<strong>ERROR</strong>: Your account is still pending approval."
+msgstr "<strong> FEHLER </strong>: Dein Konto muss noch genehmigt werden."
+
+#: new-user-approve.php:790
+#, php-format
+msgid "[%s] Registration Approved"
+msgstr "[%s] Registrierung genehmigt"
+
+#: new-user-approve.php:824
+#, php-format
+msgid "[%s] Registration Denied"
+msgstr "[%s] Registrierung abgelehnt"
+
+#: new-user-approve.php:628
+#, php-format
+msgid "[%s] User Approval"
+msgstr "[%s] Benutzergenehmigung"
+
+#: includes/user-list.php:396
+msgid "Access Status"
+msgstr "Zugriffsstatus"
+
+#: includes/admin-approve.php:160 includes/admin-approve.php:162
+msgid "Action"
+msgstr "Aktion"
+
+#: includes/invitation-code.php:915
+msgid "Actions"
+msgstr "Aktionen"
+
+#: includes/invitation-code.php:190 includes/invitation-code.php:320
+msgid "Add Codes"
+msgstr "Codes hinzufügen"
+
+#: includes/invitation-code.php:148
+msgid "Add New"
+msgstr "Neue hinzufügen"
+
+#: includes/invitation-code.php:149
+msgid "Add New Invitation Code"
+msgstr "Neuen Einladungscode hinzufügen"
+
+#: includes/messages.php:102
+msgid ""
+"After you register, your request will be sent to the site administrator for "
+"approval. You will then receive an email with further instructions."
+msgstr ""
+"Nach der Registrierung wird deine Anfrage zur Genehmigung an den Site-"
+"Administrator gesandt. Du erhältst dann eine E-Mail mit weiteren Anweisungen."
+
+#: includes/invitation-code.php:128 includes/invitation-code.php:146 
+#: includes/invitation-code.php:147
+msgid "All Codes"
+msgstr "Alle Codes"
+
+#: includes/invitation-code.php:153
+msgid "All Invitation Code"
+msgstr "Alle Einladungscodes"
+
+#. Description of the plugin
+msgid ""
+"Allow administrators to approve users once they register. Only approved "
+"users will be allowed to access the site. For support, please go to the <a "
+"href=\"http://wordpress.org/support/plugin/new-user-approve\">support "
+"forums</a> on wordpress.org."
+msgstr ""
+"Administratoren ermöglichen, Benutzer nach der Registrierung zuzulassen. Nur "
+"zugelassene Benutzer dürfen auf die Site zugreifen. Support erhältst du in "
+"den <a href=\"http://wordpress.org/support/plugin/new-user-approve\">Support-"
+"Foren</a> auf wordpress.org."
+
+#: includes/messages.php:41
+msgid ""
+"An email has been sent to the site administrator. The administrator will "
+"review the information that has been submitted and either approve or deny "
+"your request."
+msgstr ""
+"Eine E-Mail wurde an den Site-Administrator gesandt. Der Administrator "
+"überprüft die eingereichten Informationen und genehmigt oder verweigert "
+"deine Anfrage."
+
+#: includes/admin-approve.php:445
+msgid "API Key: "
+msgstr "API-Schlüssel:"
+
+#: includes/memberpress.php:39
+msgid "Approval"
+msgstr "Genehmigung"
+
+#: includes/user-list.php:104 includes/user-list.php:270 
+#: includes/user-list.php:271 includes/memberpress.php:60 
+#: includes/admin-approve.php:217 includes/admin-approve.php:217
+msgid "Approve"
+msgstr "Genehmigen"
+
+#: includes/admin-approve.php:61
+msgid "Approve New Users"
+msgstr "Genehmige neue Benutzer"
+
+#: includes/admin-approve.php:329
+msgid "Approve Users"
+msgstr "Genehmigte Benutzer"
+
+#: includes/user-list.php:150 includes/admin-approve.php:254
+msgid "approved"
+msgstr "freigegeben"
+
+#: includes/admin-approve.php:145 includes/admin-approve.php:355
+msgid "Approved Users"
+msgstr "Genehmigte Benutzer"
+
+#: includes/invitation-code.php:206
+msgid "Auto Generate"
+msgstr "Automatisch generieren"
+
+#: includes/user-list.php:412
+msgid "Current user status is <strong>pending</strong>."
+msgstr "Der aktuelle Benutzerstatus ist <strong>ausstehend</strong>."
+
+#: includes/invitation-code.php:569
+msgid "Date"
+msgstr "Datum"
+
+#: includes/invitation-code.php:945
+msgid "Deactivate"
+msgstr "Deaktivieren"
+
+#: includes/invitation-code.php:945
+msgid "Delete"
+msgstr "Löschen"
+
+#: includes/user-list.php:152 includes/admin-approve.php:256
+msgid "denied"
+msgstr "abgelehnt"
+
+#: includes/admin-approve.php:141 includes/admin-approve.php:357
+msgid "Denied Users"
+msgstr "Verweigerte Benutzer"
+
+#: includes/user-list.php:105 includes/user-list.php:273 
+#: includes/user-list.php:274 includes/memberpress.php:61 
+#: includes/admin-approve.php:221
+msgid "Deny"
+msgstr "Ablehnen"
+
+#: includes/admin-approve.php:158
+msgid "E-mail"
+msgstr "E-Mail"
+
+#: includes/invitation-code.php:945
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: includes/invitation-code.php:151
+msgid "Edit Invitation Code"
+msgstr "Einladungscode bearbeiten"
+
+#: includes/invitation-code.php:194
+msgid "Email"
+msgstr "Email"
+
+#: includes/admin-approve.php:212
+msgid "email:"
+msgstr "E-Mail:"
+
+#: includes/memberpress.php:16
+msgid ""
+"Enable this option if you want membership to be only activated after user "
+"profile is approved using New User Approve settings, If users profile is "
+"denied then the membership will become inactive"
+msgstr ""
+"Aktivieren Sie diese Option, wenn die Mitgliedschaft erst aktiviert werden "
+"soll, nachdem das Benutzerprofil mithilfe der Einstellungen zur Genehmigung "
+"neuer Benutzer genehmigt wurde. Wenn das Benutzerprofil abgelehnt wird, wird "
+"die Mitgliedschaft inaktiv"
+
+#: includes/invitation-code.php:325
+msgid "Enter one code per line."
+msgstr "Geben Sie einen Code pro Zeile ein."
+
+#: includes/invitation-code.php:913
+msgid "Expiry"
+msgstr "Ablauf"
+
+#: includes/invitation-code.php:337
+msgid "Expiry Date"
+msgstr "Verfallsdatum"
+
+#: includes/admin-approve.php:331
+msgid "Feedback"
+msgstr "Feedback"
+
+#: includes/user-list.php:173
+msgid "Filter"
+msgstr "Filter"
+
+#: includes/email-tags.php:279
+msgid "Generates the password for the user to add to the email"
+msgstr ""
+"Erzeugt das Passwort für den Benutzer, der der E-Mail hinzugefügt werden soll"
+
+#: includes/admin-approve.php:73
+msgid "Get"
+msgstr "Erhalten"
+
+#: includes/messages.php:110
+msgid "Hello,"
+msgstr "Hallo,"
+
+#. URI of the plugin
+msgid "http://newuserapprove.com/"
+msgstr "http://newuserapprove.com/"
+
+#. Author URI of the plugin
+msgid "https://newuserapprove.com/"
+msgstr "https://newuserapprove.com/"
+
+#: includes/user-list.php:409
+msgid "If user has access to sign in or not."
+msgstr "Wenn der Benutzer Zugriff auf die Anmeldung hat oder nicht."
+
+#: includes/invitation-code.php:193
+msgid "Import Codes"
+msgstr "Codes importieren"
+
+#: includes/zapier/includes/rest-api.php:87 
+#: includes/zapier/includes/rest-api.php:98 
+#: includes/zapier/includes/rest-api.php:114 
+#: includes/zapier/includes/rest-api.php:130
+msgid "Invalid API Key"
+msgstr "Ungültiger API-Schlüssel"
+
+#: includes/invitation-code.php:126 includes/invitation-code.php:144 
+#: includes/invitation-code.php:145 includes/invitation-code.php:556 
+#: includes/invitation-code.php:674 includes/invitation-code.php:911
+msgid "Invitation Code"
+msgstr "Einladungscode"
+
+#: includes/invitation-code.php:688
+msgid "Invitation Code Already Exists."
+msgstr "Der Einladungscode ist bereits vorhanden."
+
+#: includes/invitation-code.php:536
+msgid "Invitation code for new user"
+msgstr "Einladungscode für neuen Benutzer"
+
+#: includes/invitation-code.php:969
+msgid "Invitation Code for user to register"
+msgstr "Einladungscode für die Benutzerregistrierung"
+
+#: includes/invitation-code.php:186
+msgid "Invitation Code Settings"
+msgstr "Einladungscode-Einstellungen"
+
+#: includes/invitation-code.php:205
+msgid "Manual Generate"
+msgstr "Manuell generieren"
+
+#: includes/memberpress.php:12 includes/memberpress.php:15
+msgid "Members Require NUA Approval"
+msgstr "Mitglieder benötigen eine NUA-Genehmigung"
+
+#: includes/admin-approve.php:157
+msgid "Name"
+msgstr "Name"
+
+#: includes/invitation-code.php:150
+msgid "New Invitation Code"
+msgstr "Neuer Einladungscode"
+
+#. Name of the plugin
+msgid "New User Approve"
+msgstr "New User Approve"
+
+#: new-user-approve.php:179
+#, php-format
+msgid "New User Approve requires WordPress %s or newer."
+msgstr "Neuen Benutzer genehmigen erfordert WordPress %s oder neuer."
+
+#: includes/invitation-code.php:620
+msgid "No User Found"
+msgstr "Kein Benutzer gefunden"
+
+#: includes/email-tags.php:398
+#, php-format
+msgid "Password: %s"
+msgstr "Passwort: %s"
+
+#: includes/user-list.php:154 includes/admin-approve.php:258
+msgid "pending"
+msgstr "ausstehend"
+
+#: new-user-approve.php:893
+msgid "Pending Approval"
+msgstr "Ausstehende Genehmigung"
+
+#: includes/admin-approve.php:149 includes/admin-approve.php:353
+msgid "Pending Users"
+msgstr "Ausstehende Benutzer"
+
+#: includes/admin-approve.php:73
+msgid "Pro Bundle"
+msgstr "Pro-Bundle"
+
+#: includes/admin-approve.php:361
+msgid "Pro Features"
+msgstr "Pro-Funktionen"
+
+#: new-user-approve.php:889
+msgid "Registration successful."
+msgstr "Registrierung erfolgreich"
+
+#: includes/zapier/includes/rest-api.php:84 
+#: includes/zapier/includes/rest-api.php:95 
+#: includes/zapier/includes/rest-api.php:111 
+#: includes/zapier/includes/rest-api.php:127
+msgid "Required Parameter Missing"
+msgstr "Erforderlicher Parameter fehlt"
+
+#: includes/invitation-code.php:192
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/user-list.php:127 includes/invitation-code.php:573 
+#: includes/invitation-code.php:914
+msgid "Status"
+msgstr "Status"
+
+#: includes/admin-approve.php:330
+msgid "Support"
+msgstr "Support"
+
+#: includes/messages.php:116
+msgid "Thank You"
+msgstr "Danke"
+
+#: includes/messages.php:112
+msgid ""
+"Thank you for registering on our site. We have successfully received your "
+"request and is currently pending for approval."
+msgstr ""
+"Vielen Dank für Ihre Registrierung auf unserer Website. Wir haben Ihre "
+"Anfrage erfolgreich erhalten und warten derzeit auf die Genehmigung."
+
+#: includes/messages.php:114
+msgid ""
+"The administrator will review the information that has been submitted after "
+"which they will either approve or deny your request. You will receive an "
+"email with the instructions on what you will need to do next."
+msgstr ""
+"Der Administrator prüft die übermittelten Informationen und genehmigt "
+"anschließend Ihre Anfrage oder lehnt sie ab. Sie erhalten eine E-Mail mit "
+"den Anweisungen, was Sie als Nächstes tun müssen."
+
+#: includes/email-tags.php:273
+msgid "The URL for a user to set/reset their password"
+msgstr "Die URL für einen Benutzer zum Festlegen/Zurücksetzen seines Passworts"
+
+#: includes/email-tags.php:261
+msgid "The URL to approve/deny users"
+msgstr "Die URL zum Genehmigen/Ablehnen von Benutzern"
+
+#: includes/email-tags.php:267
+msgid "The URL to login to the site"
+msgstr "Die URL zum Anmelden auf der Website"
+
+#: includes/email-tags.php:243
+msgid "The user's email address"
+msgstr "Die E-Mail-Adresse des Benutzers"
+
+#: includes/email-tags.php:237
+msgid "The user's username on the site as well as the Username label"
+msgstr ""
+"Der Benutzername des Benutzers auf der Website sowie das Benutzername- Label"
+
+#: includes/admin-approve.php:261
+#, php-format
+msgid "There is no user found in %s status tab."
+msgstr "Auf der Statusregisterkarte %s wurde kein Benutzer gefunden."
+
+#: includes/messages.php:87
+msgid "To approve or deny this user access to {sitename} go to"
+msgstr ""
+"Um diesen Benutzerzugriff auf {sitename} zu genehmigen oder zu verweigern, "
+"gehe zu"
+
+#: includes/messages.php:12
+msgid "To set or reset your password, visit the following address:"
+msgstr ""
+"Um dein Passwort zu setzen oder zurückzusetzen, besuche die folgende Adresse:"
+
+#: includes/admin-approve.php:459
+msgid "Triggers"
+msgstr "Löst aus"
+
+#: includes/admin-approve.php:426
+msgid "Triggers when a user is Approved."
+msgstr "Wird ausgelöst, wenn ein Benutzer genehmigt wird."
+
+#: includes/admin-approve.php:427
+msgid "Triggers when a user is Denied."
+msgstr "Wird ausgelöst, wenn ein Benutzer abgelehnt wird."
+
+#: includes/admin-approve.php:428
+msgid "Triggers when a user is registered (pending)"
+msgstr "Wird ausgelöst, wenn ein Benutzer registriert ist (ausstehend)"
+
+#: includes/invitation-code.php:329 includes/invitation-code.php:565
+msgid "Usage Limit"
+msgstr "Nutzungsbeschränkung"
+
+#: includes/user-list.php:372
+#, php-format
+msgid "User approved."
+msgid_plural "%s users approved."
+msgstr[0] "Benutzer genehmigt."
+msgstr[1] "%s Benutzer genehmigt."
+
+#: includes/user-list.php:367
+#, php-format
+msgid "User denied."
+msgid_plural "%s users denied."
+msgstr[0] "Benutzer abgelehnt."
+msgstr[1] "%s Benutzer abgelehnt"
+
+#: includes/invitation-code.php:613
+msgid "User Not Found"
+msgstr "Benutzer nicht gefunden"
+
+#: admin/templates/approve.php:11
+msgid "User Registration Approval"
+msgstr "Benutzerregistrierungs-Genehmigung"
+
+#: admin/templates/approve.php:6
+msgid "User successfully updated."
+msgstr "Benutzer erfolgreich aktualisiert."
+
+#: includes/admin-approve.php:156
+msgid "Username"
+msgstr "Benutzername"
+
+#: includes/email-tags.php:307
+#, php-format
+msgid "Username: %s"
+msgstr "Benutzername: %s"
+
+#: new-user-approve.php:591
+msgid "Users"
+msgstr "Benutzer"
+
+#: includes/invitation-code.php:585
+msgid "Users that have registered by using this invitation code"
+msgstr "Benutzer, die sich mit diesem Einladungscode registriert haben"
+
+#: includes/invitation-code.php:561
+msgid "Uses left"
+msgstr "Verwendungsmöglichkeiten übrig"
+
+#: includes/invitation-code.php:912
+msgid "Uses Remaining"
+msgstr "Verbleibende Nutzung"
+
+#: includes/user-list.php:177 includes/user-list.php:179
+msgid "View all users"
+msgstr "Alle Benutzer anzeigen"
+
+#: includes/invitation-code.php:152
+msgid "View Invitation Code"
+msgstr "Einladungscode anzeigen"
+
+#: includes/admin-approve.php:441
+msgid "Website URL: "
+msgstr ""
+
+#: includes/messages.php:72
+msgid ""
+"Welcome to {sitename}. This site is accessible to approved users only. To be "
+"approved, you must first register."
+msgstr ""
+"Willkommen bei {Sitename}. Diese Website ist nur für zugelassene Benutzer "
+"zugänglich. Um zugelassen zu werden, musst du dich zuerst registrieren."
+
+#. Author of the plugin
+msgid "WPExpertsio"
+msgstr ""
+
+#: includes/admin-approve.php:302
+#, php-format
+msgid ""
+"You can now update user status on the <a href=\"%1$s\">users admin page</a>. "
+"| <a href=\"%2$s\">Hide Notice</a>"
+msgstr ""
+"Du kannst den Benutzerstatus jetzt auf der <a href=\"%1$s\">Benutzer-Admin-"
+"Seite </a> aktualisieren. | <a href=\"%2$s\">Hinweis ausblenden</a>"
+
+#: includes/messages.php:9
+msgid "You have been approved to access {sitename}"
+msgstr "Du hast nun Zugriff auf {sitename}."
+
+#: includes/messages.php:53
+msgid ""
+"You have been approved to access {sitename}. You will receive an email with "
+"instructions on what you will need to do next. Thanks for your patience.\n"
+"\n"
+"\t"
+msgstr ""
+"Ihnen wurde der Zugriff auf {sitename} genehmigt. Sie erhalten eine E-Mail "
+"mit Anweisungen, was Sie als Nächstes tun müssen. Danke für Ihre Geduld."
+
+#: includes/messages.php:28
+msgid "You have been denied access to {sitename}."
+msgstr "Dir wurde der Zugriff auf {sitename} verweigert."
+
+#: includes/messages.php:43
+msgid ""
+"You will receive an email with instructions on what you will need to do next."
+" Thanks for your patience."
+msgstr ""
+"Du erhältst eine E-Mail mit Anweisungen, was du als nächstes tun musst. "
+"Danke für deine Geduld."
+
+#: new-user-approve.php:700 new-user-approve.php:719
+#, php-format
+msgid "Your registration is pending for approval - [%s]"
+msgstr " Ihre Registrierung muss noch genehmigt werden - [%s]"
+
+#: includes/email-tags.php:249
+msgid "Your site name"
+msgstr "Dein Website-Name"
+
+#: includes/email-tags.php:255
+msgid "Your site URL"
+msgstr "Deine Website-URL"
+
+#: includes/admin-approve.php:359
+msgid "Zapier"
+msgstr ""
+
+#: includes/admin-approve.php:437
+msgid "Zapier Settings"
+msgstr "Zapier Einstellungen"
+
+#: includes/messages.php:85
+msgid "{username} ({user_email}) has requested a username at {sitename}"
+msgstr ""
+"{username} ({user_email}) hat einen Benutzernamen unter {sitename} "
+"angefordert."
+
+#: includes/admin-approve.php:73
+msgid "👉 Get Pro Bundle"
+msgstr "👉 Holen Sie sich das Pro-Bundle"

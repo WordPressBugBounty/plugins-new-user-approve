@@ -1,0 +1,605 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: New User Approve 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/new-user-approve\n"
+"POT-Creation-Date: 2014-10-08 23:50-0700\n"
+"PO-Revision-Date: 2024-05-02 06:47+0000\n"
+"Last-Translator: \n"
+"Language-Team: Czech\n"
+"Language: cs-CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Plural-Forms: nplurals=3; plural=( n == 1 ) ? 0 : ( n >= 2 && n <= 4 ) ? 1 : "
+"2;\n"
+"X-Loco-Version: 2.6.4; wp-6.2.2"
+
+#: new-user-approve.php:1095
+msgid ""
+" To start using New User Approve Options, please <a href=\"https://users."
+"freemius.com\" target=\"_blank\"> login to your freemius account</a> in "
+"order to download the premium version <br /> For more details <a "
+"target=\"_blank\" href=\"https://newuserapprove.com/\">Click here</a>!"
+msgstr ""
+"Chcete-li začít používat možnosti schválení novým uživatelem, <a "
+"href=\"https://users.freemius.com\" target=\"_blank\"> přihlaste se ke svému "
+"účtu freemius</a> a stáhněte si prémiovou verzi <br /> Pro více podrobností "
+"<a target=\"_blank\" href=\"https://newuserapprove.com/\">klikněte sem</a>!"
+
+#: includes/user-list.php:401
+msgid "-- Status --"
+msgstr "-- Stav --"
+
+#: includes/invitation-code.php:735
+msgid "<strong>ERROR</strong>: Invitation code has been expired"
+msgstr "<strong>CHYBA</strong>: Platnost kódu pozvánky vypršela"
+
+#: includes/invitation-code.php:740
+msgid "<strong>ERROR</strong>: Invitation code limit_exceeded"
+msgstr "<strong>CHYBA</strong>: Limit_exceeded kódu pozvánky"
+
+#: includes/invitation-code.php:800
+msgid "<strong>ERROR</strong>: Please add an Invitation code."
+msgstr "<strong>CHYBA</strong>: Přidejte prosím kód pozvánky."
+
+#: includes/invitation-code.php:797
+msgid "<strong>ERROR</strong>: The Invitation code is invalid"
+msgstr "<strong>CHYBA</strong>: Kód pozvánky je neplatný"
+
+#: new-user-approve.php:925
+msgid "<strong>ERROR</strong>: User has not been approved."
+msgstr "<strong>CHYBA</strong>: Uživatel nebyl schválen."
+
+#: new-user-approve.php:372
+msgid ""
+"<strong>ERROR</strong>: Your account has been denied access to this site."
+msgstr "CHYBA: Vašemu účtu byl odepřen přístup k tomuto webu."
+
+#: new-user-approve.php:367
+msgid "<strong>ERROR</strong>: Your account is still pending approval."
+msgstr "CHYBA: Váš účet stále čeká na schválení."
+
+#: new-user-approve.php:790
+#, php-format
+msgid "[%s] Registration Approved"
+msgstr "[%s] Registrace schválena"
+
+#: new-user-approve.php:824
+#, php-format
+msgid "[%s] Registration Denied"
+msgstr "[%s] Registrace zamítnuta"
+
+#: new-user-approve.php:628
+#, php-format
+msgid "[%s] User Approval"
+msgstr "[%s] Uživatel schválen"
+
+#: includes/user-list.php:396
+msgid "Access Status"
+msgstr "Stav přístupu"
+
+#: includes/admin-approve.php:160 includes/admin-approve.php:162
+msgid "Action"
+msgstr "Akce"
+
+#: includes/invitation-code.php:915
+msgid "Actions"
+msgstr "Akce"
+
+#: includes/invitation-code.php:190 includes/invitation-code.php:320
+msgid "Add Codes"
+msgstr "Přidat kódy"
+
+#: includes/invitation-code.php:148
+msgid "Add New"
+msgstr "Přidat nový"
+
+#: includes/invitation-code.php:149
+msgid "Add New Invitation Code"
+msgstr "Přidat nový kód pozvánky"
+
+#: includes/messages.php:102
+msgid ""
+"After you register, your request will be sent to the site administrator for "
+"approval. You will then receive an email with further instructions."
+msgstr ""
+"Po registraci, bude Vaše žádost odeslána správci webu ke schválení. Poté "
+"obdržíte e-mail s dalšími instrukcemi."
+
+#: includes/invitation-code.php:128 includes/invitation-code.php:146 
+#: includes/invitation-code.php:147
+msgid "All Codes"
+msgstr "Všechny kódy"
+
+#: includes/invitation-code.php:153
+msgid "All Invitation Code"
+msgstr "Celý kód pozvánky"
+
+#. Description of the plugin
+msgid ""
+"Allow administrators to approve users once they register. Only approved "
+"users will be allowed to access the site. For support, please go to the <a "
+"href=\"http://wordpress.org/support/plugin/new-user-approve\">support "
+"forums</a> on wordpress.org."
+msgstr ""
+"Umožněte správcům schvalovat uživatele, jakmile se zaregistrují. Přístup na "
+"stránky budou mít pouze schválení uživatelé. Pro podporu prosím přejděte na "
+"<a href=\"http://wordpress.org/support/plugin/new-user-approve\">fóra "
+"podpory</a> na wordpress.org."
+
+#: includes/messages.php:41
+msgid ""
+"An email has been sent to the site administrator. The administrator will "
+"review the information that has been submitted and either approve or deny "
+"your request."
+msgstr ""
+"E-mail byl odeslán správci webu. Administrátor zkontroluje údaje, které byly "
+"předloženy, a buď schválí, nebo zamítne vaši žádost."
+
+#: includes/admin-approve.php:445
+msgid "API Key: "
+msgstr "Klíč API:"
+
+#: includes/memberpress.php:39
+msgid "Approval"
+msgstr "Odsouhlasení"
+
+#: includes/user-list.php:104 includes/user-list.php:270 
+#: includes/user-list.php:271 includes/memberpress.php:60 
+#: includes/admin-approve.php:217 includes/admin-approve.php:217
+msgid "Approve"
+msgstr "Schválit"
+
+#: includes/admin-approve.php:61
+msgid "Approve New Users"
+msgstr "Odsouhlasení nových uživatelů"
+
+#: includes/admin-approve.php:329
+msgid "Approve Users"
+msgstr "Schválit uživatele"
+
+#: includes/user-list.php:150 includes/admin-approve.php:254
+msgid "approved"
+msgstr "Schválený"
+
+#: includes/admin-approve.php:145 includes/admin-approve.php:355
+msgid "Approved Users"
+msgstr "Odsouhlasení uživatelé"
+
+#: includes/invitation-code.php:206
+msgid "Auto Generate"
+msgstr "Automatické generování"
+
+#: includes/user-list.php:412
+msgid "Current user status is <strong>pending</strong>."
+msgstr "Aktuální stav uživatele čeká na vyřízení"
+
+#: includes/invitation-code.php:569
+msgid "Date"
+msgstr "datum"
+
+#: includes/invitation-code.php:945
+msgid "Deactivate"
+msgstr "Deaktivovat"
+
+#: includes/invitation-code.php:945
+msgid "Delete"
+msgstr "Vymazat"
+
+#: includes/user-list.php:152 includes/admin-approve.php:256
+msgid "denied"
+msgstr "Zamítnutý"
+
+#: includes/admin-approve.php:141 includes/admin-approve.php:357
+msgid "Denied Users"
+msgstr "Zakázaní uživatelé"
+
+#: includes/user-list.php:105 includes/user-list.php:273 
+#: includes/user-list.php:274 includes/memberpress.php:61 
+#: includes/admin-approve.php:221
+msgid "Deny"
+msgstr "Zamítnout"
+
+#: includes/admin-approve.php:158
+msgid "E-mail"
+msgstr "E-mail"
+
+#: includes/invitation-code.php:945
+msgid "Edit"
+msgstr "Upravit"
+
+#: includes/invitation-code.php:151
+msgid "Edit Invitation Code"
+msgstr "Upravit kód pozvánky"
+
+#: includes/invitation-code.php:194
+msgid "Email"
+msgstr "E-mailem"
+
+#: includes/admin-approve.php:212
+msgid "email:"
+msgstr "email:"
+
+#: includes/memberpress.php:16
+msgid ""
+"Enable this option if you want membership to be only activated after user "
+"profile is approved using New User Approve settings, If users profile is "
+"denied then the membership will become inactive"
+msgstr ""
+"Povolte tuto možnost, pokud chcete, aby se členství aktivovalo až po "
+"schválení uživatelského profilu pomocí nastavení Schválení nového uživatele. "
+"Pokud je uživatelský profil odepřen, členství se stane neaktivní"
+
+#: includes/invitation-code.php:325
+msgid "Enter one code per line."
+msgstr "Zadejte jeden kód na řádek."
+
+#: includes/invitation-code.php:913
+msgid "Expiry"
+msgstr "Uplynutí"
+
+#: includes/invitation-code.php:337
+msgid "Expiry Date"
+msgstr "Datum vypršení platnosti"
+
+#: includes/admin-approve.php:331
+msgid "Feedback"
+msgstr "Zpětná vazba"
+
+#: includes/user-list.php:173
+msgid "Filter"
+msgstr "Filtr"
+
+#: includes/email-tags.php:279
+msgid "Generates the password for the user to add to the email"
+msgstr "Vygeneruje heslo, které má uživatel přidat do e-mailu"
+
+#: includes/admin-approve.php:73
+msgid "Get"
+msgstr "Dostat"
+
+#: includes/messages.php:110
+msgid "Hello,"
+msgstr "Ahoj,"
+
+#. URI of the plugin
+msgid "http://newuserapprove.com/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://newuserapprove.com/"
+msgstr ""
+
+#: includes/user-list.php:409
+msgid "If user has access to sign in or not."
+msgstr ""
+
+#: includes/invitation-code.php:193
+msgid "Import Codes"
+msgstr "Importní kódy"
+
+#: includes/zapier/includes/rest-api.php:87 
+#: includes/zapier/includes/rest-api.php:98 
+#: includes/zapier/includes/rest-api.php:114 
+#: includes/zapier/includes/rest-api.php:130
+msgid "Invalid API Key"
+msgstr "Neplatný klíč API"
+
+#: includes/invitation-code.php:126 includes/invitation-code.php:144 
+#: includes/invitation-code.php:145 includes/invitation-code.php:556 
+#: includes/invitation-code.php:674 includes/invitation-code.php:911
+msgid "Invitation Code"
+msgstr "Kód pozvánky"
+
+#: includes/invitation-code.php:688
+msgid "Invitation Code Already Exists."
+msgstr "Kód pozvánky již existuje."
+
+#: includes/invitation-code.php:536
+msgid "Invitation code for new user"
+msgstr "Kód pozvánky pro nového uživatele"
+
+#: includes/invitation-code.php:969
+msgid "Invitation Code for user to register"
+msgstr "Pozvánka pro uživatele k registraci"
+
+#: includes/invitation-code.php:186
+msgid "Invitation Code Settings"
+msgstr "Nastavení kódu pozvánky"
+
+#: includes/invitation-code.php:205
+msgid "Manual Generate"
+msgstr "Ruční generování"
+
+#: includes/memberpress.php:12 includes/memberpress.php:15
+msgid "Members Require NUA Approval"
+msgstr "Členové vyžadují schválení NUA"
+
+#: includes/admin-approve.php:157
+msgid "Name"
+msgstr "Jméno"
+
+#: includes/invitation-code.php:150
+msgid "New Invitation Code"
+msgstr "Nový kód pozvánky"
+
+#. Name of the plugin
+msgid "New User Approve"
+msgstr ""
+
+#: new-user-approve.php:179
+#, php-format
+msgid "New User Approve requires WordPress %s or newer."
+msgstr ""
+
+#: includes/invitation-code.php:620
+msgid "No User Found"
+msgstr "Nebyl nalezen žádný uživatel"
+
+#: includes/email-tags.php:398
+#, php-format
+msgid "Password: %s"
+msgstr "Heslo: %s"
+
+#: includes/user-list.php:154 includes/admin-approve.php:258
+msgid "pending"
+msgstr "nerozhodnutý"
+
+#: new-user-approve.php:893
+msgid "Pending Approval"
+msgstr "Čeká na schválení"
+
+#: includes/admin-approve.php:149 includes/admin-approve.php:353
+msgid "Pending Users"
+msgstr "Čekající uživatelé"
+
+#: includes/admin-approve.php:73
+msgid "Pro Bundle"
+msgstr "Pro Bundle"
+
+#: includes/admin-approve.php:361
+msgid "Pro Features"
+msgstr "Pro funkce"
+
+#: new-user-approve.php:889
+msgid "Registration successful."
+msgstr "Registrace proběhla úspěšně."
+
+#: includes/zapier/includes/rest-api.php:84 
+#: includes/zapier/includes/rest-api.php:95 
+#: includes/zapier/includes/rest-api.php:111 
+#: includes/zapier/includes/rest-api.php:127
+msgid "Required Parameter Missing"
+msgstr "Chybí požadovaný parametr"
+
+#: includes/invitation-code.php:192
+msgid "Settings"
+msgstr "Nastavení"
+
+#: includes/user-list.php:127 includes/invitation-code.php:573 
+#: includes/invitation-code.php:914
+msgid "Status"
+msgstr "Postavení"
+
+#: includes/admin-approve.php:330
+msgid "Support"
+msgstr "Podpěra, podpora"
+
+#: includes/messages.php:116
+msgid "Thank You"
+msgstr "Děkuji"
+
+#: includes/messages.php:112
+msgid ""
+"Thank you for registering on our site. We have successfully received your "
+"request and is currently pending for approval."
+msgstr ""
+"Děkujeme za registraci na našich stránkách. Vaši žádost jsme úspěšně přijali "
+"a v současné době čeká na schválení."
+
+#: includes/messages.php:114
+msgid ""
+"The administrator will review the information that has been submitted after "
+"which they will either approve or deny your request. You will receive an "
+"email with the instructions on what you will need to do next."
+msgstr ""
+"Správce zkontroluje odeslané informace a poté vaši žádost schválí nebo "
+"zamítne. Obdržíte e-mail s pokyny, co budete muset udělat dále."
+
+#: includes/email-tags.php:273
+msgid "The URL for a user to set/reset their password"
+msgstr "Adresa URL, na které si uživatel může nastavit/resetovat své heslo"
+
+#: includes/email-tags.php:261
+msgid "The URL to approve/deny users"
+msgstr "Adresa URL pro schválení/zamítnutí uživatelů"
+
+#: includes/email-tags.php:267
+msgid "The URL to login to the site"
+msgstr "Adresa URL pro přihlášení k webu"
+
+#: includes/email-tags.php:243
+msgid "The user's email address"
+msgstr "E-mailová adresa uživatele"
+
+#: includes/email-tags.php:237
+msgid "The user's username on the site as well as the Username label"
+msgstr "Uživatelské jméno na webu a štítek Uživatelské jméno"
+
+#: includes/admin-approve.php:261
+#, php-format
+msgid "There is no user found in %s status tab."
+msgstr "Na kartě stavu %s nebyl nalezen žádný uživatel."
+
+#: includes/messages.php:87
+msgid "To approve or deny this user access to {sitename} go to"
+msgstr ""
+"Chcete-li schválit nebo zamítnout tohoto uživatele  {sitename} klikněte"
+
+#: includes/messages.php:12
+msgid "To set or reset your password, visit the following address:"
+msgstr "Chcete-li nastavit nebo obnovit heslo, navštivte následující adresu:"
+
+#: includes/admin-approve.php:459
+msgid "Triggers"
+msgstr "spouštěče"
+
+#: includes/admin-approve.php:426
+msgid "Triggers when a user is Approved."
+msgstr "Spustí se, když je uživatel schválen."
+
+#: includes/admin-approve.php:427
+msgid "Triggers when a user is Denied."
+msgstr "Spustí se, když je uživatel odepřen."
+
+#: includes/admin-approve.php:428
+msgid "Triggers when a user is registered (pending)"
+msgstr "Spustí se, když je uživatel zaregistrován (nevyřízeno)"
+
+#: includes/invitation-code.php:329 includes/invitation-code.php:565
+msgid "Usage Limit"
+msgstr "Limit použití"
+
+#: includes/user-list.php:372
+#, fuzzy
+#, php-format
+msgid "User approved."
+msgid_plural "%s users approved."
+msgstr[0] "Uživatel schválen."
+msgstr[1] "uživatelé schválili."
+msgstr[2] ""
+
+#: includes/user-list.php:367
+#, fuzzy
+#, php-format
+msgid "User denied."
+msgid_plural "%s users denied."
+msgstr[0] "uživatel zamítnut"
+msgstr[1] "uživatelé zamítli."
+msgstr[2] ""
+
+#: includes/invitation-code.php:613
+msgid "User Not Found"
+msgstr "Uživatel nenalezen"
+
+#: admin/templates/approve.php:11
+msgid "User Registration Approval"
+msgstr "Uživatelova registrace povolena"
+
+#: admin/templates/approve.php:6
+msgid "User successfully updated."
+msgstr "Uživatel úspěšně aktualizován."
+
+#: includes/admin-approve.php:156
+msgid "Username"
+msgstr "Uživ. jméno"
+
+#: includes/email-tags.php:307
+#, php-format
+msgid "Username: %s"
+msgstr "Uživ. jméno : %s"
+
+#: new-user-approve.php:591
+msgid "Users"
+msgstr "Uživatelé"
+
+#: includes/invitation-code.php:585
+msgid "Users that have registered by using this invitation code"
+msgstr "Uživatelé, kteří se zaregistrovali pomocí tohoto kódu pozvánky"
+
+#: includes/invitation-code.php:561
+msgid "Uses left"
+msgstr "Používá vlevo"
+
+#: includes/invitation-code.php:912
+msgid "Uses Remaining"
+msgstr "Používá Zbývající"
+
+#: includes/user-list.php:177 includes/user-list.php:179
+msgid "View all users"
+msgstr "Zobrazit všechny uživatele"
+
+#: includes/invitation-code.php:152
+msgid "View Invitation Code"
+msgstr "Zobrazit kód pozvánky"
+
+#: includes/admin-approve.php:441
+msgid "Website URL: "
+msgstr ""
+
+#: includes/messages.php:72
+msgid ""
+"Welcome to {sitename}. This site is accessible to approved users only. To be "
+"approved, you must first register."
+msgstr ""
+"Vítejte v {sitename}. Tato stránka je přístupná pouze schváleným uživatelům. "
+"Aby jste byl schválen, musíte se nejprve zaregistrovat."
+
+#. Author of the plugin
+msgid "WPExpertsio"
+msgstr ""
+
+#: includes/admin-approve.php:302
+#, php-format
+msgid ""
+"You can now update user status on the <a href=\"%1$s\">users admin page</a>. "
+"| <a href=\"%2$s\">Hide Notice</a>"
+msgstr ""
+"Nyní můžete aktualizovat stav uživatele na <a href=\"%1$s\">stránce správce "
+"uživatelů</a>. | <a href=\"%2$s\">Skrýt oznámení</a>"
+
+#: includes/messages.php:9
+msgid "You have been approved to access {sitename}"
+msgstr "byl jste schválen pro přístup {sitename}"
+
+#: includes/messages.php:53
+msgid ""
+"You have been approved to access {sitename}. You will receive an email with "
+"instructions on what you will need to do next. Thanks for your patience.\n"
+"\n"
+"\t"
+msgstr ""
+"Byl vám schválen přístup k webu {sitename}. Obdržíte e-mail s pokyny, co "
+"budete muset udělat dále. Děkuji za tvoji trpělivost."
+
+#: includes/messages.php:28
+msgid "You have been denied access to {sitename}."
+msgstr "Byl Vám zamítnut přístup k {sitename}"
+
+#: includes/messages.php:43
+msgid ""
+"You will receive an email with instructions on what you will need to do next."
+" Thanks for your patience."
+msgstr ""
+"Obdržíte e-mail s pokyny o tom, co budete muset udělat. Děkujeme za vaši "
+"trpělivost."
+
+#: new-user-approve.php:700 new-user-approve.php:719
+#, php-format
+msgid "Your registration is pending for approval - [%s]"
+msgstr "Vaše registrace čeká na schválení – [%s]"
+
+#: includes/email-tags.php:249
+msgid "Your site name"
+msgstr "Název vašeho webu"
+
+#: includes/email-tags.php:255
+msgid "Your site URL"
+msgstr "Adresa URL vašeho webu"
+
+#: includes/admin-approve.php:359
+msgid "Zapier"
+msgstr ""
+
+#: includes/admin-approve.php:437
+msgid "Zapier Settings"
+msgstr "Zapier Nastavení"
+
+#: includes/messages.php:85
+msgid "{username} ({user_email}) has requested a username at {sitename}"
+msgstr "{username} ({user_email})  požádal v uživatelské jméno {sitename}"
+
+#: includes/admin-approve.php:73
+msgid "👉 Get Pro Bundle"
+msgstr "👉 Získejte Pro Bundle"

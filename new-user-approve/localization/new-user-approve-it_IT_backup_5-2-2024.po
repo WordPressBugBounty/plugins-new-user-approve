@@ -1,0 +1,569 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: New User Approve 1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/new-user-approve\n"
+"POT-Creation-Date: 2014-10-08 23:50-0700\n"
+"PO-Revision-Date: 2023-05-30 08:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: Italian\n"
+"Language: it-IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Loco-Version: 2.6.4; wp-6.2.2"
+
+#: new-user-approve.php:959
+msgid ""
+" To start using New User Approve Options, please <a href=\"https://users."
+"freemius.com\" target=\"_blank\"> login to your freemius account</a> in "
+"order to download the premium version <br /> For more details <a "
+"target=\"_blank\" href=\"https://newuserapprove.com/\">Click here</a>!"
+msgstr ""
+
+#: includes/user-list.php:388
+msgid "-- Status --"
+msgstr ""
+
+#: includes/invitation-code.php:582
+msgid "<strong>ERROR</strong>: Please add an Invitation code."
+msgstr "<strong>ERRORE</strong>: aggiungi un codice invito."
+
+#: includes/invitation-code.php:579
+msgid "<strong>ERROR</strong>: The Invitation code is invalid"
+msgstr "<strong>ERRORE</strong>: il codice di invito non è valido"
+
+#: new-user-approve.php:825
+msgid "<strong>ERROR</strong>: User has not been approved."
+msgstr "<strong>ERRORE</strong>: l'utente non è stato approvato."
+
+#: new-user-approve.php:347
+msgid ""
+"<strong>ERROR</strong>: Your account has been denied access to this site."
+msgstr ""
+"<strong>ERRORE</strong>: al tuo account è stato negato l'accesso a questo "
+"sito."
+
+#: new-user-approve.php:342
+msgid "<strong>ERROR</strong>: Your account is still pending approval."
+msgstr ""
+"<strong>ERRORE</strong>: il tuo account è ancora in attesa di approvazione."
+
+#: new-user-approve.php:698
+#, php-format
+msgid "[%s] Registration Approved"
+msgstr "[%s] Registrazione Approvata"
+
+#: new-user-approve.php:728
+#, php-format
+msgid "[%s] Registration Denied"
+msgstr "[%s] Registrazione Negata"
+
+#: new-user-approve.php:559
+#, php-format
+msgid "[%s] User Approval"
+msgstr "[%s] Approvazione Utente"
+
+#: includes/user-list.php:383
+msgid "Access Status"
+msgstr "Stato di accesso"
+
+#: includes/admin-approve.php:136 includes/admin-approve.php:138
+msgid "Action"
+msgstr ""
+
+#: includes/invitation-code.php:693
+msgid "Actions"
+msgstr "Azioni"
+
+#: includes/invitation-code.php:187 includes/invitation-code.php:293
+msgid "Add Codes"
+msgstr "Aggiungi codici"
+
+#: includes/invitation-code.php:145
+msgid "Add New"
+msgstr "Aggiungere nuova"
+
+#: includes/invitation-code.php:146
+msgid "Add New Invitation Code"
+msgstr "Aggiungi nuovo codice invito"
+
+#: includes/messages.php:104
+msgid ""
+"After you register, your request will be sent to the site administrator for "
+"approval. You will then receive an email with further instructions."
+msgstr ""
+"Dopo esservi registrati la vostra richiesta sarà spedita ad un "
+"amministratore. Riceverete ulteriori istruzioni su come procedere via email."
+
+#: includes/invitation-code.php:125 includes/invitation-code.php:143 
+#: includes/invitation-code.php:144
+msgid "All Codes"
+msgstr "Tutti i codici"
+
+#: includes/invitation-code.php:150
+msgid "All Invitation Code"
+msgstr "Tutti i codici di invito"
+
+#. Description of the plugin
+msgid ""
+"Allow administrators to approve users once they register. Only approved "
+"users will be allowed to access the site. For support, please go to the <a "
+"href=\"http://wordpress.org/support/plugin/new-user-approve\">support "
+"forums</a> on wordpress.org."
+msgstr ""
+"Consenti agli amministratori di approvare gli utenti una volta registrati. "
+"Solo gli utenti autorizzati potranno accedere al sito. Per assistenza, vai "
+"ai <a href=\"http://wordpress.org/support/plugin/new-user-approve\">forum di "
+"supporto</a> su wordpress.org."
+
+#: includes/messages.php:41
+msgid ""
+"An email has been sent to the site administrator. The administrator will "
+"review the information that has been submitted and either approve or deny "
+"your request."
+msgstr ""
+"Una email con la vostra richiesta è stata spedita all'amministratore del "
+"sito. Dopo averla controllata l'amministratore deciderà se approvarla o "
+"negarla."
+
+#: includes/admin-approve.php:397
+msgid "API Key: "
+msgstr "Chiave API:"
+
+#: includes/admin-approve.php:191 includes/user-list.php:104 
+#: includes/user-list.php:257 includes/user-list.php:258
+msgid "Approve"
+msgstr "Approva"
+
+#: includes/admin-approve.php:66
+msgid "Approve New Users"
+msgstr "Gestione Richieste"
+
+#: includes/admin-approve.php:287
+#, fuzzy
+msgid "Approve Users"
+msgstr "Utenti Approvati"
+
+#: includes/admin-approve.php:211 includes/user-list.php:150
+msgid "approved"
+msgstr "approvato"
+
+#: includes/admin-approve.php:121 includes/admin-approve.php:308
+msgid "Approved Users"
+msgstr "Utenti Approvati"
+
+#: includes/invitation-code.php:203
+msgid "Auto Generate"
+msgstr "Genera automaticamente"
+
+#: includes/user-list.php:399
+msgid "Current user status is <strong>pending</strong>."
+msgstr "Lo stato attuale dell'utente è <strong>in attesa</strong>."
+
+#: includes/invitation-code.php:425
+msgid "Date"
+msgstr "Data"
+
+#: includes/invitation-code.php:723
+msgid "Deactivate"
+msgstr "Disattivare"
+
+#: includes/invitation-code.php:723
+msgid "Delete"
+msgstr "Elimina"
+
+#: includes/admin-approve.php:213 includes/user-list.php:152
+msgid "denied"
+msgstr "bloccato"
+
+#: includes/admin-approve.php:117 includes/admin-approve.php:310
+msgid "Denied Users"
+msgstr "Utenti Bloccati"
+
+#: includes/admin-approve.php:195 includes/user-list.php:105 
+#: includes/user-list.php:260 includes/user-list.php:261
+msgid "Deny"
+msgstr "Blocca"
+
+#: includes/admin-approve.php:134
+msgid "E-mail"
+msgstr "E-mail"
+
+#: includes/invitation-code.php:723
+msgid "Edit"
+msgstr "Modificare"
+
+#: includes/invitation-code.php:148
+msgid "Edit Invitation Code"
+msgstr "Modifica codice invito"
+
+#: includes/invitation-code.php:191
+msgid "Email"
+msgstr "E-mail"
+
+#: includes/admin-approve.php:188
+msgid "email:"
+msgstr "email:"
+
+#: includes/invitation-code.php:298
+msgid "Enter one code per line."
+msgstr "Inserisci un codice per riga."
+
+#: includes/invitation-code.php:691
+msgid "Expiry"
+msgstr "Scadenza"
+
+#: includes/invitation-code.php:310
+msgid "Expiry Date"
+msgstr "Data di scadenza"
+
+#: includes/admin-approve.php:289
+msgid "Feedback"
+msgstr ""
+
+#: includes/user-list.php:173
+msgid "Filter"
+msgstr "Filtro"
+
+#: includes/email-tags.php:277
+msgid "Generates the password for the user to add to the email"
+msgstr "Genera la password per l'utente da aggiungere all'e-mail"
+
+#: includes/messages.php:112
+msgid "Hello,"
+msgstr "Ciao,"
+
+#. URI of the plugin
+msgid "http://newuserapprove.com/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://newuserapprove.com/"
+msgstr ""
+
+#: includes/user-list.php:396
+msgid "If user has access to sign in or not."
+msgstr ""
+
+#: includes/invitation-code.php:190
+msgid "Import Codes"
+msgstr "Codici di importazione"
+
+#: includes/zapier/includes/rest-api.php:78 
+#: includes/zapier/includes/rest-api.php:89 
+#: includes/zapier/includes/rest-api.php:105
+msgid "Invalid API Key"
+msgstr "Chiave API non valida"
+
+#: includes/invitation-code.php:123 includes/invitation-code.php:141 
+#: includes/invitation-code.php:142 includes/invitation-code.php:412 
+#: includes/invitation-code.php:521 includes/invitation-code.php:689
+msgid "Invitation Code"
+msgstr "Codice di invito"
+
+#: includes/invitation-code.php:392
+msgid "Invitation code for new user"
+msgstr "Codice invito per nuovo utente"
+
+#: includes/invitation-code.php:747
+msgid "Invitation Code for user to register"
+msgstr "Codice di invito per la registrazione dell'utente"
+
+#: includes/invitation-code.php:183
+msgid "Invitation Code Settings"
+msgstr "Impostazioni del codice di invito"
+
+#: includes/invitation-code.php:202
+msgid "Manual Generate"
+msgstr "Generazione manuale"
+
+#: includes/admin-approve.php:133
+msgid "Name"
+msgstr "Nome"
+
+#: includes/invitation-code.php:147
+msgid "New Invitation Code"
+msgstr "Nuovo codice di invito"
+
+#. Name of the plugin
+msgid "New User Approve"
+msgstr ""
+
+#: new-user-approve.php:169
+#, php-format
+msgid "New User Approve requires WordPress %s or newer."
+msgstr ""
+
+#: includes/invitation-code.php:476
+msgid "No User Found"
+msgstr "Nessun utente trovato"
+
+#: includes/email-tags.php:396
+#, php-format
+msgid "Password: %s"
+msgstr "Password: %s"
+
+#: includes/admin-approve.php:215 includes/user-list.php:154
+msgid "pending"
+msgstr "in attesa"
+
+#: new-user-approve.php:794
+msgid "Pending Approval"
+msgstr "Richiesta in Attesa"
+
+#: includes/admin-approve.php:125 includes/admin-approve.php:306
+msgid "Pending Users"
+msgstr "Utenti in attesa"
+
+#: includes/admin-approve.php:314
+msgid "Pro Features"
+msgstr "Funzionalità professionali"
+
+#: new-user-approve.php:790
+msgid "Registration successful."
+msgstr "Registrazione richiesta."
+
+#: includes/zapier/includes/rest-api.php:75 
+#: includes/zapier/includes/rest-api.php:86 
+#: includes/zapier/includes/rest-api.php:102
+msgid "Required Parameter Missing"
+msgstr "Parametro obbligatorio mancante"
+
+#: includes/invitation-code.php:189
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/invitation-code.php:429 includes/invitation-code.php:692 
+#: includes/user-list.php:127
+msgid "Status"
+msgstr "Stato"
+
+#: includes/admin-approve.php:288
+msgid "Support"
+msgstr "Supporto"
+
+#: includes/messages.php:118
+msgid "Thank You"
+msgstr "Grazie"
+
+#: includes/messages.php:114
+msgid ""
+"Thank you for registering on our site. We have successfully received your "
+"request and is currently pending for approval."
+msgstr ""
+"Grazie per esserti registrato sul nostro sito. Abbiamo ricevuto "
+"correttamente la tua richiesta ed è attualmente in attesa di approvazione."
+
+#: includes/messages.php:116
+msgid ""
+"The administrator will review the information that has been submitted after "
+"which they will either approve or deny your request. You will receive an "
+"email with the instructions on what you will need to do next."
+msgstr ""
+"\n"
+"L'amministratore esaminerà le informazioni che sono state inviate dopo di "
+"che approverà o rifiuterà la tua richiesta. Riceverai un'e-mail con le "
+"istruzioni su cosa dovrai fare dopo."
+
+#: includes/email-tags.php:271
+msgid "The URL for a user to set/reset their password"
+msgstr ""
+"\n"
+"L'URL per un utente per impostare/reimpostare la propria password"
+
+#: includes/email-tags.php:259
+msgid "The URL to approve/deny users"
+msgstr "L'URL per approvare/rifiutare gli utenti"
+
+#: includes/email-tags.php:265
+msgid "The URL to login to the site"
+msgstr "L'URL per accedere al sito"
+
+#: includes/email-tags.php:241
+msgid "The user's email address"
+msgstr ""
+"L'indirizzo email dell'utente\n"
+
+#: includes/email-tags.php:235
+msgid "The user's username on the site as well as the Username label"
+msgstr "Il nome utente dell'utente sul sito e l'etichetta del nome utente"
+
+#: includes/admin-approve.php:220
+#, php-format
+msgid "There are no users with a status of %s"
+msgstr "Non ci sono utenti nello lo stato \"%s\""
+
+#: includes/messages.php:89
+msgid "To approve or deny this user access to {sitename} go to"
+msgstr "Per approvare o bloccare questo utente a {sitename} vai su"
+
+#: includes/messages.php:12
+msgid "To set or reset your password, visit the following address:"
+msgstr ""
+"Per impostare o reimpostare la password, visitare il seguente indirizzo:"
+
+#: includes/admin-approve.php:411
+msgid "Triggers"
+msgstr ""
+
+#: includes/admin-approve.php:379
+msgid "Triggers when a user is Approved."
+msgstr ""
+
+#: includes/admin-approve.php:380
+msgid "Triggers when a user is Denied."
+msgstr ""
+
+#: includes/admin-approve.php:67
+msgid "Upgrade"
+msgstr "Aggiornamento"
+
+#: includes/invitation-code.php:302 includes/invitation-code.php:421
+msgid "Usage Limit"
+msgstr "Limite di utilizzo"
+
+#: includes/user-list.php:359
+#, fuzzy
+#, php-format
+msgid "User approved."
+msgid_plural "%s users approved."
+msgstr[0] "Approvazione Nuovo Utente"
+msgstr[1] "Approvazione Nuovo Utente"
+
+#: includes/user-list.php:354
+#, fuzzy
+#, php-format
+msgid "User denied."
+msgid_plural "%s users denied."
+msgstr[0] "bloccato"
+msgstr[1] "bloccato"
+
+#: includes/invitation-code.php:469
+msgid "User Not Found"
+msgstr "Utente non trovato"
+
+#: admin/templates/approve.php:11
+msgid "User Registration Approval"
+msgstr "Gestione delle Registrazioni"
+
+#: admin/templates/approve.php:6
+msgid "User successfully updated."
+msgstr "Utente correttamente aggiornato"
+
+#: includes/admin-approve.php:132
+msgid "Username"
+msgstr "Nome utente"
+
+#: includes/email-tags.php:305
+#, php-format
+msgid "Username: %s"
+msgstr "Nome utente : %s"
+
+#: new-user-approve.php:522
+msgid "Users"
+msgstr "Utenti"
+
+#: includes/invitation-code.php:441
+msgid "Users that have registered by using this invitation code"
+msgstr "Utenti che si sono registrati utilizzando questo codice di invito"
+
+#: includes/invitation-code.php:417
+msgid "Uses left"
+msgstr "Usi a sinistra"
+
+#: includes/invitation-code.php:690
+msgid "Uses Remaining"
+msgstr "Utilizza rimanente"
+
+#: includes/user-list.php:177 includes/user-list.php:179
+msgid "View all users"
+msgstr "Visualizza tutti gli utenti"
+
+#: includes/invitation-code.php:149
+msgid "View Invitation Code"
+msgstr "Visualizza il codice di invito"
+
+#: includes/admin-approve.php:393
+msgid "Website URL: "
+msgstr "URL del sito:"
+
+#: includes/messages.php:74
+msgid ""
+"Welcome to {sitename}. This site is accessible to approved users only. To be "
+"approved, you must first register."
+msgstr ""
+"Benvenuto su  {sitename}. Questo sito è accessibile soltanto ad utenti "
+"registrati e approvati da un amministratore. Per chiedere un accesso dovete "
+"prima registrarvi."
+
+#. Author of the plugin
+msgid "WPExpertsio"
+msgstr ""
+
+#: includes/admin-approve.php:260
+#, php-format
+msgid ""
+"You can now update user status on the <a href=\"%1$s\">users admin page</a>. "
+"| <a href=\"%2$s\">Hide Notice</a>"
+msgstr ""
+"\n"
+"Ora puoi aggiornare lo stato utente nella <a href=\"%1$s\">pagina di "
+"amministrazione degli utenti</a>. | <a href=\"%2$s\">Nascondi avviso</a>"
+
+#: includes/messages.php:9
+msgid "You have been approved to access {sitename}"
+msgstr "Il vostro accesso a {sitename} e' stato approvato."
+
+#: includes/messages.php:53
+msgid ""
+"You have been approved to access {sitename}. You will receive an email with "
+"instructions on what you will need to do next. Thanks for your patience.\n"
+"\n"
+"\t"
+msgstr ""
+"\n"
+"Sei stato autorizzato ad accedere a {sitename}. Riceverai un'e-mail con le "
+"istruzioni su cosa dovrai fare dopo. Grazie per la vostra pazienza."
+
+#: includes/messages.php:28
+msgid "You have been denied access to {sitename}."
+msgstr "Vi è stato negato l'accesso a {sitename}"
+
+#: includes/messages.php:43 includes/messages.php:57
+msgid ""
+"You will receive an email with instructions on what you will need to do next."
+" Thanks for your patience."
+msgstr ""
+"Riceverete una email con ulteriori istruzioni su come procedere. Grazie "
+"della vostra pazienza."
+
+#: new-user-approve.php:631
+#, php-format
+msgid "Your registration is pending for approval - [%s]"
+msgstr "La tua registrazione è in attesa di approvazione - [%s]"
+
+#: includes/email-tags.php:247
+msgid "Your site name"
+msgstr ""
+"\n"
+"Il nome del tuo sito"
+
+#: includes/email-tags.php:253
+msgid "Your site URL"
+msgstr ""
+"\n"
+"L'URL del tuo sito"
+
+#: includes/admin-approve.php:312
+msgid "Zapier"
+msgstr "Zapier"
+
+#: includes/admin-approve.php:389
+msgid "Zapier Settings"
+msgstr "Impostazioni Zapier"
+
+#: includes/messages.php:87
+msgid "{username} ({user_email}) has requested a username at {sitename}"
+msgstr "{username} ({user_email}) ha richiesto un nome utente a {sitename}"

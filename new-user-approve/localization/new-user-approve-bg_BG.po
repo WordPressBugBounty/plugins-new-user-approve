@@ -1,0 +1,623 @@
+# New User Approve WordPress plugin
+# Copyright (C) 2013 Josh Harrison
+# This file is distributed under the same license as the parent package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: New User Approve\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/new-user-approve\n"
+"POT-Creation-Date: 2017-05-20 01:20+0300\n"
+"PO-Revision-Date: 2024-05-02 07:03+0000\n"
+"Language-Team: Bulgarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"Last-Translator: Spas Zdravkov Spasov [WP: @spaszs] <spas.z.spasov@gmail.com>"
+"\n"
+"Language: bg-BG\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: ../includes\n"
+
+#: new-user-approve.php:1095
+msgid ""
+" To start using New User Approve Options, please <a href=\"https://users."
+"freemius.com\" target=\"_blank\"> login to your freemius account</a> in "
+"order to download the premium version <br /> For more details <a "
+"target=\"_blank\" href=\"https://newuserapprove.com/\">Click here</a>!"
+msgstr ""
+"За да започнете да използвате опциите за одобрение на нов потребител, моля, "
+"<a href=\"https://users.freemius.com\" target=\"_blank\"> влезте във вашия "
+"акаунт във freemius</a>, за да изтеглите премиум версията <br /> За повече "
+"подробности <a target=\"_blank\" href=\"https://newuserapprove.com/\">"
+"Щракнете тук</a>!"
+
+#: includes/user-list.php:401
+msgid "-- Status --"
+msgstr "-- Статус --"
+
+#: includes/invitation-code.php:735
+msgid "<strong>ERROR</strong>: Invitation code has been expired"
+msgstr "<strong>ГРЕШКА</strong>: Кодът на поканата е изтекъл"
+
+#: includes/invitation-code.php:740
+msgid "<strong>ERROR</strong>: Invitation code limit_exceeded"
+msgstr "<strong>ГРЕШКА</strong>: Кодът за покана limit_exceeded"
+
+#: includes/invitation-code.php:800
+msgid "<strong>ERROR</strong>: Please add an Invitation code."
+msgstr "<strong>ГРЕШКА</strong>: Моля, добавете код за покана."
+
+#: includes/invitation-code.php:797
+msgid "<strong>ERROR</strong>: The Invitation code is invalid"
+msgstr "<strong>ГРЕШКА</strong>: Кодът на поканата е невалиден"
+
+#: new-user-approve.php:925
+msgid "<strong>ERROR</strong>: User has not been approved."
+msgstr "<strong>ГРЕШКА</strong>: Потребителят не е одобрен."
+
+#: new-user-approve.php:372
+msgid ""
+"<strong>ERROR</strong>: Your account has been denied access to this site."
+msgstr ""
+"<strong>Грешка</strong>: Достъпъпа на вашата потребителска сметка до тази "
+"страница е забранен."
+
+#: new-user-approve.php:367
+msgid "<strong>ERROR</strong>: Your account is still pending approval."
+msgstr "<strong>Грешка</strong>: Вашата потребителска сметка очаква одобрение."
+
+#: new-user-approve.php:790
+#, php-format
+msgid "[%s] Registration Approved"
+msgstr "[%s] Регострацията е одобрена"
+
+#: new-user-approve.php:824
+#, php-format
+msgid "[%s] Registration Denied"
+msgstr "[%s] Регистрацията е отказана"
+
+#: new-user-approve.php:628
+#, php-format
+msgid "[%s] User Approval"
+msgstr "Потребителя [%s] е одобрен."
+
+#: includes/user-list.php:396
+msgid "Access Status"
+msgstr "Статус на Достъп"
+
+#: includes/admin-approve.php:160 includes/admin-approve.php:162
+msgid "Action"
+msgstr "Действие"
+
+#: includes/invitation-code.php:915
+msgid "Actions"
+msgstr "Действия"
+
+#: includes/invitation-code.php:190 includes/invitation-code.php:320
+msgid "Add Codes"
+msgstr "Добавете кодове"
+
+#: includes/invitation-code.php:148
+msgid "Add New"
+msgstr "Добави нов"
+
+#: includes/invitation-code.php:149
+msgid "Add New Invitation Code"
+msgstr "Добавете нов код за покана"
+
+#: includes/messages.php:102
+msgid ""
+"After you register, your request will be sent to the site administrator for "
+"approval. You will then receive an email with further instructions."
+msgstr ""
+"След вашата регистрация, вашето запитване ще бъде препратено за одобрение до "
+"администратора на сайта. След това ще получите е-писмо с последващи "
+"инстукции."
+
+#: includes/invitation-code.php:128 includes/invitation-code.php:146 
+#: includes/invitation-code.php:147
+msgid "All Codes"
+msgstr "Всички кодове"
+
+#: includes/invitation-code.php:153
+msgid "All Invitation Code"
+msgstr "Всички кодове за покани"
+
+#. Description of the plugin
+msgid ""
+"Allow administrators to approve users once they register. Only approved "
+"users will be allowed to access the site. For support, please go to the <a "
+"href=\"http://wordpress.org/support/plugin/new-user-approve\">support "
+"forums</a> on wordpress.org."
+msgstr ""
+"Позволете на администраторите да одобряват потребителите, след като се "
+"регистрират. Само одобрени потребители ще имат достъп до сайта. За поддръжка,"
+" моля, отидете на <a href=\"http://wordpress.org/support/plugin/new-user-"
+"approve\">форумите за поддръжка</a> на wordpress.org."
+
+#: includes/messages.php:41
+msgid ""
+"An email has been sent to the site administrator. The administrator will "
+"review the information that has been submitted and either approve or deny "
+"your request."
+msgstr ""
+"Беше изпратено е-писмо до администратора. Той ще прегледа информацията, "
+"която е изпратена и ще одобри или ще откаже вашето запитване."
+
+#: includes/admin-approve.php:445
+msgid "API Key: "
+msgstr "API ключ:"
+
+#: includes/memberpress.php:39
+msgid "Approval"
+msgstr "Одобрение"
+
+#: includes/user-list.php:104 includes/user-list.php:270 
+#: includes/user-list.php:271 includes/memberpress.php:60 
+#: includes/admin-approve.php:217 includes/admin-approve.php:217
+msgid "Approve"
+msgstr "Одобри"
+
+# "Approve New Users" must be translated as "Одобри нови потребители" but it is too long for a menu element, so the translation is "Нови потребители", which means "New users"
+#: includes/admin-approve.php:61
+msgid "Approve New Users"
+msgstr "Нови потребители"
+
+#: includes/admin-approve.php:329
+msgid "Approve Users"
+msgstr "Одобри Потребители"
+
+#: includes/user-list.php:150 includes/admin-approve.php:254
+msgid "approved"
+msgstr "одобрен"
+
+#: includes/admin-approve.php:145 includes/admin-approve.php:355
+msgid "Approved Users"
+msgstr "Одобрени Потребители"
+
+#: includes/invitation-code.php:206
+msgid "Auto Generate"
+msgstr "Автоматично генериране"
+
+#: includes/user-list.php:412
+msgid "Current user status is <strong>pending</strong>."
+msgstr "Текущият потребителси статис е <strong>Необработен</strong>."
+
+#: includes/invitation-code.php:569
+msgid "Date"
+msgstr "Дата"
+
+#: includes/invitation-code.php:945
+msgid "Deactivate"
+msgstr "Деактивирайте"
+
+#: includes/invitation-code.php:945
+msgid "Delete"
+msgstr "Изтрий"
+
+#: includes/user-list.php:152 includes/admin-approve.php:256
+msgid "denied"
+msgstr "отказан"
+
+#: includes/admin-approve.php:141 includes/admin-approve.php:357
+msgid "Denied Users"
+msgstr "Отхвърлени Потребители"
+
+#: includes/user-list.php:105 includes/user-list.php:273 
+#: includes/user-list.php:274 includes/memberpress.php:61 
+#: includes/admin-approve.php:221
+msgid "Deny"
+msgstr "Откажи"
+
+#: includes/admin-approve.php:158
+msgid "E-mail"
+msgstr "Е-поща"
+
+#: includes/invitation-code.php:945
+msgid "Edit"
+msgstr "редактиране"
+
+#: includes/invitation-code.php:151
+msgid "Edit Invitation Code"
+msgstr "Редактиране на кода на поканата"
+
+#: includes/invitation-code.php:194
+msgid "Email"
+msgstr "електронна поща"
+
+#: includes/admin-approve.php:212
+msgid "email:"
+msgstr "електронна поща:"
+
+#: includes/memberpress.php:16
+msgid ""
+"Enable this option if you want membership to be only activated after user "
+"profile is approved using New User Approve settings, If users profile is "
+"denied then the membership will become inactive"
+msgstr ""
+"Активирайте тази опция, ако искате членството да се активира само след като "
+"потребителският профил бъде одобрен чрез настройките за одобряване на нов "
+"потребител. Ако потребителският профил е отказан, членството ще стане "
+"неактивно"
+
+#: includes/invitation-code.php:325
+msgid "Enter one code per line."
+msgstr "Въведете по един код на ред."
+
+#: includes/invitation-code.php:913
+msgid "Expiry"
+msgstr "Изтичане"
+
+#: includes/invitation-code.php:337
+msgid "Expiry Date"
+msgstr "Срок на годност"
+
+#: includes/admin-approve.php:331
+msgid "Feedback"
+msgstr "Обратна връзка"
+
+#: includes/user-list.php:173
+msgid "Filter"
+msgstr "Филтър"
+
+#: includes/email-tags.php:279
+msgid "Generates the password for the user to add to the email"
+msgstr "Генерира паролата на потребителя, която ще бъде вмъкната в е-писмото"
+
+#: includes/admin-approve.php:73
+msgid "Get"
+msgstr "Вземете"
+
+#: includes/messages.php:110
+msgid "Hello,"
+msgstr "Здравейте,"
+
+#. URI of the plugin
+msgid "http://newuserapprove.com/"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://newuserapprove.com/"
+msgstr ""
+
+#: includes/user-list.php:409
+msgid "If user has access to sign in or not."
+msgstr "Ако потребителя има достъп за влисване, или ако няма."
+
+#: includes/invitation-code.php:193
+msgid "Import Codes"
+msgstr "Кодове за импортиране"
+
+#: includes/zapier/includes/rest-api.php:87 
+#: includes/zapier/includes/rest-api.php:98 
+#: includes/zapier/includes/rest-api.php:114 
+#: includes/zapier/includes/rest-api.php:130
+msgid "Invalid API Key"
+msgstr "Невалиден API ключ"
+
+#: includes/invitation-code.php:126 includes/invitation-code.php:144 
+#: includes/invitation-code.php:145 includes/invitation-code.php:556 
+#: includes/invitation-code.php:674 includes/invitation-code.php:911
+msgid "Invitation Code"
+msgstr "Код за покана"
+
+#: includes/invitation-code.php:688
+msgid "Invitation Code Already Exists."
+msgstr "Кодът за покана вече съществува."
+
+#: includes/invitation-code.php:536
+msgid "Invitation code for new user"
+msgstr "Код за покана за нов потребител"
+
+#: includes/invitation-code.php:969
+msgid "Invitation Code for user to register"
+msgstr "Код за покана за регистрация на потребителя"
+
+#: includes/invitation-code.php:186
+msgid "Invitation Code Settings"
+msgstr "Настройки на кода за покана"
+
+#: includes/invitation-code.php:205
+msgid "Manual Generate"
+msgstr "Ръчно генериране"
+
+#: includes/memberpress.php:12 includes/memberpress.php:15
+msgid "Members Require NUA Approval"
+msgstr "Членовете изискват одобрение от NUA"
+
+#: includes/admin-approve.php:157
+msgid "Name"
+msgstr "Име"
+
+#: includes/invitation-code.php:150
+msgid "New Invitation Code"
+msgstr "Нов код за покана"
+
+#. Name of the plugin
+msgid "New User Approve"
+msgstr ""
+
+#: new-user-approve.php:179
+#, php-format
+msgid "New User Approve requires WordPress %s or newer."
+msgstr ""
+"New User Approve (Одобри нови потребители) изисква WordPress %s или по-нова "
+"версия."
+
+#: includes/invitation-code.php:620
+msgid "No User Found"
+msgstr "Няма намерен потребител"
+
+#: includes/email-tags.php:398
+#, php-format
+msgid "Password: %s"
+msgstr "Парола: %s"
+
+#: includes/user-list.php:154 includes/admin-approve.php:258
+msgid "pending"
+msgstr "необработен"
+
+#: new-user-approve.php:893
+msgid "Pending Approval"
+msgstr "Очаква Одобрение"
+
+#: includes/admin-approve.php:149 includes/admin-approve.php:353
+msgid "Pending Users"
+msgstr "Чакащи потребители"
+
+#: includes/admin-approve.php:73
+msgid "Pro Bundle"
+msgstr "Pro Bundle"
+
+#: includes/admin-approve.php:361
+msgid "Pro Features"
+msgstr "Професионални функции"
+
+#: new-user-approve.php:889
+msgid "Registration successful."
+msgstr "Успешна регистрация."
+
+#: includes/zapier/includes/rest-api.php:84 
+#: includes/zapier/includes/rest-api.php:95 
+#: includes/zapier/includes/rest-api.php:111 
+#: includes/zapier/includes/rest-api.php:127
+msgid "Required Parameter Missing"
+msgstr "Липсва задължителен параметър"
+
+#: includes/invitation-code.php:192
+msgid "Settings"
+msgstr "Настройки"
+
+#: includes/user-list.php:127 includes/invitation-code.php:573 
+#: includes/invitation-code.php:914
+msgid "Status"
+msgstr "Статус"
+
+#: includes/admin-approve.php:330
+msgid "Support"
+msgstr "Поддръжка"
+
+#: includes/messages.php:116
+msgid "Thank You"
+msgstr "Благодаря ти"
+
+#: includes/messages.php:112
+msgid ""
+"Thank you for registering on our site. We have successfully received your "
+"request and is currently pending for approval."
+msgstr ""
+"Благодарим ви, че се регистрирахте в нашия сайт. Успешно получихме вашата "
+"заявка и в момента очакваме одобрение."
+
+#: includes/messages.php:114
+msgid ""
+"The administrator will review the information that has been submitted after "
+"which they will either approve or deny your request. You will receive an "
+"email with the instructions on what you will need to do next."
+msgstr ""
+"Администраторът ще прегледа подадената информация, след което ще одобри или "
+"отхвърли заявката ви. Ще получите имейл с инструкции какво трябва да "
+"направите по-нататък."
+
+#: includes/email-tags.php:273
+msgid "The URL for a user to set/reset their password"
+msgstr "URL адресът за потребителя, за да зададе/нулира своята парола"
+
+#: includes/email-tags.php:261
+msgid "The URL to approve/deny users"
+msgstr "Адсресът за одобрение/отказ на потребителски заявки"
+
+#: includes/email-tags.php:267
+msgid "The URL to login to the site"
+msgstr "Адрессът за влизане в сайта"
+
+#: includes/email-tags.php:243
+msgid "The user's email address"
+msgstr "Е-поща на потребителя"
+
+#: includes/email-tags.php:237
+msgid "The user's username on the site as well as the Username label"
+msgstr ""
+"Потребителското име на потребителя в сайта също както етикет Потребителско "
+"име"
+
+#: includes/admin-approve.php:261
+#, php-format
+msgid "There is no user found in %s status tab."
+msgstr "Няма намерен потребител в раздела за състояние %s."
+
+#: includes/messages.php:87
+msgid "To approve or deny this user access to {sitename} go to"
+msgstr ""
+"За да одобрите или откажете тази потребителска сметка в {sitename}, отидете "
+"на адрес:"
+
+#: includes/messages.php:12
+msgid "To set or reset your password, visit the following address:"
+msgstr "За да зададете или промените вашата парола, посетете следния адрес:"
+
+#: includes/admin-approve.php:459
+msgid "Triggers"
+msgstr "Тригери"
+
+#: includes/admin-approve.php:426
+msgid "Triggers when a user is Approved."
+msgstr "Задейства се, когато даден потребител е одобрен."
+
+#: includes/admin-approve.php:427
+msgid "Triggers when a user is Denied."
+msgstr "Задейства се, когато даден потребител е отказан."
+
+#: includes/admin-approve.php:428
+msgid "Triggers when a user is registered (pending)"
+msgstr "Задейства се, когато потребител е регистриран (предстоящ)"
+
+#: includes/invitation-code.php:329 includes/invitation-code.php:565
+msgid "Usage Limit"
+msgstr "Лимит за използване"
+
+#: includes/user-list.php:372
+#, php-format
+msgid "User approved."
+msgid_plural "%s users approved."
+msgstr[0] "Потребителят е обновен."
+msgstr[1] "Потребителите %s са одобрени."
+
+#: includes/user-list.php:367
+#, php-format
+msgid "User denied."
+msgid_plural "%s users denied."
+msgstr[0] "Потребителят е отказан."
+msgstr[1] "Потребителите %s са отказани."
+
+#: includes/invitation-code.php:613
+msgid "User Not Found"
+msgstr "Потребителят не е намерен"
+
+#: admin/templates/approve.php:11
+msgid "User Registration Approval"
+msgstr "Одобряване на регистрация на потребител"
+
+#: admin/templates/approve.php:6
+msgid "User successfully updated."
+msgstr "Потребителят е обновен успешно."
+
+#: includes/admin-approve.php:156
+msgid "Username"
+msgstr "Потребителско име"
+
+#: includes/email-tags.php:307
+#, php-format
+msgid "Username: %s"
+msgstr "Нова заявка за потребителско име: %s"
+
+#: new-user-approve.php:591
+msgid "Users"
+msgstr "Потребители"
+
+#: includes/invitation-code.php:585
+msgid "Users that have registered by using this invitation code"
+msgstr "Потребители, които са се регистрирали с този код за покана"
+
+#: includes/invitation-code.php:561
+msgid "Uses left"
+msgstr "Ползва отляво"
+
+#: includes/invitation-code.php:912
+msgid "Uses Remaining"
+msgstr "Използва оставащите"
+
+#: includes/user-list.php:177 includes/user-list.php:179
+msgid "View all users"
+msgstr "Виж всички потребители"
+
+#: includes/invitation-code.php:152
+msgid "View Invitation Code"
+msgstr "Вижте кода на поканата"
+
+#: includes/admin-approve.php:441
+msgid "Website URL: "
+msgstr ""
+
+#: includes/messages.php:72
+msgid ""
+"Welcome to {sitename}. This site is accessible to approved users only. To be "
+"approved, you must first register."
+msgstr ""
+"Добре дошли в {sitename}. Тази страница е достъпна само за одобрени "
+"потребители. За да бъдете одобрен първо трябва да се регистрирате."
+
+#. Author of the plugin
+msgid "WPExpertsio"
+msgstr ""
+
+#: includes/admin-approve.php:302
+#, php-format
+msgid ""
+"You can now update user status on the <a href=\"%1$s\">users admin page</a>. "
+"| <a href=\"%2$s\">Hide Notice</a>"
+msgstr ""
+"Сега можете да обновите потребителския статус в <a href=\"%1$s\">страницата "
+"администриране на потребители</a>. | <a href=\"%2$s\">Скрий известието</a>"
+
+#: includes/messages.php:9
+msgid "You have been approved to access {sitename}"
+msgstr "Вашето запитване за достъп до {sitename} беше одобрено."
+
+#: includes/messages.php:53
+msgid ""
+"You have been approved to access {sitename}. You will receive an email with "
+"instructions on what you will need to do next. Thanks for your patience.\n"
+"\n"
+"\t"
+msgstr ""
+"Имате одобрение за достъп до {sitename}. Ще получите имейл с инструкции "
+"какво трябва да направите след това. Благодаря за търпението."
+
+#: includes/messages.php:28
+msgid "You have been denied access to {sitename}."
+msgstr "Вашето запитване за достъп до {sitename} беше отказано."
+
+#: includes/messages.php:43
+msgid ""
+"You will receive an email with instructions on what you will need to do next."
+" Thanks for your patience."
+msgstr ""
+"Вие ще получите е-писмо с инструкции за това, което следва да направите. "
+"Благодарим за търпението."
+
+#: new-user-approve.php:700 new-user-approve.php:719
+#, php-format
+msgid "Your registration is pending for approval - [%s]"
+msgstr "Регистрацията ви чака за одобрение - [%s]"
+
+#: includes/email-tags.php:249
+msgid "Your site name"
+msgstr "Името на вашия сайт"
+
+#: includes/email-tags.php:255
+msgid "Your site URL"
+msgstr "Адревсът на вашия сайт"
+
+#: includes/admin-approve.php:359
+msgid "Zapier"
+msgstr ""
+
+#: includes/admin-approve.php:437
+msgid "Zapier Settings"
+msgstr "Настройки на Zapier"
+
+#: includes/messages.php:85
+msgid "{username} ({user_email}) has requested a username at {sitename}"
+msgstr ""
+"{username} ({user_email}) изпрати запитване за потребителско име в {sitename}"
+":"
+
+#: includes/admin-approve.php:73
+msgid "👉 Get Pro Bundle"
+msgstr "👉 Вземете Pro Bundle"
