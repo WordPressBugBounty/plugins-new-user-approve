@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.7
-Stable tag: 2.6.4
+Stable tag: 2.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,9 @@ We are aware of a few issues with multisite
 7. Pro Features.
 
 == Changelog ==
+
+= 2.6.5 =
+* Fixed - Freemius SDK Update.
 
 = 2.6.4 =
 * Fixed - Minor bug fix and improvements.

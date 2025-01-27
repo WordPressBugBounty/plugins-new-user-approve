@@ -5,9 +5,9 @@
      * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
      * @since     2.5.4
      */
-if (! defined('ABSPATH') ) {
-    exit;
-}
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit;
+    }
 ?>
 <script type="text/javascript">
     ( function( $ ) {

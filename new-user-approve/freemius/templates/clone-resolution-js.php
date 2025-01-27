@@ -6,9 +6,9 @@
      * @since     2.5.0
      */
 
-if (! defined('ABSPATH') ) {
-    exit;
-}
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit;
+    }
 ?>
 <script type="text/javascript">
     ( function( $ ) {
@@ -39,7 +39,7 @@ if (! defined('ABSPATH') ) {
                     $optionsContainer = $this.parents( '.fs-clone-resolution-options-container' ),
                     cursor            = $body.css( 'cursor' ),
                     beforeUnload      = function() {
-                        return '<?php fs_esc_js_echo_inline('Please wait', 'please-wait') ?>';
+                        return '<?php fs_esc_js_echo_inline( 'Please wait', 'please-wait' ) ?>';
                     };
 
                 $.ajax( {
@@ -48,7 +48,7 @@ if (! defined('ABSPATH') ) {
                     method    : 'POST',
                     data      : {
                         action      : '<?php echo $VARS['ajax_action'] ?>',
-                        security    : '<?php echo wp_create_nonce($VARS['ajax_action']) ?>',
+                        security    : '<?php echo wp_create_nonce( $VARS['ajax_action'] ) ?>',
                         clone_action: $this.data( 'clone-action' ),
                         blog_id     : $optionsContainer.data( 'blog-id' )
                     },

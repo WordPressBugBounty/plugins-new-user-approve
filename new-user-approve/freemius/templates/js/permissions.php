@@ -1,13 +1,13 @@
 <?php
     /**
-     * @package   Freemius
-     * @copyright Copyright (c) 2015, Freemius, Inc.
-     * @license   https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
-     * @since     2.5.1
+     * @package     Freemius
+     * @copyright   Copyright (c) 2015, Freemius, Inc.
+     * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License Version 3
+     * @since       2.5.1
      */
-if (! defined('ABSPATH') ) {
-    exit;
-}
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit;
+    }
 ?>
 <script type="text/javascript">
     ( function ( $ ) {
@@ -67,15 +67,15 @@ if (! defined('ABSPATH') ) {
 
         function setUpdatingLabel( $button, isEnabled ) {
             $button.text( isEnabled ?
-                '<?php fs_esc_js_echo_inline('Opting in', 'opting-in') ?>...' :
-                '<?php fs_esc_js_echo_inline('Opting out', 'opting-out') ?>...'
+                '<?php fs_esc_js_echo_inline( 'Opting in', 'opting-in' ) ?>...' :
+                '<?php fs_esc_js_echo_inline( 'Opting out', 'opting-out' ) ?>...'
             );
         }
 
         function getOptInLabel( isEnabled ) {
             return isEnabled ?
-                '<?php echo esc_js(fs_text_x_inline('Opt In', 'verb', 'opt-in')) ?>' :
-                '<?php echo esc_js(fs_text_x_inline('Opt Out', 'verb', 'opt-out')) ?>';
+                '<?php echo esc_js( fs_text_x_inline( 'Opt In', 'verb', 'opt-in' ) ) ?>' :
+                '<?php echo esc_js( fs_text_x_inline( 'Opt Out', 'verb', 'opt-out' ) ) ?>';
         }
 
         function setOptInLabel( $button, isEnabled ) {
@@ -334,7 +334,7 @@ if (! defined('ABSPATH') ) {
                         isEnabled,
                         function () {
                             $switchFeedback.addClass( 'success' );
-                            $switchFeedback.html( '<i class="dashicons dashicons-yes"></i> <?php echo esc_js(fs_text_inline('Saved', 'saved')) ?>' );
+                            $switchFeedback.html( '<i class="dashicons dashicons-yes"></i> <?php echo esc_js( fs_text_inline( 'Saved', 'saved' ) ) ?>' );
 
                             var
                                 $permissionsGroup = $switch.closest( '.fs-permissions-section' ),
@@ -482,7 +482,7 @@ if (! defined('ABSPATH') ) {
                             ! isEnabled,
                             function () {
                                 $switchFeedback.addClass( 'success' );
-                                $switchFeedback.html( '<i class="dashicons dashicons-yes"></i> <?php echo esc_js(fs_text_inline('Saved', 'saved')) ?>' );
+                                $switchFeedback.html( '<i class="dashicons dashicons-yes"></i> <?php echo esc_js( fs_text_inline( 'Saved', 'saved' ) ) ?>' );
 
                                 toggleGroupOptOut( $optOutButton, ! isEnabled );
                             },
