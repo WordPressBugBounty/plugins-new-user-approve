@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.7
-Stable tag: 2.6.5
+Stable tag: 2.6.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ are able to login to the site.
 
 == Description ==
 
-**New User Approve plugin automates the user registration process on your WordPress website.**
+**[New User Approve](https://newuserapprove.com/) plugin automates the user registration process on your WordPress website.**
 
 Typically, the user registration process on a WordPress website is pretty straightforward. When a new user registers, their unique identity is created in the website's database. An email is then sent to the new user that contains their login credentials. **Simple as it can be, but it goes to say that there is plenty of room for customization**.
 
@@ -192,6 +192,9 @@ We are aware of a few issues with multisite
 7. Pro Features.
 
 == Changelog ==
+
+= 2.6.5.1 =
+* Tweak – Security Fixes.
 
 = 2.6.5 =
 * Fixed - Freemius SDK Update.

@@ -4,14 +4,14 @@
  * Plugin URI: http://newuserapprove.com/
  * Description: Allow administrators to approve users once they register. Only approved users will be allowed to access the site. For support, please go to the <a href="http://wordpress.org/support/plugin/new-user-approve">support forums</a> on wordpress.org.
  * Author: New User Approve
- * Version: 2.6.5
+ * Version: 2.6.5.1
  * Tested up to: WP 6.7
  * Author URI: https://newuserapprove.com/
  * Text Domain: new-user-approve
  */
 
 if (!defined('NUA_VERSION') ) {
-	define('NUA_VERSION', '2.6.5');
+	define('NUA_VERSION', '2.6.5.1');
 }
 
 if (!defined('NUA_FILE')) {
@@ -711,6 +711,8 @@ class PW_New_User_Approve {
 		// translators: [%s] is for blogname in subject of pending email - woo 
 		$subject = sprintf(__('Your registration is pending for approval - [%s]', 'new-user-approve'), get_option('blogname'));
 		$subject = apply_filters('new_user_approve_welcome_user_subject', $subject);
+		// disable new account email.
+		add_filter('woocommerce_email_enabled_customer_new_account', '__return_false');
 		$disable_welcome_email = apply_filters('disable_welcome_email_woo_new_user', array( $this, false ));
 		if ($disable_welcome_email===true) {
 
