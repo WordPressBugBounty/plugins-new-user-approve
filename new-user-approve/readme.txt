@@ -3,8 +3,8 @@ Contributors: wpexpertsio
 Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
-Tested up to: 6.7
-Stable tag: 2.6.5.1
+Tested up to: 6.8
+Stable tag: 2.6.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,9 @@ We are aware of a few issues with multisite
 7. Pro Features.
 
 == Changelog ==
+
+= 2.6.5.2 =
+* Tweak – Tested Upto WordPress Latest Version 6.8
 
 = 2.6.5.1 =
 * Tweak – Security Fixes.
