@@ -1,0 +1,848 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-11-06T07:58:40+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.10.0\n"
+"X-Domain: new-user-approve\n"
+
+#: components/dashboard/auto-approve.jsx:124
+msgid "WhiteList"
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:125
+msgid "BlackList"
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:130
+msgid "Enable Whitelist"
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:133
+msgid "Domains added in the Whitelist will be automatically approved.."
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:147
+#: components/dashboard/auto-approve.jsx:168
+msgid "Enter one domain per line."
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:153
+msgid "Enable Blacklist"
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:156
+msgid "Domains added in the Blacklist will be completely blocked and user using blacklisted domains will not be able to submit approval request."
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:179
+msgid "Display custom message when a user register from a blocked domain."
+msgstr ""
+
+#: components/dashboard/auto-approve.jsx:185
+#: components/invitation-code/add-code-subtabs.jsx:385
+#: components/invitation-code/settings.jsx:66
+#: components/settings/tabs/admin-notification.jsx:252
+#: components/settings/tabs/general.jsx:254
+#: components/settings/tabs/registration.jsx:318
+#: components/settings/tabs/user-notification.jsx:281
+msgid "Save Changes"
+msgstr ""
+
+#: components/dashboard/booknow.jsx:17
+msgid "Let Our Experts Handle Your NUA Plugin Setup"
+msgstr ""
+
+#: components/dashboard/booknow.jsx:18
+msgid "Book Now"
+msgstr ""
+
+#: components/dashboard/counter-list.jsx:42
+msgid "Total Requests"
+msgstr ""
+
+#: components/dashboard/counter-list.jsx:49
+msgid "Pending Requests"
+msgstr ""
+
+#: components/dashboard/counter-list.jsx:56
+msgid "Approved Requests"
+msgstr ""
+
+#: components/dashboard/counter-list.jsx:63
+msgid "Rejected Requests"
+msgstr ""
+
+#: components/dashboard/fetch_users/all-users.jsx:89
+#: components/dashboard/users-sub-tabs.jsx:44
+msgid "All Users"
+msgstr ""
+
+#: components/dashboard/fetch_users/all-users.jsx:94
+#: components/dashboard/fetch_users/approved-users.jsx:94
+#: components/dashboard/fetch_users/denied-users.jsx:94
+#: components/dashboard/fetch_users/pending-users.jsx:95
+#: components/dashboard/recent_users_table.jsx:113
+msgid "User"
+msgstr ""
+
+#: components/dashboard/fetch_users/all-users.jsx:95
+#: components/dashboard/fetch_users/approved-users.jsx:95
+#: components/dashboard/fetch_users/denied-users.jsx:95
+#: components/dashboard/fetch_users/pending-users.jsx:96
+#: components/dashboard/fetch_users/user-roles.jsx:101
+#: components/dashboard/recent_users_table.jsx:114
+msgid "EmailAddress"
+msgstr ""
+
+#: components/dashboard/fetch_users/all-users.jsx:96
+#: components/dashboard/fetch_users/approved-users.jsx:96
+#: components/dashboard/fetch_users/denied-users.jsx:96
+#: components/dashboard/fetch_users/pending-users.jsx:97
+#: components/dashboard/recent_users_table.jsx:115
+msgid "Registration Date"
+msgstr ""
+
+#: components/dashboard/fetch_users/all-users.jsx:97
+#: components/dashboard/fetch_users/approved-users.jsx:97
+#: components/dashboard/fetch_users/denied-users.jsx:97
+#: components/dashboard/fetch_users/pending-users.jsx:98
+#: components/dashboard/recent_users_table.jsx:116
+msgid "Status"
+msgstr ""
+
+#: components/dashboard/fetch_users/all-users.jsx:143
+#: components/dashboard/fetch_users/approved-users.jsx:143
+#: components/dashboard/fetch_users/denied-users.jsx:143
+#: components/dashboard/fetch_users/pending-users.jsx:144
+#: components/dashboard/fetch_users/user-roles.jsx:154
+#: components/dashboard/recent_users_table.jsx:162
+msgid "No Data Available"
+msgstr ""
+
+#: components/dashboard/fetch_users/all-users.jsx:144
+#: components/dashboard/fetch_users/approved-users.jsx:144
+#: components/dashboard/fetch_users/denied-users.jsx:144
+#: components/dashboard/fetch_users/pending-users.jsx:145
+#: components/dashboard/fetch_users/user-roles.jsx:155
+#: components/dashboard/recent_users_table.jsx:163
+msgid "There’s no data available to see!"
+msgstr ""
+
+#: components/dashboard/fetch_users/approved-users.jsx:89
+msgid "Approved Users"
+msgstr ""
+
+#: components/dashboard/fetch_users/denied-users.jsx:89
+msgid "Denied Users"
+msgstr ""
+
+#: components/dashboard/fetch_users/pending-users.jsx:90
+msgid "Pending Users"
+msgstr ""
+
+#: components/dashboard/fetch_users/update-user-role-copy.jsx:54
+msgid "Select a Role..."
+msgstr ""
+
+#: components/dashboard/fetch_users/update-user-role-modal.jsx:89
+msgid "Upgrade User Role"
+msgstr ""
+
+#: components/dashboard/fetch_users/update-user-role-modal.jsx:134
+msgid "Close"
+msgstr ""
+
+#: components/dashboard/fetch_users/update-user-role-modal.jsx:137
+msgid "Save changes"
+msgstr ""
+
+#: components/dashboard/fetch_users/user-roles.jsx:92
+#: components/dashboard/tabs.jsx:60
+msgid "User Roles"
+msgstr ""
+
+#: components/dashboard/fetch_users/user-roles.jsx:99
+msgid "Username"
+msgstr ""
+
+#: components/dashboard/fetch_users/user-roles.jsx:100
+msgid "Current Role"
+msgstr ""
+
+#: components/dashboard/fetch_users/user-roles.jsx:102
+msgid "Requested Role"
+msgstr ""
+
+#: components/dashboard/fetch_users/user-roles.jsx:103
+msgid "Action"
+msgstr ""
+
+#: components/dashboard/fetch_users/user-roles.jsx:124
+#: components/dashboard/fetch_users/user-roles.jsx:132
+msgid "Edit"
+msgstr ""
+
+#: components/dashboard/fetch_users/users.jsx:31
+msgid "No Users"
+msgstr ""
+
+#: components/dashboard/get-pro-banner.jsx:15
+#: components/dashboard/pro-small-banner.jsx:38
+msgid "Get the #1 Most Powerful WordPress Login Plugin Today"
+msgstr ""
+
+#: components/dashboard/get-pro-banner.jsx:16
+#: components/dashboard/pro-small-banner.jsx:39
+msgid "Join over 3 million smart website owners who use NUA to improve their website search rankings."
+msgstr ""
+
+#: components/dashboard/get-pro-banner.jsx:18
+#: components/dashboard/pro-small-banner.jsx:41
+msgid "Get Pro Now"
+msgstr ""
+
+#: components/dashboard/get-pro-banner.jsx:19
+#: components/dashboard/pro-small-banner.jsx:42
+msgid "Learn More"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:19
+msgid "Guides and Documentation"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:30
+msgid "Introduction"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:35
+msgid "New User Approve Interface"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:40
+#: components/settings/settings-tabs.jsx:42
+msgid "Registration Settings"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:45
+#: components/dashboard/tabs.jsx:67
+msgid "Auto Approve"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:51
+msgid "Compatiblity"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:57
+msgid "Installation Guide"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:62
+msgid "Features"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:67
+msgid "Approve New User Settings"
+msgstr ""
+
+#: components/dashboard/guides-doc.jsx:72
+msgid "Notifications"
+msgstr ""
+
+#: components/dashboard/integrations/integrate.jsx:13
+msgid "No Integrations Found"
+msgstr ""
+
+#: components/dashboard/integrations/integrations.jsx:20
+msgid "Zapier"
+msgstr ""
+
+#: components/dashboard/integrations/integrations.jsx:21
+msgid "Coming Soon"
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:57
+msgid "Website URL"
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:60
+msgid "Generate Api Key"
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:61
+msgid "Save"
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:66
+msgid "Triggers"
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:68
+msgid "Triggers when a user is Approved."
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:69
+msgid "Triggers when a user is Denied."
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:70
+msgid "Triggers when a user registers via Invitation code."
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:71
+msgid "Triggers when a user is Auto Approved via Whitelist."
+msgstr ""
+
+#: components/dashboard/integrations/zapier.jsx:72
+msgid "Triggers when a user is Auto Approved via role."
+msgstr ""
+
+#: components/dashboard/recent_updates.jsx:41
+#: components/dashboard/recent_updates.jsx:53
+#: components/dashboard/recent_updates.jsx:64
+msgid "Activity"
+msgstr ""
+
+#: components/dashboard/recent_updates.jsx:45
+msgid "User registration request Approved for"
+msgstr ""
+
+#: components/dashboard/recent_updates.jsx:57
+msgid "User registration request Pending for"
+msgstr ""
+
+#: components/dashboard/recent_updates.jsx:68
+msgid "User registration request Rejected for"
+msgstr ""
+
+#: components/dashboard/recent_updates.jsx:71
+msgid "See All"
+msgstr ""
+
+#: components/dashboard/recent_users_table.jsx:96
+msgid "Analytics"
+msgstr ""
+
+#: components/dashboard/recent_users_table.jsx:105
+msgid "Recent Requests"
+msgstr ""
+
+#: components/dashboard/tabs.jsx:48
+msgid "Dashboard"
+msgstr ""
+
+#: components/dashboard/tabs.jsx:54
+msgid "Users"
+msgstr ""
+
+#: components/dashboard/tabs.jsx:74
+msgid "Integration"
+msgstr ""
+
+#: components/dashboard/users-sub-tabs.jsx:45
+msgid "Approved"
+msgstr ""
+
+#: components/dashboard/users-sub-tabs.jsx:46
+msgid "Pending"
+msgstr ""
+
+#: components/dashboard/users-sub-tabs.jsx:47
+msgid "Denied"
+msgstr ""
+
+#: components/dashboard/user_filter.jsx:33
+msgid "Last 30 days"
+msgstr ""
+
+#: components/dashboard/user_filter.jsx:34
+msgid "by a week"
+msgstr ""
+
+#: components/dashboard/user_filter.jsx:35
+msgid "by today"
+msgstr ""
+
+#: components/dashboard/user_filter.jsx:36
+msgid "by yesterday"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:219
+msgid "Manual Generate"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:220
+msgid "Auto Generate"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:230
+#: components/invitation-code/add-code-subtabs.jsx:296
+msgid "Selected date is incorrect"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:262
+#: components/invitation-code/invitation-code-main-tabs.jsx:37
+msgid "Add Codes"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:271
+#: components/invitation-code/add-code-subtabs.jsx:359
+msgid "Usage Limit"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:281
+#: components/invitation-code/add-code-subtabs.jsx:370
+msgid "Expiry Date"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:328
+msgid "Code Prefix"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:338
+msgid "Code Suffix"
+msgstr ""
+
+#: components/invitation-code/add-code-subtabs.jsx:348
+msgid "Code Quantity"
+msgstr ""
+
+#: components/invitation-code/import-codes.jsx:30
+msgid "Please select a file first"
+msgstr ""
+
+#: components/invitation-code/import-codes.jsx:68
+msgid "Import CSV"
+msgstr ""
+
+#: components/invitation-code/import-codes.jsx:79
+msgid "Import Now"
+msgstr ""
+
+#: components/invitation-code/import-codes.jsx:85
+#: components/invitation-code/invitation-email.jsx:125
+msgid "Error"
+msgstr ""
+
+#: components/invitation-code/import-codes.jsx:89
+msgid "Download Sample CSV"
+msgstr ""
+
+#: components/invitation-code/import-codes.jsx:90
+msgid "Download Here"
+msgstr ""
+
+#: components/invitation-code/invitation-code-main-tabs.jsx:38
+msgid "Import Codes"
+msgstr ""
+
+#: components/invitation-code/invitation-code-main-tabs.jsx:39
+msgid "Email"
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:126
+msgid "Registration Page"
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:141
+msgid "Select page where users will be redirected when click on invitation link."
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:145
+msgid "Invitation Code"
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:161
+msgid "Select Invitation code to send in email."
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:164
+msgid "User Email"
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:169
+msgid "Enter Email Addresses, comma separated"
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:174
+msgid "Email Subject"
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:181
+msgid "Email Message"
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:185
+msgid "Email Message to send, use {registration} for registration page link and {code} for invitation code."
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:192
+msgid "Send email message as html."
+msgstr ""
+
+#: components/invitation-code/invitation-email.jsx:199
+msgid "Send Email"
+msgstr ""
+
+#: components/invitation-code/settings.jsx:58
+msgid "Enable/Disable:"
+msgstr ""
+
+#: components/invitation-code/settings.jsx:61
+msgid "Invitation Code for user to register."
+msgstr ""
+
+#: components/settings/settings-tabs.jsx:39
+msgid "General Settings"
+msgstr ""
+
+#: components/settings/settings-tabs.jsx:45
+msgid "Notification"
+msgstr ""
+
+#: components/settings/settings-tabs.jsx:49
+msgid "Help"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:142
+msgid "User Notification Emails"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:143
+#: components/settings/tabs/user-notification.jsx:164
+msgid "Notification emails are sent to the site admin when a user needs to be updated."
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:148
+msgid "Notification Option"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:153
+msgid "Send notification emails to all admins"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:156
+msgid "By default, only the site admin will be notified when a user is awaiting approval. Checking this option will send the notification to all users with admin access."
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:161
+msgid "Notify admins when a user's status is updated"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:164
+msgid "Useful for when there is more than one site admin."
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:169
+msgid "Don't send notification emails to current site admin"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:177
+msgid "Send Email Notification to other than admins"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:180
+msgid " Send admin notification emails to specific users."
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:221
+msgid "Notification Emails"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:226
+#: components/settings/tabs/user-notification.jsx:174
+msgid "Notification subject"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:233
+msgid "Notification Message"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:236
+msgid "This message is sent to the site admin when a user registers for the site. Customizations can be made to the message above using the following email tags:"
+msgstr ""
+
+#: components/settings/tabs/admin-notification.jsx:244
+#: components/settings/tabs/user-notification.jsx:192
+#: components/settings/tabs/user-notification.jsx:234
+#: components/settings/tabs/user-notification.jsx:275
+msgid "Send notification message as html."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:147
+msgid "Hide Dashboard Stats"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:150
+msgid "Remove this plugin's stats from the admin dashboard."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:155
+msgid "Hide legacy panel"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:158
+msgid "Remove the admin panel specifically added to update a user's status. All users will need to be approved on the Users list."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:163
+msgid "Bypass password reset"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:166
+msgid "Don't reset the original password after approving a user. This is useful if you are allowing a user to set their password at registration."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:171
+msgid "Enable Invitation Code"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:174
+msgid "Invitation Code for user to register without hesitation."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:179
+msgid "Enable Auto-Approve."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:182
+msgid "Enable Auto-Approve functionality."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:187
+msgid "Make Invitation code Required"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:190
+msgid "The Invitation code field on the registration page will be required if the checkbox is checked."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:195
+msgid "Allow User Role Change Request ( My-account )"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:198
+msgid "Enable this option to allow user to upgrade the request on my-account page."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:205
+msgid "Shortcode"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:209
+msgid "Copied to clipboard"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:213
+msgid "Select User Role Request ( Registeration )"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:216
+msgid "Enable this option to show user role request on registeration page."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:221
+msgid "Auto Approval For specific User Roles"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:241
+msgid "Select roles to be auto-approve."
+msgstr ""
+
+#: components/settings/tabs/general.jsx:246
+msgid "Administrator Email Address"
+msgstr ""
+
+#: components/settings/tabs/general.jsx:249
+msgid "Change the admin/sender Email."
+msgstr ""
+
+#: components/settings/tabs/notification.jsx:41
+msgid "Admin Notification"
+msgstr ""
+
+#: components/settings/tabs/notification.jsx:44
+msgid "User Notification"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:173
+msgid "Login/Registration Settings."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:174
+msgid "Modify messages output during the login and registration processes."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:179
+msgid "Registration Notifications."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:182
+msgid "Welcome Message."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:187
+msgid "This message welcomes a user at login."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:192
+msgid "Registration Message."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:197
+msgid "This message is shown when a user is registering for the site."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:202
+msgid "Registration Complete Message."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:207
+msgid "This message is shown after a user has registered for the site."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:212
+msgid "Auto Approval Message."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:216
+msgid "This message is shown after a user has registered and got auto approve for the site."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:223
+msgid "Registration Deadline."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:226
+msgid "Set deadline for registration. This will close the registration after deadline."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:233
+msgid "Registration type."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:236
+msgid "Date and Time"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:237
+msgid "Number of Registration"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:246
+msgid "Closing of Registration Form"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:258
+msgid "Number of Registration Form"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:262
+msgid "Reset"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:263
+msgid " Remaining Users:"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:265
+msgid "First save the value of field then reset the value. This will effect the remaining users count."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:273
+msgid "label For Registration Deadline"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:287
+msgid "Pending Notification"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:291
+msgid " Pending Error Message"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:295
+msgid "This message shows when a user with a status of 'pending' attempts to log in."
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:303
+msgid "Reject Notification"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:306
+msgid "Denied Error Message"
+msgstr ""
+
+#: components/settings/tabs/registration.jsx:310
+msgid "This message shows when a user with a status of 'denied' attempts to log in."
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:163
+msgid "User Notification Emails."
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:169
+msgid "Approve Notification."
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:181
+msgid "Approve Notification Message"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:184
+msgid "This message is sent to users once they are approved. Customizations can be made to the message above using the following email tags:"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:201
+msgid "Deny Notification"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:206
+msgid "Suppress denial message"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:209
+msgid "Don't send the denial message to denied users."
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:215
+msgid "Deny notification subject"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:222
+msgid "Deny Notification Message"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:225
+msgid "This message is sent to users once they are denied. Customizations can be made to the message above using the following email tags:"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:243
+msgid "Welcome Notification."
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:248
+msgid "User Welcome Email."
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:251
+msgid "Send welcome email to users after registration."
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:256
+msgid "User Welcome Email Subject"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:263
+msgid "User Welcome Email Message"
+msgstr ""
+
+#: components/settings/tabs/user-notification.jsx:266
+msgid "Users will receive Welcome emails when they register to the site."
+msgstr ""

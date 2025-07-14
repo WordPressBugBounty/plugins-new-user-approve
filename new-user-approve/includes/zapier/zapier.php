@@ -15,10 +15,10 @@ class Init {
 
 	/**
 	 * @version 1.0
-	 * @since   2.1
+	 * @since 2.1
 	 */
 	public static function get_instance() {
-		if (self::$_instance == null ) {
+		if ( self::$_instance == null ) {
 			self::$_instance = new self();
 		}
 
@@ -27,21 +27,21 @@ class Init {
 
 	/**
 	 * @version 1.0
-	 * @since   2.1
+	 * @since 2.1
 	 */
 	public function __construct() {
 		$this->require_files();
-		register_activation_hook(NUA_FILE, 'create_nua_zapier_table');
+		register_activation_hook( NUA_FILE , 'create_nua_zapier_table');
 	}
 
 	/**
 	 * @version 1.0
-	 * @since   2.1
+	 * @since 2.1
 	 */
 	public function require_files() {
-		include_once plugin_dir_path(__FILE__) . '/includes/nua-zapier-functions.php';
-		include_once plugin_dir_path(__FILE__) . '/includes/rest-api.php';
-		include_once plugin_dir_path(__FILE__) . '/includes/user.php';
+		require_once plugin_dir_path( __FILE__ ) . '/includes/nua-zapier-functions.php';
+		require_once plugin_dir_path( __FILE__ ) . '/includes/rest-api.php';
+		require_once plugin_dir_path( __FILE__ ) . '/includes/user.php';
 	}
 }
 
