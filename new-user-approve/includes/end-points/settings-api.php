@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-class Settings_API {
+class Nua_Settings_API {
 
 
 	public static $instance;
@@ -22,7 +22,7 @@ class Settings_API {
 
 	public static function instance() {
 		if (!isset ( self::$instance ) ) {
-			self::$instance = new Settings_API();
+			self::$instance = new Nua_Settings_API();
 		}
 		return self::$instance;
 	}
@@ -208,8 +208,8 @@ class Settings_API {
 
 }
 // phpcs:ignore
-function settings_API() {
-	return Settings_API::instance();
+function nua_settings_API() {
+	return Nua_Settings_API::instance();
 }
 
-settings_API();
+nua_settings_API();

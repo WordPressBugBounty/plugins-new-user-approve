@@ -5,7 +5,7 @@ const icons = require.context('../../assets/icons', false, /\.svg$/);
 const BookNow = () => {
     let get_advice_icon = icons('./get-advise.svg')
     function booknow(event) {
-        window.open('https://objectsws.atlassian.net/servicedesk/customer/portal/3/group/3/create/17', '_blank', 'noopener,noreferrer');
+        window.open('https://newuserapprove.com/pricing/', '_blank', 'noopener,noreferrer');
         return null;
         
     }

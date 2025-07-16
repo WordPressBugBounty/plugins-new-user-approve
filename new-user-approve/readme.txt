@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ are able to login to the site.
 
 [Documentation](https://newuserapprove.com/docs/pro-and-free/?utm_source=wp_org&utm_medium=read_me) | [New User Approve PRO](https://newuserapprove.com/pricing/?utm_source=wp_org&utm_medium=read_me) | [Contact Us](https://newuserapprove.com/get-in-touch/?utm_source=wp_org&utm_medium=read_me)
 
-https://www.youtube.com/watch?v=6qFhsEwh6ec
+https://youtu.be/KlhWmlfuaVg
 
 Running a WordPress site is exciting but it also means you’re constantly battling spam registrations, fake accounts, and unwanted users. New User Approve works as a default WordPress registration system that does not let anyone sign up and instantly gain access. Because its your responsibility as a site owner as exactly who’s allowed into your site before any user log in.
 
@@ -58,7 +58,7 @@ For example:
 
 With Zapier, you can integrate the plugin with thousands of apps without writing a single line of code. It’s perfect for businesses looking to streamline their processes while maintaining strict **user verification before approval.**
  
-==🤝Invite Trusted Users Instantly==
+==🤝 Invite Trusted Users Instantly==
 Sometimes you want trusted people—like staff, VIPs, or clients—to skip the approval queue. With New User Approve’s invitation codes, you can:
 
 * 📜 Generate unique codes manually or automatically
@@ -132,26 +132,23 @@ If you need a reliable manual user approval plugin for WordPress, get it now!
 
 == Frequently Asked Questions ==
 
-= Why am I not getting the emails when a new user registers? =
+= What does New User Approve Pro do? =
+It controls user registration on WordPress by requiring admin approval before login. Supports custom statuses, email notifications, invitation codes, and auto-approval rules.
 
-The New User Approve plugin uses the functions provided by WordPress to send email. Make sure your host is setup correctly to send email if this happens.
+= How does auto-approval work? =
+Admins can auto-approve users based on email domain or selected role. Domains can be whitelisted or blacklisted. Roles can be pre-approved via backend settings.
 
-= How do I customize the email address and/or name when sending notifications to users? =
+= How do invitation codes function? =
+Admins can manually add, auto-generate, import, and email invitation codes. Codes can have usage limits and expiry dates. Valid codes auto-approve the user.
 
-This is not a function of the plugin but of WordPress. WordPress provides the *wp_mail_from* and *wp_mail_from_name* filters to allow you to customize this. There are also a number of plugins that provide a setting to change this to your liking.
+= Is Zapier supported? =
+Yes. Trigger events include user approved, denied, pending, or auto-approved (via role, domain, or code). Can connect with Gmail, Sheets, Slack, and more.
 
-* [wp mail from](http://wordpress.org/extend/plugins/wp-mailfrom/)
-* [Mail From](http://wordpress.org/extend/plugins/mail-from/)
+= Can users request role changes? =
+Yes. Approved users can submit role change requests via shortcode or the account page. Admins manage these under a dedicated tab.
 
-= What happens to the user's status after the plugin is deactivated? =
-
-If you deactivate the plugin, their status doesn't matter. The status that the plugin uses is only used by the plugin. All users will be allowed to login as long as they have their username and passwords.
-
-= Are there any known issues with the New User Approve plugin? =
-
-We are aware of a few issues with multisite
-1. The status filters on users.php do not work correctly
-2. The bubble that shows next to the users link to show the number of pending users does not show
+= What is the registration deadline feature? =
+You can set a limit by date/time or total number of signups. After the limit, registration is blocked, unless the user has a valid invitation code.
 
 == Screenshots ==
 
@@ -164,6 +161,9 @@ We are aware of a few issues with multisite
 7. Settings.
 
 == Changelog ==
+
+= 3.0.1 =
+* Fixed - Conflict issue with the Settings_API class.
 
 = 3.0.0 =
 * Improvement - Imporved overall UI
