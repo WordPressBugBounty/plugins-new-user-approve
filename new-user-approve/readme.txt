@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -161,6 +161,9 @@ You can set a limit by date/time or total number of signups. After the limit, re
 7. Settings.
 
 == Changelog ==
+
+= 3.0.2 =
+* Fixed - Dashboard icons are missing.
 
 = 3.0.1 =
 * Fixed - Conflict issue with the Settings_API class.
