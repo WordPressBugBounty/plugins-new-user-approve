@@ -48,10 +48,17 @@ const PopupModal = ({ isVisible, onClose }) => {
 </svg>
   );
   
+  const handleOverlayClick = () => {
+    onClose();
+  };
+
+  const handleContentClick = (e) => {
+    e.stopPropagation();
+  };
 
   return (
-    <div className="nua-parent-popup" style={styles.popupOverlay}>
-      <div className="nua-pro-small-banner">
+    <div className="nua-parent-popup" style={styles.popupOverlay} onClick={handleOverlayClick}>
+      <div className="nua-pro-small-banner" onClick={handleContentClick}>
         <div style={styles.popupContent}>
           <div className="nua-pro-close">
             <span className="nua-pro-close-empty"></span>

@@ -5,15 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function nua_options_diagnostics() {
+function nua_opt_diagnostics() {
 	$theme_data = wp_get_theme();
 	$theme = $theme_data->Name . ' ' . $theme_data->Version;
-
 	$nua_version = null; 
 	$nua_options_version = null;
 
 	foreach ( get_plugins() as $plugin ) {
-		if ( 'New User Approve Premium' == $plugin['Name'] ) {
+		if ( 'New User Approve' == $plugin['Name'] ) {
 			$nua_version = $plugin['Version'];
 		}
 

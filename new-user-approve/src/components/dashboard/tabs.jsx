@@ -24,8 +24,6 @@ const icons = require.context('../../assets/icons', false, /\.svg$/);
 
 
 
-
-
 const NUA_Dash_Tabs = () => {
 // const [showInvitationTab, setShowInvitationTab] = useState(false);   
  useEffect(() => {
@@ -115,6 +113,7 @@ const NUA_Dash_Tabs = () => {
                         {__('Dashboard', 'new-user-approve')}
                     </span>
                 </Tab>
+                {nuaAdmin.nua_users_cap && (
                 <Tab 
                     value={'action=users'} 
                     component={Link} 
@@ -128,23 +127,25 @@ const NUA_Dash_Tabs = () => {
                         {__('Users', 'new-user-approve')}
                     </span>
                 </Tab>
-            
+                )}
               
-                <Tab
-                    value={'action=inv-codes'}
-                    component={Link}
-                    to={'/action=inv-codes'}
-                    className={currentTab === 'action=inv-codes' ? 'nua_active_tab' : ''}
-                    onClick={() => window.location.hash = '#/action=inv-codes/tab=all-codes'}
-                    datatarget={'inv code'}
-                >
-                    <span>
-                    {invitation_icon}
-                    {__('Invitation Code', 'new-user-approve')}
-                    </span>
-                </Tab>
+                {nuaAdmin.nua_view_invitation_tab && (
+                    <Tab
+                        value={'action=inv-codes'}
+                        component={Link}
+                        to={'/action=inv-codes'}
+                        className={currentTab === 'action=inv-codes' ? 'nua_active_tab' : ''}
+                        onClick={() => window.location.hash = '#/action=inv-codes/tab=all-codes'}
+                        datatarget={'inv code'}
+                    >
+                        <span>
+                            {invitation_icon}
+                            {__('Invitation Code', 'new-user-approve')}
+                        </span>
+                    </Tab>
+                )}
                
-
+                {nuaAdmin.nua_auto_approve_cap && (
                 <Tab 
                     value={'action=auto-approve'} 
                     component={Link} 
@@ -158,6 +159,10 @@ const NUA_Dash_Tabs = () => {
                         {__('Auto Approve', 'new-user-approve')}
                     </span>
                 </Tab>
+                )}
+
+
+                {nuaAdmin.nua_integration_cap && (
                 <Tab 
                     value={'action=integrations'} 
                     component={Link} 
@@ -170,6 +175,8 @@ const NUA_Dash_Tabs = () => {
                         {__('Integration', 'new-user-approve')}
                     </span>
                 </Tab>
+                )}
+                {nuaAdmin.nua_settings_cap && (
                 <Tab 
                     value={'action=settings'} 
                     component={Link} 
@@ -182,32 +189,38 @@ const NUA_Dash_Tabs = () => {
                         {__('Settings', 'new-user-approve')}
                     </span>
                 </Tab>
+                )}
+
                 </TabsList>
 
                 <TabPanel className ="dash-tabPanel" value={"dashboard"} index="dashboard">
                     <Recent_Users/>
                 </TabPanel>
-
+                {nuaAdmin.nua_users_cap && (
                 <TabPanel className="users-main-tabpanel" value={'action=users'} index="users">
                     <Users_SubTabs/>
                 </TabPanel>
-
+                )}
+                {nuaAdmin.nua_view_invitation_tab && (
                 <TabPanel className ="invitation-main-tabpanel" value={'action=inv-codes'} index='inv-codes'>
                         <Add_Code_SubTabs/>
                 </TabPanel>
-
+                )}
+                {nuaAdmin.nua_auto_approve_cap && (
                 <TabPanel className='auto-approve-main-tabpanel' value={"action=auto-approve"} index="auto-approve">
                    <Auto_Approve/>
                 </TabPanel>
-
+                )}
+                {nuaAdmin.nua_integration_cap && (
                 <TabPanel className='integration-main-tabpanel' value={"action=integrations"}>
                    <Integrations/>
                 </TabPanel>
-
+                )}
+                {nuaAdmin.nua_settings_cap && (
                 <TabPanel className='setting-main-tabpanel generalTabPage' value={"action=settings"}>
                    <Settings/>
                 </TabPanel>
-
+                )}
             
             </Tabs>
 

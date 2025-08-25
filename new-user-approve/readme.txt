@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ are able to login to the site.
 
 == Description ==
 
-[Documentation](https://newuserapprove.com/docs/pro-and-free/?utm_source=wp_org&utm_medium=read_me) | [New User Approve PRO](https://newuserapprove.com/pricing/?utm_source=wp_org&utm_medium=read_me) | [Contact Us](https://newuserapprove.com/get-in-touch/?utm_source=wp_org&utm_medium=read_me)
+[Documentation](https://newuserapprove.com/documentation/introduction/?utm_source=wp_org&utm_medium=read_me) | [New User Approve PRO](https://newuserapprove.com/pricing/?utm_source=wp_org&utm_medium=read_me) | [Contact Us](https://newuserapprove.com/get-in-touch/?utm_source=wp_org&utm_medium=read_me)
 
 https://youtu.be/KlhWmlfuaVg
 
@@ -161,6 +161,9 @@ You can set a limit by date/time or total number of signups. After the limit, re
 7. Settings.
 
 == Changelog ==
+
+= 3.0.3 =
+* Added - Compatibility added with User Role Editor plugin.
 
 = 3.0.2 =
 * Fixed - Dashboard icons are missing.

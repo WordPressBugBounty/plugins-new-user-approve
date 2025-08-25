@@ -62,20 +62,89 @@ if ( ! class_exists( 'PW_New_User_Approve_Admin_Approve' ) ) {
 		 * @uses admin_menu
 		 */
 		public function admin_menu_link() {
-			$show_admin_page = apply_filters('new_user_approve_show_admin_page', true);
+    $show_admin_page = apply_filters('new_user_approve_show_admin_page', true);
 
-			if ($show_admin_page) {
-				$cap = apply_filters( 'new_user_approve_minimum_cap', 'edit_users' );
-			$hook = add_submenu_page('new-user-approve-admin', __( 'New User Approve', 'new-user-approve' ), __( 'Dashboard', 'new-user-approve' ), $cap, $this->_admin_page, array( $this, 'approve_admin' ), 1 );
-			$hook = add_submenu_page( 'new-user-approve-admin', __( 'New User Approve', 'new-user-approve' ), __( 'Users', 'new-user-approve' ), 'manage_options', 'new-user-approve-admin#/action=users/tab=all-users', array( $this, 'menu_options_page' ), 2);
-			
-			$hook = add_submenu_page( 'new-user-approve-admin', __( 'New User Approve', 'new-user-approve' ), __( 'Invitation Code', 'new-user-approve' ), 'manage_options', 'new-user-approve-admin#/action=inv-codes/tab=all-codes', array( $this, 'menu_options_page' ), 3);
+    if ($show_admin_page) {
+        $hook = add_submenu_page(
+            'new-user-approve-admin',
+            __( 'New User Approve', 'new-user-approve' ),
+            __( 'Dashboard', 'new-user-approve' ),
+            'nua_main_menu',
+            $this->_admin_page,
+            array( $this, 'approve_admin' ),
+            1
+        );
+        $hook = add_submenu_page(
+            'new-user-approve-admin',
+            __( 'New User Approve', 'new-user-approve' ),
+            __( 'Users', 'new-user-approve' ),
+            'nua_users_cap',
+            'new-user-approve-admin#/action=users/tab=all-users',
+            array( $this, 'menu_options_page' ),
+            2
+        );
+        $hook = add_submenu_page(
+            'new-user-approve-admin',
+            __( 'New User Approve', 'new-user-approve' ),
+            __( 'Invitation Code', 'new-user-approve' ),
+            'nua_view_invitation_tab',
+            'new-user-approve-admin#/action=inv-codes/tab=all-codes',
+            array( $this, 'menu_options_page' ),
+            3
+        );
+        $hook = add_submenu_page(
+            'new-user-approve-admin',
+            __( 'New User Approve', 'new-user-approve' ),
+            __( 'Auto Approve', 'new-user-approve' ),
+            'nua_auto_approve_cap',
+            'new-user-approve-admin#/action=auto-approve/tab=whitelist',
+            array( $this, 'menu_options_page' ),
+            5
+        );
 
-			$hook = add_submenu_page( 'new-user-approve-admin', __( 'New User Approve', 'new-user-approve' ), __( 'Auto Approve', 'new-user-approve' ), 'manage_options', 'new-user-approve-admin#/action=auto-approve/tab=whitelist', array( $this, 'menu_options_page' ), 5);
+        add_action( 'load-' . $hook, array( $this, 'admin_enqueue_scripts' ) );
+    }
+}
 
-			add_action( 'load-' . $hook, array( $this, 'admin_enqueue_scripts' ) );
-			}
-		}
+public function admin_menu_upgrade_link() {
+    $show_admin_page = apply_filters('new_user_approve_show_admin_page', true);
+    if ($show_admin_page) {
+        add_submenu_page(
+            $this->_admin_page,
+            __('👉 Get Pro Bundle', 'new-user-approve'),
+            sprintf('<span style="color:#adff2f!important;">👉 %1$s <b>%2$s</b>&nbsp;&nbsp;➤</span>', __('Get', 'new-user-approve'), __('Pro', 'new-user-approve')),
+            'nua_main_menu',
+            $this->_admin_upgrade_page,
+            '',
+            7
+        );
+    }
+}
+
+public function admin_menu_autoApprove_pro() {
+    add_submenu_page(
+        $this->_admin_page,
+        __( 'Integration', 'new-user-approve' ),
+        __( 'Integration', 'new-user-approve' ),
+        'nua_integration_cap',
+        'new-user-approve-admin#/action=integrations',
+        array( $this, 'menu_options_page' ),
+        4
+    );
+}
+
+public function admin_menu_settings_pro() {
+    add_submenu_page(
+        $this->_admin_page,
+        __( 'Settings', 'new-user-approve' ),
+        __( 'Settings', 'new-user-approve' ),
+        'nua_settings_cap',
+        'new-user-approve-admin#/action=settings/tab=general',
+        array( $this, 'menu_options_page' ),
+        6
+    );
+}
+
 
 		public function highlight_nua_menu() {
 		global $current_screen;
@@ -118,34 +187,8 @@ if ( ! class_exists( 'PW_New_User_Approve_Admin_Approve' ) ) {
 			}
 		}
 
-		public function admin_menu_upgrade_link() {
-			$show_admin_page = apply_filters('new_user_approve_show_admin_page', true);
-
-			if ($show_admin_page) {
-				$cap = apply_filters('new_user_approve_minimum_cap', 'edit_users');
-				add_submenu_page($this->_admin_page, __('👉 Get Pro Bundle', 'new-user-approve'), sprintf('<span style="color:#adff2f!important;">👉 %1$s <b>%2$s</b>&nbsp;&nbsp;➤</span>', __('Get', 'new-user-approve'), __('Pro', 'new-user-approve')), $cap, $this->_admin_upgrade_page, '', 7);
-			}
-		}
-
-		public function admin_menu_autoApprove_pro() {
-			$cap = apply_filters('new_user_approve_minimum_cap', 'edit_users');
-			add_submenu_page( $this->_admin_page, __( 'Integration', 'new-user-approve' ), __( 'Integration', 'new-user-approve' ), 'manage_options', 'new-user-approve-admin#/action=integrations', array( $this, 'menu_options_page' ), 4 );
-		}
-
-		public function admin_menu_settings_pro() {
-			$cap = apply_filters('new_user_approve_minimum_cap', 'edit_users');
-			add_submenu_page( $this->_admin_page, __( 'Settings', 'new-user-approve' ), __( 'Settings', 'new-user-approve' ), 'manage_options', 'new-user-approve-admin#/action=settings/tab=general', array( $this, 'menu_options_page' ), 6 );
-		}
-
-
-		public function admin_menu_account_pro() {
-			$cap = apply_filters('new_user_approve_minimum_cap', 'edit_users');
-			add_submenu_page($this->_admin_page, __('Account', 'new-user-approve'), sprintf('<span style="color:gray!important;"> %1$s <b style="color:#adff2f!important;">%2$s</b></span>', __('Account', 'new-user-approve'), __('Pro', 'new-user-approve') ), $cap, $this->_admin_upgrade_page, '', 8);
-		}
-
 	
 
-	
 
 		/**
 		 * Create the view for the admin interface

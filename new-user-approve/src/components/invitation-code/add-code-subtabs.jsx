@@ -1238,7 +1238,7 @@ const Add_Code_SubTabs = () => {
                           <div className="inv-code-details">
                           <div className="inv-field-group-initial">
                              <label className="invitation-field__label">{__('Invitation Code', 'new-user-approve') }</label>
-                              <input readOnly className="invitation-field__input" value={selectedRow.invitation_code} />
+                              <input readOnly="true" className="invitation-field__input" value={selectedRow.invitation_code} />
                               </div>
 
                               <div className="inv-field-group">
@@ -1246,7 +1246,7 @@ const Add_Code_SubTabs = () => {
                               <div className="invitation-field">
                                <label className="invitation-field__label">{__('Uses Left', 'new-user-approve') }</label>
                                 <input
-                                  readOnly
+                                  readOnly="true"
                                   className="invitation-field__input"
                                   value={selectedRow.uses_left}
                                 />
@@ -1255,7 +1255,7 @@ const Add_Code_SubTabs = () => {
                               <div className="invitation-field">
                                 <label className="invitation-field__label">{__('Usage Limit', 'new-user-approve') }</label>
                                 <input
-                                  readOnly
+                                  readOnly="true"
                                   className="invitation-field__input"
                                   value={(selectedRow.usage_limit)}
                                 />
@@ -1264,14 +1264,14 @@ const Add_Code_SubTabs = () => {
 
                               <div className="invitation-field">
                                 <label className="invitation-field__label">{__('Expiry Date', 'new-user-approve') }</label>
-                                <input readOnly className="invitation-field__input" value={expiryData.find(
+                                <input readOnly="true" className="invitation-field__input" value={expiryData.find(
                                   (e) => e.code_id === selectedRow.code_id
                                 )?.expiry_data || "No Date"} />
                               </div>
 
                               <div className="invitation-field">
                                 <label className="invitation-field__label">{__('Status', 'new-user-approve') }</label>
-                                <input readOnly className="invitation-field__input" value={statusList.find(
+                                <input readOnly="true" className="invitation-field__input" value={statusList.find(
                                       (e) => e.code_id === selectedRow.code_id
                                     )?.code_status || "No status"} />
                               </div>
@@ -1516,34 +1516,33 @@ const Add_Code_SubTabs = () => {
             </TableBody>
           </Table>
           {rows.length === 0 ? (
-                    
-                    <div className="user-list-empty recent-user-empty-list" style={{ textAlign: 'center' }}>
-                                  <div className="user-found-error inv-code">
-                                    {notFound}
-                                    <span>{__('No invitation code found', 'new-user-approve')}</span>
-                                  </div>
-                                </div>
-                  ) : (
-                    rows.map((row) => (
-                      <div key={row.code_id}>
-                        <span>{row.code}</span>
-                      </div>
-                    ))
-                  )}
-        
-          {!loading && (
-          <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
-            <Pagination
-              count={Math.ceil(totalRows / rowsPerPage)} 
-              page={page}
-              onChange={(e, newPage) => setPage(newPage)}
-              variant="outlined"
-              shape="rounded"
-              className="nua-nav-pagination"
-            />
-          </Stack>
-        )}
-       
+            <div className="user-list-empty recent-user-empty-list" style={{ textAlign: 'center' }}>
+              <div className="user-found-error inv-code">
+                {notFound}
+                <span>{__('No invitation code found', 'new-user-approve')}</span>
+              </div>
+            </div>
+          ) : (
+            rows.map((row) => (
+              <div key={row.code_id}>
+                <span>{row.code}</span>
+              </div>
+            ))
+          )}
+
+          {!loading && rows.length > 0 && (
+            <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
+              <Pagination
+                count={Math.ceil(totalRows / rowsPerPage)} 
+                page={page}
+                onChange={(e, newPage) => setPage(newPage)}
+                variant="outlined"
+                shape="rounded"
+                className="nua-nav-pagination"
+              />
+            </Stack>
+          )}
+
         </Paper>
       </div>
       <PopupModal isVisible={isPopupVisible} onClose={() => setPopupVisible(false)} />

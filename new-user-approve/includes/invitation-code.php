@@ -50,13 +50,7 @@ if ( ! class_exists( 'NUA_Invitation_Code' ) ) {
 		private function __construct() {
 			//Action
 			add_action('admin_init', array( $this, 'nua_deactivate_code' ));
-			add_action('init', array( $this, 'nua_invitation' ));
-			add_action('save_post_' . $this->code_post_type, array( $this, 'save_nua_invitation' ));
-			if (get_transient('inv_code_exists')==true) {
-			
-				add_action('admin_notices', array( $this, 'inv_code_alreay_exists_notification' ), 10);
-			}
-
+	
 			//Filter
 			add_filter('manage_' . $this->code_post_type . '_posts_columns', array( $this, 'invitation_code_columns' ));
 			add_action('manage_' . $this->code_post_type . '_posts_custom_column', array( $this, 'invitation_code_columns_content' ), 10, 2);
@@ -114,42 +108,6 @@ if ( ! class_exists( 'NUA_Invitation_Code' ) ) {
 			}
 		}
 
-		/**
-		 * Post Registration
-		 */
-		public function nua_invitation() {
-
-			$labels = array(
-				'name'                  => __('Invitation Code', 'new-user-approve'),
-				'singular_name'         => __('Invitation Code', 'new-user-approve'),
-				'menu_name'             => __('All Codes', 'new-user-approve'),
-				'name_admin_bar'        => __('All Codes', 'new-user-approve'),
-				'add_new'               => __('Add New', 'new-user-approve'),
-				'add_new_item'          => __('Add New Invitation Code', 'new-user-approve'),
-				'new_item'              => __('New Invitation Code', 'new-user-approve'),
-				'edit_item'             => __('Edit Invitation Code', 'new-user-approve'),
-				'view_item'             => __('View Invitation Code', 'new-user-approve'),
-				'all_items'             => __('All Invitation Code', 'new-user-approve'),
-			);
-
-			$args = array(
-				'labels' => $labels,
-				'description' => false,
-				'public' => false,
-				'show_ui' => true,
-				'show_in_menu' => false,
-				'query_var' => false,
-				'rewrite' => false,
-				'capability_type' => 'page',
-				'has_archive' => false,
-				'hierarchical' => false,
-				'menu_position' => null,
-				'menu_icon' => '',
-				'supports' => array( 'title' )
-			);
-
-			register_post_type($this->code_post_type, $args);
-		}
 
 		/**
 		 * Output the settings
@@ -501,156 +459,6 @@ if ( ! class_exists( 'NUA_Invitation_Code' ) ) {
 			$codes = get_posts($args);
 
 			return $codes;
-		}
-
-		/**
-		 * Output the Meta Value
-		 */
-		public function add_invitation_meta() {
-			add_meta_box('nua_invitation', __('Invitation code for new user', 'new-user-approve'), array( $this, 'funct_nua_invitation' ), $this->code_post_type);
-		}
-		public function funct_nua_invitation() {
-			
-			$code             = get_post_meta(get_the_ID(), $this->code_key, true);
-			$useage           = get_post_meta(get_the_ID(), $this->usage_limit_key, true);
-			$total_code_key   = get_post_meta(get_the_ID(), $this->total_code_key, true);
-			$exp              = get_post_meta(get_the_ID(), $this->expiry_date_key, true);
-			$Status           = get_post_meta(get_the_ID(), $this->status_key, true);
-			$convert_date     = !empty($exp) ? gmdate('Y-m-d', absint($exp)) : gmdate('Y-m-d');
-			$registered_user  = get_post_meta(get_the_ID(), $this->registered_users, true);
-			
-			?>
-			<form method="post" action=''>
-				<?php $nonce = wp_create_nonce('user-reg-by-invite-code-nonce'); ?>
-				<table class="form-table invitation_code_table" role="presentation">
-
-					<tbody>
-						<tr>
-
-							<th scope="row"><?php esc_html_e('Invitation Code', 'new-user-approve'); ?></th>
-							<td><input type="text" name="codes" required value="<?php echo esc_attr($code); ?>" class="auto-code-field" /><br>
-								 <input type="hidden" name="user_reg_by_invite_code_nonce_field" value ="<?php esc_attr_e($nonce); ?>"> </input>
-						</tr>
-						<tr>
-							<th scope="row"><?php esc_html_e('Uses left', 'new-user-approve'); ?></th>
-							<td><input type="number" name="usage_limit" readOnly value="<?php echo esc_attr( $useage) ; ?>" class="auto-code-field usage_left_input" /><br>
-						</tr>
-						<tr>
-							<th scope="row"><?php esc_html_e('Usage Limit', 'new-user-approve'); ?></th>
-							<td><input type="number" name="total_code" required value="<?php echo esc_attr( $total_code_key ); ?>" class="auto-code-field usage_limit_input" /><br>
-						</tr>
-						<tr>
-							<th scope="row"><?php esc_html_e('Date', 'new-user-approve'); ?></th>
-							<td><input type="date" name="expiry_date" required value="<?php echo esc_attr( $convert_date ); ?>" class="auto-code-field" /><br>
-						</tr>
-						<tr>
-							<th scope="row"><?php esc_html_e('Status', 'new-user-approve'); ?></th>
-							<td>
-								<select name="code_status" required class="auto-code-field">
-									<option value='Active' <?php echo esc_attr ('Active' == $Status ? 'selected' : ''); ?>>Active</option>
-									<option value='InActive' <?php echo esc_attr('InActive' == $Status ? 'selected' : ''); ?>> InActive</option>
-									<option value='Expire' <?php echo esc_attr('Expire' == $Status ? 'selected' : ''); ?>> Expire</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<table class="invitation_code_users">
-									<p><?php esc_html_e('Users that have registered by using this invitation code', 'new-user-approve'); ?></p>
-									<thead>
-										<tr>
-											<th><?php esc_html_e('User ID', 'new-user-approve'); ?></th>
-											<th><?php esc_html_e('User Email', 'new-user-approve'); ?></th>
-											<th><?php esc_html_e('User Link', 'new-user-approve'); ?></th>
-										</tr>
-									</thead>
-									<tbody>
-
-										<?php
-										if (!empty($registered_user)) {
-
-											foreach ($registered_user as $userid) {
-												?>
-													<tr><td> <?php echo esc_html($userid); ?></td>
-												<?php
-
-												$the_user = get_user_by('id', $userid);
-
-												if (!empty($the_user)) {
-													$link = get_edit_user_link($userid);
-													?>
-														<td><?php echo esc_html($the_user->user_email); ?></td>
-														<td><a href='<?php echo esc_url($link); ?>'><?php echo esc_html($the_user->user_email); ?></a></td>
-													<?php
-												} else {
-													?>
-														<td><?php esc_html_e('User Not Found', 'new-user-approve'); ?></td>
-													<?php
-												}
-												?>
-												</tr> 
-												<?php
-											}
-										} else {
-											?>
-												<tr colspan="3"><td><?php esc_html_e('No User Found', 'new-user-approve'); ?></td></tr>
-											<?php
-										}
-										?>
-									</tbody>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-			<?php
-		}
-
-		public function save_nua_invitation() {
-		
-			$post_status = isset($_POST['original_publish']) ? sanitize_text_field($_POST['original_publish']) :'';
-			$code = isset($_POST['codes']) ? sanitize_text_field(wp_unslash($_POST['codes'])):'';
-			// to stop the post from adding the duplicate invitation code on publish post status
-			if ($this->invitation_code_already_exists($code) && ( 'publish' == $post_status || 'Publish' == $post_status )) {
-				wp_delete_post(get_the_ID()); // There is no need of parent post wherease the sub post (invitation code) has not created
-				set_transient('inv_code_exists', 1 * HOUR_IN_SECONDS);
-				wp_safe_redirect(admin_url('/post-new.php?post_type=invitation_code'));
-				exit; // neccessary to exit
-			}
-			if (isset($_POST['post_type']) && $this->code_post_type == sanitize_text_field( wp_unslash( $_POST['post_type'] ) )  ) {
-				$nonce = isset($_POST['user_reg_by_invite_code_nonce_field']) ? sanitize_text_field(wp_unslash($_POST['user_reg_by_invite_code_nonce_field'])):'';
-				if (!wp_verify_nonce($nonce, 'user-reg-by-invite-code-nonce') ) {
-				return;}
-				$code = isset($_POST['codes']) ? sanitize_text_field(wp_unslash($_POST['codes'])):'';
-				$usage = isset($_POST['usage_limit']) ? absint($_POST['usage_limit']):'';
-				$use_limit = isset($_POST['total_code']) ? absint( $_POST['total_code']):'';
-				if ($use_limit >= $usage) {
-					$use_limit = isset($_POST['total_code']) ? absint( $_POST['total_code']):'';
-					$expiry = isset($_POST['expiry_date'])  ? sanitize_text_field( wp_unslash( $_POST['expiry_date'] ) ):'';
-					$Status = isset($_POST['code_status']) ?  sanitize_text_field( wp_unslash( $_POST['code_status'] ) ):'';
-					$current_date = gmdate('Y-m-d');
-					if (!empty($expiry) && $current_date > $expiry) {
-						add_filter('redirect_post_location', function ( $location ) {
-							return add_query_arg('post_usage_left_error', get_the_ID(), 'post-new.php?post_type=invitation_code&error=incorrect_date');
-						});
-						return;
-					}
-					//$dateTime = new DateTime(str_replace('/','-',$Expiry)); 
-					//$expiry_timestamp = $dateTime->format('U'); 
-					$expiry_timestamp = strtotime("$expiry 23:59:59");
-
-					update_post_meta(get_the_ID(), $this->code_key, $code);
-					update_post_meta(get_the_ID(), $this->usage_limit_key, $usage);
-					update_post_meta(get_the_ID(), $this->total_code_key, $use_limit);
-					update_post_meta(get_the_ID(), $this->expiry_date_key, $expiry_timestamp);
-					update_post_meta(get_the_ID(), $this->status_key, $Status);
-				} else if ( $usage > $use_limit ) {
-					add_filter('redirect_post_location', function ( $location ) {
-						return add_query_arg('post_usage_left_error', get_the_ID(), 'post-new.php?post_type=invitation_code');
-					});
-				}
-			}
 		}
 
 		public  function nua_invitation_code_field() {

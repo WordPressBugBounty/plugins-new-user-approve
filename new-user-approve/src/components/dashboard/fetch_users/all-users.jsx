@@ -11,19 +11,14 @@ import {
     TableHead, 
     TableRow, 
     Paper, 
-    Button, 
     IconButton, 
-    TextField,
-    Box,
-    Menu, 
-    MenuItem, } from '@mui/material';
+    Box} from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 // custom component
 import { update_user_status } from '../../../functions';
 import { site_url } from '../../../functions';
-const icons = require.context('../../../assets/icons', false, /\.svg$/);
 
 const All_Users = () => {
     const [usersData, setUserData] = useState([]);
@@ -34,14 +29,10 @@ const All_Users = () => {
     const [user_id, setUserID]    = useState(null);
 
     const [page, setPage] = useState(1);
-    const rowsPerPage = 5;
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalUsers, setTotalUsers] = useState(0);
     const [search, setSearch] = useState("");
     const [searchLoading, setSearchLoading] = useState(false);
-
-    let not_found = icons(`./no-data-found.svg`);
-    let thumbs_up = icons(`./action-thumbs-up.svg`);
-    let thumbs_down = icons(`./action-thumbs-down.svg`);
 
     const fetchAllUsers = async () => {
         try{
@@ -68,15 +59,9 @@ const All_Users = () => {
     useEffect(() =>{
         fetchAllUsers();
 
-    }, [search, page]);
+    }, [search, page, rowsPerPage]);
 
     const pageCount = Math.ceil(totalUsers / rowsPerPage);
-
-    const handleMenuOpen = ( event, userId ) => {
-
-        setAnchorEl(event.currentTarget);
-        setUserID(userId);
-    }
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -181,8 +166,8 @@ const All_Users = () => {
         </defs>
         </svg>
       );
-
-
+      
+    
     return (
 
         <div className = "all_users_list">
@@ -198,6 +183,7 @@ const All_Users = () => {
 
         </div>
         <TableContainer className="all_users_tbl_container usersTable" component={Paper}>
+
             <Table sx={{ minWidth: 650 }}>
                 <TableHead>
                 <TableRow sx= {{ backgroundColor: '#FAFAFA', maxHeight:50, minHeight:50, height:50  }}>
@@ -212,7 +198,7 @@ const All_Users = () => {
                 <TableBody>
         {loading ? (
             // Show 5 skeleton rows while loading
-            Array.from({ length: 5 }).map((_, index) => (
+            Array.from({ length: 10 }).map((_, index) => (
             <TableRow key={index}>
                 <TableCell><Skeleton variant="text" /></TableCell>
                 <TableCell><Skeleton variant="text" /></TableCell>
@@ -224,7 +210,7 @@ const All_Users = () => {
         ) : usersData.length > 0 ? (
             usersData.map((row) => (
                     <TableRow id={row.ID}>
-                    <TableCell><a href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`} style={{textDecoration:'none', color:'#858585'}}>{row.user_login}</a></TableCell>
+                    <TableCell><a href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`} style={{textDecoration:'none', color:'#858585'}}>{row.display_name}</a></TableCell>
                     <TableCell>{row.user_email}</TableCell>
                     <TableCell>{row.user_registered}</TableCell>
                     <TableCell>
@@ -288,16 +274,19 @@ const All_Users = () => {
           </TableBody>
             </Table>
         </TableContainer>
-        <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
-            <Pagination
-            count={Math.max(1, pageCount)}
-            page={page}
-            onChange={(event, value) => setPage(value)}
-            variant="outlined"
-            shape="rounded"
-            className ="nua-nav-pagination"
-            />
-        </Stack>
+        {usersData.length > 0 && (
+            <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
+                <Pagination
+                count={Math.max(1, pageCount)}
+                page={page}
+                onChange={(event, value) => setPage(value)}
+                variant="outlined"
+                shape="rounded"
+                className ="nua-nav-pagination"
+                />
+                    </Stack>
+        )}
+                
          <ToastContainer />
         </div>
     );

@@ -14,18 +14,11 @@ import {
     TableHead, 
     TableRow, 
     Paper, 
-    Button, 
     IconButton, 
-    TextField,
-    Box,
-    Menu, 
-    MenuItem, } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+    Box} from '@mui/material';
 import { action_status } from '../../../functions';
 import { update_user_status } from '../../../functions';
 import { site_url } from '../../../functions';
-const icons = require.context('../../../assets/icons', false, /\.svg$/);
 
 const Approved_Users = () => {
     const [usersData, setUserData] = useState([]);
@@ -35,11 +28,10 @@ const Approved_Users = () => {
     const [user_id, setUserID]    = useState(null);
 
     const [page, setPage] = useState(1);
-    const rowsPerPage = 5;
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalUsers, setTotalUsers] = useState(0);
     const [search, setSearch] = useState("");
     const [searchLoading, setSearchLoading] = useState(false);
-    let not_found = icons(`./no-data-found.svg`);
     
     const fetchApprovedUsers = async () => {
         try{
@@ -65,9 +57,10 @@ const Approved_Users = () => {
     useEffect(() =>{
         fetchApprovedUsers();
 
-    }, [search, page]);
+    }, [search, page, rowsPerPage]);
 
     const pageCount = Math.ceil(totalUsers / rowsPerPage);
+
     const handleMenuAction = async (event, value) => {
         const userId  = value;
         setUserID(userId);
@@ -118,32 +111,34 @@ const Approved_Users = () => {
     let iconDeny = (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0.5" y="0.5" width="23" height="23" rx="1.5" stroke="#E6EBEF"/>
-      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1 11.1C13.3368 11.1 15.15 9.28675 15.15 7.05C15.15 4.81325 13.3368 3 11.1 3C8.86325 3 7.05 4.81325 7.05 7.05C7.05 9.28675 8.86325 11.1 11.1 11.1ZM11.1 11.1C6.627 11.1 3 14.727 3 19.2H11.6155C11.1724 18.3999 10.92 17.4795 10.92 16.5C10.92 14.3764 12.1062 12.53 13.8521 11.587C12.9942 11.2738 12.0679 11.1 11.1 11.1ZM16.5 21C18.9853 21 21 18.9853 21 16.5C21 14.0147 18.9853 12 16.5 12C14.0147 12 12 14.0147 12 16.5C12 18.9853 14.0147 21 16.5 21Z" fill="#C9605C"/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M11.1 11.1C13.3368 11.1 15.15 9.28675 15.15 7.05C15.15 4.81325 13.3368 3 11.1 3C8.86325 3 7.05 4.81325 7.05 7.05C7.05 9.28675 8.86325 11.1 11.1 11.1ZM11.1 11.1C6.627 11.1 3 14.727 3 19.2H11.6155C11.1724 18.3999 10.92 17.4795 10.92 16.5C10.92 14.3764 12.1062 12.53 13.8521 11.587C12.9942 11.2738 12.0679 11.1 11.1 11.1ZM16.5 21C18.9853 21 21 18.9853 21 16.5C21 14.0147 18.9853 12 16.5 12C14.0147 12 12 14.0147 12 16.5C12 18.9853 14.0147 21 16.5 21Z" fill="#C9605C"/>
       <path d="M19 14.9927L17.4921 16.4994L19 18.0073L18.0073 19L16.4994 17.4921L14.9927 19L14 18.0073L15.5067 16.4994L14 14.9927L14.9927 14L16.4994 15.5067L18.0073 14L19 14.9927Z" fill="white"/>
       </svg>
     );
 
     let notFound = (
-        <svg width="68" height="48" viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clipPath="url(#clip0_774_1213)">
-        <path d="M30.4245 6.77262H23.8308V0.504771C23.8308 0.225642 23.6037 0 23.3227 0H5.52032C5.23934 0 5.01221 0.225642 5.01221 0.504771V9.85306C5.01221 10.1322 5.23934 10.3578 5.52032 10.3578H28.5166L30.8165 7.59997C31.0908 7.2707 30.8552 6.77262 30.4245 6.77262Z" fill="url(#paint0_linear_774_1213)"/>
-        <path d="M36.3433 3.5499L29.4266 11.8435H2.02731C1.15915 11.8435 0.465961 12.5622 0.501293 13.423L1.89776 46.2648C1.93309 47.0772 2.6044 47.7173 3.42209 47.7173H64.0774C64.8934 47.7173 65.5648 47.0788 65.6018 46.2699L67.4979 4.58451C67.5366 3.72206 66.8434 3 65.9736 3H37.516C37.0617 3 36.631 3.20057 36.3416 3.54823L36.3433 3.5499Z" fill="url(#paint1_linear_774_1213)"/>
-        </g>
-        <defs>
-        <linearGradient id="paint0_linear_774_1213" x1="17.9732" y1="0" x2="17.9732" y2="10.3578" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#ECF6EE"/>
-        <stop offset="1" stop-color="#E1EEE3"/>
-        </linearGradient>
-        <linearGradient id="paint1_linear_774_1213" x1="33.9997" y1="3" x2="33.9997" y2="47.7173" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#ECF6EE"/>
-        <stop offset="1" stop-color="#E1EEE3"/>
-        </linearGradient>
-        <clipPath id="clip0_774_1213">
-        <rect width="67" height="48" fill="white" transform="translate(0.5)"/>
-        </clipPath>
-        </defs>
-        </svg>
+      <svg width="68" height="48" viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clipPath="url(#clip0_774_1213)">
+      <path d="M30.4245 6.77262H23.8308V0.504771C23.8308 0.225642 23.6037 0 23.3227 0H5.52032C5.23934 0 5.01221 0.225642 5.01221 0.504771V9.85306C5.01221 10.1322 5.23934 10.3578 5.52032 10.3578H28.5166L30.8165 7.59997C31.0908 7.2707 30.8552 6.77262 30.4245 6.77262Z" fill="url(#paint0_linear_774_1213)"/>
+      <path d="M36.3433 3.5499L29.4266 11.8435H2.02731C1.15915 11.8435 0.465961 12.5622 0.501293 13.423L1.89776 46.2648C1.93309 47.0772 2.6044 47.7173 3.42209 47.7173H64.0774C64.8934 47.7173 65.5648 47.0788 65.6018 46.2699L67.4979 4.58451C67.5366 3.72206 66.8434 3 65.9736 3H37.516C37.0617 3 36.631 3.20057 36.3416 3.54823L36.3433 3.5499Z" fill="url(#paint1_linear_774_1213)"/>
+      </g>
+      <defs>
+      <linearGradient id="paint0_linear_774_1213" x1="17.9732" y1="0" x2="17.9732" y2="10.3578" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ECF6EE"/>
+      <stop offset="1" stop-color="#E1EEE3"/>
+      </linearGradient>
+      <linearGradient id="paint1_linear_774_1213" x1="33.9997" y1="3" x2="33.9997" y2="47.7173" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ECF6EE"/>
+      <stop offset="1" stop-color="#E1EEE3"/>
+      </linearGradient>
+      <clipPath id="clip0_774_1213">
+      <rect width="67" height="48" fill="white" transform="translate(0.5)"/>
+      </clipPath>
+      </defs>
+      </svg>
     );
+
+    
 
     return (
 
@@ -188,7 +183,7 @@ const Approved_Users = () => {
       <TableRow key={row.ID}>
         <TableCell>
           <a href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`} style={{ textDecoration: 'none', color: '#858585' }}>
-            {row.user_login}
+            {row.display_name}
           </a>
         </TableCell>
         <TableCell>{row.user_email}</TableCell>
@@ -226,31 +221,33 @@ const Approved_Users = () => {
     ))
   ) : (
   <TableRow>
-                            <TableCell colSpan={5}>
-                              <div className="user-list-empty approved-user-empty-list" style={{ textAlign: 'center' }}>
-                                <div className="user-found-error">
-                                  {notFound}
-                                  <span>{__('No Data Available', 'new-user-approve')}</span>
-                                  <p className="description">{__('There’s no data available to see!', 'new-user-approve')}</p>
-                                </div>
-                              </div>
-                            </TableCell>
-                          </TableRow>
+    <TableCell colSpan={5}>
+      <div className="user-list-empty approved-user-empty-list" style={{ textAlign: 'center' }}>
+        <div className="user-found-error">
+          {notFound}
+          <span>{__('No Data Available', 'new-user-approve')}</span>
+          <p className="description">{__('There’s no data available to see!', 'new-user-approve')}</p>
+        </div>
+      </div>
+    </TableCell>
+  </TableRow>
   )}
 </TableBody>
 
             </Table>
         </TableContainer>
-        <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
-            <Pagination
-            count={Math.max(1, pageCount)}
-            page={page}
-            onChange={(event, value) => setPage(value)}
-            variant="outlined"
-            shape="rounded"
-            className ="nua-nav-pagination"
-            />
-        </Stack>
+        {usersData.length > 0 && (
+            <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
+                <Pagination
+                count={Math.max(1, pageCount)}
+                page={page}
+                onChange={(event, value) => setPage(value)}
+                variant="outlined"
+                shape="rounded"
+                className ="nua-nav-pagination"
+                />
+            </Stack>
+        )}
         <ToastContainer />
         </div>
     );

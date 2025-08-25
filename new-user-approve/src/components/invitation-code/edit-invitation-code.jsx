@@ -142,7 +142,7 @@ useImperativeHandle(ref, () => ({
           type="number"
           name="usage_limit"
            min="1"
-          readOnly
+          readOnly="true"
           className="auto-code-field"
           value={usesLeft}
         />

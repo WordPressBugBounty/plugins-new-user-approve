@@ -83,31 +83,7 @@ class Users_API {
 			'callback' => array( $this, 'update_user_role' ),
 			'permission_callback' => array( $this, 'nua_users_api_permission_callback' )
 		) );
-
-		register_rest_route( 'nua-request', '/v1/get-blacklist-domains', array(
-			'methods'  => 'GET',
-			'callback' => array( $this, 'get_blacklist_domains' ),
-			'permission_callback' => array( $this, 'nua_users_api_permission_callback' )
-		) );
-
-		register_rest_route( 'nua-request', '/v1/get-whitelist-domains', array(
-			'methods'  => 'GET',
-			'callback' => array( $this, 'get_whitelist_domains' ),
-			'permission_callback' => array( $this, 'nua_users_api_permission_callback' )
-		) );
-
-		register_rest_route( 'nua-request', '/v1/update-whitelist-domains', array(
-			'methods'  => 'POST',
-			'callback' => array( $this, 'update_whitelist_domains' ),
-			'permission_callback' => array( $this, 'nua_users_api_permission_callback' )
-		) );
-
-		register_rest_route( 'nua-request', '/v1/update-blacklist-domains', array(
-			'methods'  => 'POST',
-			'callback' => array( $this, 'update_blacklist_domains' ),
-			'permission_callback' => array( $this, 'nua_users_api_permission_callback' )
-		) );
-
+		
 		register_rest_route( 'nua-request', '/v1/get-api-key', array(
 			'methods'  => 'GET',
 			'callback' => array( $this, 'get_api_key' ),
@@ -213,7 +189,7 @@ class Users_API {
 		}
 
 		$page = $request->get_param('page') ? intval($request->get_param('page')) : 1;
-		$limit = $request->get_param('limit') ? intval($request->get_param('limit')) : 5;
+		$limit = $request->get_param('limit') ? intval($request->get_param('limit')) : 10;
 		$offset = ( $page - 1 ) * $limit;
 		$search = $request->get_param( 'search' ) ? sanitize_text_field( $request->get_param( 'search' ) ) : '';
 		
@@ -226,10 +202,6 @@ class Users_API {
 					'compare' => '!='
 				)
 			),
-			// 'number' => $limit,
-			// 'offset' => $offset,
-			// 'search' => '*' . $search . '*',
-			// 'search_columns' => array( 'user_login', 'user_nicename', 'user_email' ),
 		
 			'orderby' => 'user_registered', // Order by registration date
 			'order'   => 'DESC',            // Get the most recent record
@@ -245,6 +217,7 @@ class Users_API {
 
 		$results = new WP_User_Query( $query );
 		$new_results =  $results->get_results();
+		
 		$total_users = $results->get_total();
 		$users = array();
 		$all_users = array();
@@ -254,7 +227,14 @@ class Users_API {
 			$user_status = array( 'nua_status' => $user_status );
 			 // Convert `user_registered` to local timezone
 			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			$usersData   = (object) array_merge( (array) $user->data, array( 'user_registered' => $user_registered ), (array) $user_status  );
+			$usersData = (object) array(
+			'ID' => $user->ID,
+			'user_nicename' => $user->user_nicename,
+			'user_email' => $user->user_email,
+			'display_name' => $user->display_name,
+			'user_registered' => $user_registered,
+			'nua_status' => $user_status['nua_status'],
+		);
 			$users[]    = $usersData;
 		}
 
@@ -302,7 +282,14 @@ class Users_API {
 			$user_status = pw_new_user_approve()->get_user_status( $user->ID );
 			$user_status = array( 'nua_status' => $user_status );
 			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			$usersData   = (object) array_merge( (array) $user->data, array( 'user_registered' => $user_registered ), (array) $user_status  );
+			$usersData = (object) array(
+			'ID' => $user->ID,
+			'user_nicename' => $user->user_nicename,
+			'user_email' => $user->user_email,
+			'display_name' => $user->display_name,
+			'user_registered' => $user_registered,
+			'nua_status' => $user_status['nua_status'],
+		);
 			$users[]     = $usersData;
 		}
 
@@ -352,7 +339,15 @@ class Users_API {
 			$user_status = pw_new_user_approve()->get_user_status( $user->ID );
 			$user_status = array( 'nua_status' => $user_status );
 			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			$usersData   = (object) array_merge( (array) $user->data, array( 'user_registered' => $user_registered ), (array) $user_status  );
+			
+			$usersData = (object) array(
+			'ID' => $user->ID,
+			'user_nicename' => $user->user_nicename,
+			'user_email' => $user->user_email,
+			'display_name' => $user->display_name,
+			'user_registered' => $user_registered,
+			'nua_status' => $user_status['nua_status'],
+		);
 			$users[]     = $usersData;
 		}
 
@@ -402,7 +397,14 @@ class Users_API {
 			$user_status = pw_new_user_approve()->get_user_status( $user->ID );
 			$user_status = array( 'nua_status' => $user_status );
 			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			$usersData   = (object) array_merge( (array) $user->data, array( 'user_registered' => $user_registered ), (array) $user_status  );
+			$usersData = (object) array(
+			'ID' => $user->ID,
+			'user_nicename' => $user->user_nicename,
+			'user_email' => $user->user_email,
+			'display_name' => $user->display_name,
+			'user_registered' => $user_registered,
+			'nua_status' => $user_status['nua_status'],
+		);
 			$users[]     = $usersData;
 		}
 
@@ -551,115 +553,7 @@ class Users_API {
 
 		return new \WP_Error( 400, __( 'Incomplete Request', 'new-user-approve' ), 'Incomplete Request' );
 	}
-	 
-	public function get_blacklist_domains() {
-
-		// Nonce Verification
-		$nonce = $request->get_header('X-WP-Nonce');
-		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
-		}
-
-		$options = get_option('nua_auto_approve');
-		$domainlist = isset( $options['nua_options_blacklist_domains'] ) ? $options['nua_options_blacklist_domains'] :array();
-		$blacklist_domain_message =   $options['nua_options_blacklist_message'] ;
-		if ($domainlist) {
-			$blacklist_domains =  explode( ',', $domainlist );
-		}
-
-		return array(
-			'blacklisted_domains' => $blacklist_domains,
-			'blacklisted_message' => $blacklist_domain_message
-		);
-	}
-
-	public function get_whitelist_domains() {
-
-		// Nonce Verification
-		$nonce = $request->get_header('X-WP-Nonce');
-		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
-		}
-
-		$options = get_option('nua_auto_approve');
-		$domainlist = isset( $options['nua_options_whitelist_domains'] ) ? $options['nua_options_whitelist_domains'] :array();
-		$whitelist_domains = array();
-		if ($domainlist) {
-			$whitelist_domains =  explode( ',', $domainlist );
-		}
-
-		return $whitelist_domains;
-	}
-
-	public function update_whitelist_domains( $request ) {
-
-		// Nonce Verification
-		$nonce = $request->get_header('X-WP-Nonce');
-		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
-		}
-
-		$options = get_option('nua_auto_approve');
-		$params = $request->get_json_params();
-		$whitelist = isset($params['whitelist']) ? $params['whitelist']   : '';
-
-		$whitelistToggle = isset($params['whitelistToggle']) ?  $params['whitelistToggle']  : false;
-		$options['nua_options_whitelist_domains'] = $whitelist;
-		$options['nua_options_enable_whitelist'] = $whitelistToggle;
-		$updated = update_option('nua_auto_approve', $options);
-		do_action('whitelist_domains_updated');
-
-		if ($updated) {
-
-			return new WP_REST_Response(array(
-				'status' => 'success',
-				'message' => 'whitelist domain updated successfully.',
-			), 200);
-
-		} 
-		
-		return new WP_REST_Response(array(
-			'status' => 'error',
-			'message' => 'whitelist domain failed to update',
-		), 404);
-	}
-
-
-	public function update_blacklist_domains( $request ) {
-
-		// Nonce Verification
-		$nonce = $request->get_header('X-WP-Nonce');
-		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
-		}
-
-		$options = get_option('nua_auto_approve');
-		$params = $request->get_json_params();
-		
-		$blacklist = isset($params['blacklist']) ? $params['blacklist']   : '';
-		$blacklistToggle = isset($params['blacklistToggle']) ?  $params['blacklistToggle'] : false;
-		$blacklist_domain_message = isset($params['CustomMessage']) ? sanitize_text_field( $params['CustomMessage'] ) : '';
-		
-		$options['nua_options_blacklist_domains'] = $blacklist;
-		$options['nua_options_enable_blacklist']  = $blacklistToggle;
-		$options['nua_options_blacklist_message'] = $blacklist_domain_message;
-		$updated = update_option('nua_auto_approve', $options);
-		do_action('blacklist_domains_updated');
-
-		if ($updated) {
-
-			return new WP_REST_Response(array(
-				'status' => 'success',
-				'message' => 'blacklist domain updated successfully.',
-			), 200);
-
-		} 
-		
-		return new WP_REST_Response(array(
-			'status' => 'error',
-			'message' => 'blacklist domain failed to update',
-		), 404);
-	}
+	
 
 	public function get_api_key( $request ) {
 

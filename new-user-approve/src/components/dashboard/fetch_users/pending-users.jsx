@@ -13,19 +13,14 @@ import {
     TableContainer, 
     TableHead, 
     TableRow, 
-    Paper, 
-    Button, 
+    Paper,  
     IconButton, 
-    TextField,
-    Box,
-    Menu, 
-    MenuItem, } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+    Box} from '@mui/material';
+
 // custom component
 import { action_status } from '../../../functions';
 import { update_user_status } from '../../../functions';
 import { site_url } from '../../../functions';
-const icons = require.context('../../../assets/icons', false, /\.svg$/);
 
 const Pending_Users = () => {
     const [usersData, setUserData] = useState([]);
@@ -35,14 +30,10 @@ const Pending_Users = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [user_id, setUserID]   = useState(null);
     const [page, setPage] = useState(1);
-    const rowsPerPage = 5;
+    const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalUsers, setTotalUsers] = useState(0);
     const [search, setSearch] = useState("");
     const [searchLoading, setSearchLoading] = useState(false);
-    
-    let thumbs_up = icons(`./action-thumbs-up.svg`);
-    let thumbs_down = icons(`./action-thumbs-down.svg`);
-
 
     const fetchPendingUsers = async () => {
         try{
@@ -68,14 +59,9 @@ const Pending_Users = () => {
     useEffect(() =>{
         fetchPendingUsers();
 
-    }, [search, page]);
+    }, [search, page, rowsPerPage]);
 
     const pageCount = Math.ceil(totalUsers / rowsPerPage);
-    const handleMenuOpen = ( event, userId ) => {
-
-        setAnchorEl(event.currentTarget);
-        setUserID(userId);
-    }
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -135,7 +121,7 @@ const Pending_Users = () => {
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.5" y="0.5" width="23" height="23" rx="1.5" fill="#FAFAFA"/>
         <rect x="0.5" y="0.5" width="23" height="23" rx="1.5" stroke="#E6EBEF"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1 11.1C13.3368 11.1 15.15 9.28675 15.15 7.05C15.15 4.81325 13.3368 3 11.1 3C8.86325 3 7.05 4.81325 7.05 7.05C7.05 9.28675 8.86325 11.1 11.1 11.1ZM11.1 11.1C6.627 11.1 3 14.727 3 19.2H11.6155C11.1724 18.3999 10.92 17.4795 10.92 16.5C10.92 14.3764 12.1062 12.53 13.8521 11.587C12.9942 11.2738 12.0679 11.1 11.1 11.1ZM16.5 21C18.9853 21 21 18.9853 21 16.5C21 14.0147 18.9853 12 16.5 12C14.0147 12 12 14.0147 12 16.5C12 18.9853 14.0147 21 16.5 21ZM19.0418 15.2169L16.3418 17.9169L15.96 18.2987L15.5781 17.9169L13.9581 16.2969L14.7218 15.5332L15.96 16.7713L18.2781 14.4532L19.0418 15.2169Z" fill="#618E5F"/>
+        <path fillRule="evenodd" clipRule="evenodd" d="M11.1 11.1C13.3368 11.1 15.15 9.28675 15.15 7.05C15.15 4.81325 13.3368 3 11.1 3C8.86325 3 7.05 4.81325 7.05 7.05C7.05 9.28675 8.86325 11.1 11.1 11.1ZM11.1 11.1C6.627 11.1 3 14.727 3 19.2H11.6155C11.1724 18.3999 10.92 17.4795 10.92 16.5C10.92 14.3764 12.1062 12.53 13.8521 11.587C12.9942 11.2738 12.0679 11.1 11.1 11.1ZM16.5 21C18.9853 21 21 18.9853 21 16.5C21 14.0147 18.9853 12 16.5 12C14.0147 12 12 14.0147 12 16.5C12 18.9853 14.0147 21 16.5 21ZM19.0418 15.2169L16.3418 17.9169L15.96 18.2987L15.5781 17.9169L13.9581 16.2969L14.7218 15.5332L15.96 16.7713L18.2781 14.4532L19.0418 15.2169Z" fill="#618E5F"/>
         </svg>
         
       );
@@ -143,7 +129,7 @@ const Pending_Users = () => {
       let iconDeny = (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="0.5" y="0.5" width="23" height="23" rx="1.5" stroke="#E6EBEF"/>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1 11.1C13.3368 11.1 15.15 9.28675 15.15 7.05C15.15 4.81325 13.3368 3 11.1 3C8.86325 3 7.05 4.81325 7.05 7.05C7.05 9.28675 8.86325 11.1 11.1 11.1ZM11.1 11.1C6.627 11.1 3 14.727 3 19.2H11.6155C11.1724 18.3999 10.92 17.4795 10.92 16.5C10.92 14.3764 12.1062 12.53 13.8521 11.587C12.9942 11.2738 12.0679 11.1 11.1 11.1ZM16.5 21C18.9853 21 21 18.9853 21 16.5C21 14.0147 18.9853 12 16.5 12C14.0147 12 12 14.0147 12 16.5C12 18.9853 14.0147 21 16.5 21Z" fill="#C9605C"/>
+        <path fillRule="evenodd" clipRule="evenodd" d="M11.1 11.1C13.3368 11.1 15.15 9.28675 15.15 7.05C15.15 4.81325 13.3368 3 11.1 3C8.86325 3 7.05 4.81325 7.05 7.05C7.05 9.28675 8.86325 11.1 11.1 11.1ZM11.1 11.1C6.627 11.1 3 14.727 3 19.2H11.6155C11.1724 18.3999 10.92 17.4795 10.92 16.5C10.92 14.3764 12.1062 12.53 13.8521 11.587C12.9942 11.2738 12.0679 11.1 11.1 11.1ZM16.5 21C18.9853 21 21 18.9853 21 16.5C21 14.0147 18.9853 12 16.5 12C14.0147 12 12 14.0147 12 16.5C12 18.9853 14.0147 21 16.5 21Z" fill="#C9605C"/>
         <path className="nua-path-class" d="M19 14.9927L17.4921 16.4994L19 18.0073L18.0073 19L16.4994 17.4921L14.9927 19L14 18.0073L15.5067 16.4994L14 14.9927L14.9927 14L16.4994 15.5067L18.0073 14L19 14.9927Z" fill="beige"/>
         </svg>  
     );
@@ -169,8 +155,6 @@ const Pending_Users = () => {
         </defs>
         </svg>
     );
-
-
 
     return (
 
@@ -201,7 +185,7 @@ const Pending_Users = () => {
                 <TableBody>
         {loading ? (
             // Show 5 skeleton rows while loading
-            Array.from({ length: 5 }).map((_, index) => (
+            Array.from({ length: 10 }).map((_, index) => (
             <TableRow key={index}>
                 <TableCell><Skeleton variant="text" /></TableCell>
                 <TableCell><Skeleton variant="text" /></TableCell>
@@ -213,7 +197,7 @@ const Pending_Users = () => {
         ) : usersData.length > 0 ? (
             usersData.map((row) => (
                     <TableRow id={row.ID}>
-                    <TableCell><a href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`} style={{textDecoration:'none', color:'#858585'}}>{row.user_login}</a></TableCell>
+                    <TableCell><a href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`} style={{textDecoration:'none', color:'#858585'}}>{row.display_name}</a></TableCell>
                     <TableCell>{row.user_email}</TableCell>
                     <TableCell>{row.user_registered}</TableCell>
                     <TableCell>
@@ -265,16 +249,18 @@ const Pending_Users = () => {
          </TableBody>
             </Table>
         </TableContainer>
-        <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
-            <Pagination
-            count={Math.max(1, pageCount)}
-            page={page}
-            onChange={(event, value) => setPage(value)}
-            variant="outlined"
-            shape="rounded"
-            className ="nua-nav-pagination"
-            />
-        </Stack>
+        {usersData.length > 0 && (
+            <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
+                <Pagination
+                count={Math.max(1, pageCount)}
+                page={page}
+                onChange={(event, value) => setPage(value)}
+                variant="outlined"
+                shape="rounded"
+                className ="nua-nav-pagination"
+                />
+            </Stack>
+        )}
         <ToastContainer />
         </div>
     );

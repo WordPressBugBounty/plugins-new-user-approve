@@ -108,7 +108,7 @@ class Nua_Settings_API {
 			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
 		}
 
-		$diagnostics_options = nua_options_diagnostics() ;
+		$diagnostics_options = nua_opt_diagnostics() ;
 		return array(
 			'status' => 'success',
 			'data' => $diagnostics_options

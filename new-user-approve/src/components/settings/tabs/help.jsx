@@ -126,7 +126,7 @@ const Help_Settings = () => {
             <>
               <textarea
                 ref={textareaRef}
-                readOnly
+                readOnly="true"
                 value={Object.entries(dignostic_info)
                   .map(([key, value]) => `${key.replace(/_/g, ' ')}: ${value}`)
                   .join('\n')}

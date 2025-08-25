@@ -11,7 +11,6 @@ export function action_status ( current_status)  {
 
   function siteUrl ( )  {
     const site_location = siteDetail.siteUrl
-    console.log(site_location);
     return site_location;
   }
 
@@ -437,7 +436,6 @@ export const get_help_settings = async () => {
     });
 
     const data = await response.json();
-    console.log("response: ", JSON.stringify(data));
     return { data: data };
   } catch (error) {
     return { error };

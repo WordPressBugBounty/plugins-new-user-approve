@@ -116,6 +116,7 @@ body h4, body h2{
 .user-found-error.inv-code{
   width: 100%;
   margin-top: 15px; 
+  margin-bottom: 15px;
 }
 .nua_dash_parent_tablist button:hover::after {
   width: 100%;
