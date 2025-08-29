@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -161,6 +161,9 @@ You can set a limit by date/time or total number of signups. After the limit, re
 7. Settings.
 
 == Changelog ==
+
+= 3.0.4 =
+* Tweak - Bug fixes and improvements.
 
 = 3.0.3 =
 * Added - Compatibility added with User Role Editor plugin.

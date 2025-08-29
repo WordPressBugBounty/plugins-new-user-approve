@@ -97,6 +97,7 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 
 		public function nua_init_admin_functions() {
 			$this->verify_settings();
+			$this->nua_register_caps();
 		}
 
 		private function get_caps() {

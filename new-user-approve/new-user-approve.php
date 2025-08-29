@@ -4,7 +4,7 @@
 * Plugin URI: http://newuserapprove.com/
 * Description: Allow administrators to approve users once they register. Only approved users will be allowed to access the site. For support, please go to the <a href="http://wordpress.org/support/plugin/new-user-approve">support forums</a> on wordpress.org.
 * Author: New User Approve
-* Version: 3.0.3
+* Version: 3.0.4
 * Author URI: https://newuserapprove.com/
 * Text Domain: new-user-approve
  */
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( !defined( 'NUA_VERSION' ) ) {
-	define( 'NUA_VERSION', '3.0.3' );
+	define( 'NUA_VERSION', '3.0.4' );
 }
 
 if ( !defined('NUA_FILE') ) {

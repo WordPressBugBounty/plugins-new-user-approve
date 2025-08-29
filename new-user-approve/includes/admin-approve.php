@@ -62,49 +62,49 @@ if ( ! class_exists( 'PW_New_User_Approve_Admin_Approve' ) ) {
 		 * @uses admin_menu
 		 */
 		public function admin_menu_link() {
-    $show_admin_page = apply_filters('new_user_approve_show_admin_page', true);
+			$show_admin_page = apply_filters('new_user_approve_show_admin_page', true);
+			$cap_main = current_user_can( 'manage_options' ) ? 'manage_options' : 'nua_main_menu';
+			if ($show_admin_page) {
+				$hook = add_submenu_page(
+					'new-user-approve-admin',
+					__( 'New User Approve', 'new-user-approve' ),
+					__( 'Dashboard', 'new-user-approve' ),
+					$cap_main,
+					$this->_admin_page,
+					array( $this, 'approve_admin' ),
+					1
+				);
+				$hook = add_submenu_page(
+					'new-user-approve-admin',
+					__( 'New User Approve', 'new-user-approve' ),
+					__( 'Users', 'new-user-approve' ),
+					'nua_users_cap',
+					'new-user-approve-admin#/action=users/tab=all-users',
+					array( $this, 'menu_options_page' ),
+					2
+				);
+				$hook = add_submenu_page(
+					'new-user-approve-admin',
+					__( 'New User Approve', 'new-user-approve' ),
+					__( 'Invitation Code', 'new-user-approve' ),
+					'nua_view_invitation_tab',
+					'new-user-approve-admin#/action=inv-codes/tab=all-codes',
+					array( $this, 'menu_options_page' ),
+					3
+				);
+				$hook = add_submenu_page(
+					'new-user-approve-admin',
+					__( 'New User Approve', 'new-user-approve' ),
+					__( 'Auto Approve', 'new-user-approve' ),
+					'nua_auto_approve_cap',
+					'new-user-approve-admin#/action=auto-approve/tab=whitelist',
+					array( $this, 'menu_options_page' ),
+					5
+				);
 
-    if ($show_admin_page) {
-        $hook = add_submenu_page(
-            'new-user-approve-admin',
-            __( 'New User Approve', 'new-user-approve' ),
-            __( 'Dashboard', 'new-user-approve' ),
-            'nua_main_menu',
-            $this->_admin_page,
-            array( $this, 'approve_admin' ),
-            1
-        );
-        $hook = add_submenu_page(
-            'new-user-approve-admin',
-            __( 'New User Approve', 'new-user-approve' ),
-            __( 'Users', 'new-user-approve' ),
-            'nua_users_cap',
-            'new-user-approve-admin#/action=users/tab=all-users',
-            array( $this, 'menu_options_page' ),
-            2
-        );
-        $hook = add_submenu_page(
-            'new-user-approve-admin',
-            __( 'New User Approve', 'new-user-approve' ),
-            __( 'Invitation Code', 'new-user-approve' ),
-            'nua_view_invitation_tab',
-            'new-user-approve-admin#/action=inv-codes/tab=all-codes',
-            array( $this, 'menu_options_page' ),
-            3
-        );
-        $hook = add_submenu_page(
-            'new-user-approve-admin',
-            __( 'New User Approve', 'new-user-approve' ),
-            __( 'Auto Approve', 'new-user-approve' ),
-            'nua_auto_approve_cap',
-            'new-user-approve-admin#/action=auto-approve/tab=whitelist',
-            array( $this, 'menu_options_page' ),
-            5
-        );
-
-        add_action( 'load-' . $hook, array( $this, 'admin_enqueue_scripts' ) );
-    }
-}
+				add_action( 'load-' . $hook, array( $this, 'admin_enqueue_scripts' ) );
+			}
+		}
 
 public function admin_menu_upgrade_link() {
     $show_admin_page = apply_filters('new_user_approve_show_admin_page', true);
@@ -122,6 +122,7 @@ public function admin_menu_upgrade_link() {
 }
 
 public function admin_menu_autoApprove_pro() {
+	$cap_main = current_user_can( 'manage_options' ) ? 'manage_options' : 'nua_main_menu';
     add_submenu_page(
         $this->_admin_page,
         __( 'Integration', 'new-user-approve' ),
@@ -134,11 +135,12 @@ public function admin_menu_autoApprove_pro() {
 }
 
 public function admin_menu_settings_pro() {
+	$cap_main = current_user_can( 'manage_options' ) ? 'manage_options' : 'nua_main_menu';
     add_submenu_page(
         $this->_admin_page,
         __( 'Settings', 'new-user-approve' ),
         __( 'Settings', 'new-user-approve' ),
-        'nua_settings_cap',
+       'nua_settings_cap',
         'new-user-approve-admin#/action=settings/tab=general',
         array( $this, 'menu_options_page' ),
         6
