@@ -39,8 +39,8 @@ import Denied_Users from "./fetch_users/denied-users";
 
         <TabsList className ="users_subtabs_list">
             <Tab value={'tab=all-users'}  className={currentTab == 'tab=all-users' ? 'nua_active_subtab' :''}>            {__('All Users', 'new-user-approve')} </Tab>
-            <Tab value={'tab=approved-users'} className={currentTab == 'tab=approved-users' ? 'nua_active_subtab' :''} > {__('Approved', 'new-user-approve')} </Tab>
             <Tab value={'tab=pending-users'} className={currentTab == 'tab=pending-users' ? 'nua_active_subtab' :''}  > {__('Pending', 'new-user-approve')}</Tab>
+            <Tab value={'tab=approved-users'} className={currentTab == 'tab=approved-users' ? 'nua_active_subtab' :''} > {__('Approved', 'new-user-approve')} </Tab>
             <Tab value={'tab=denied-users'} className={currentTab == 'tab=denied-users' ? 'nua_active_subtab' :''} >  {__('Denied', 'new-user-approve')}</Tab>
         </TabsList>
 

@@ -1,10 +1,10 @@
-=== New User Approve ===
+﻿=== New User Approve ===
 Contributors: wpexpertsio
 Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 3.0.4
+Stable tag: 3.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -161,6 +161,22 @@ You can set a limit by date/time or total number of signups. After the limit, re
 7. Settings.
 
 == Changelog ==
+
+= 3.0.8 =
+* Fixed - Bug Fixes.
+
+= 3.0.7 =
+* Fixed - Users data missing after update.
+
+= 3.0.6 =
+* Fixed - Bug Fixes.
+
+= 3.0.5 =
+* Added - Added option to approve and deny users in bulk.
+* Added - Dropdown option to select number of users displayed per page in the table.
+* Added - Bulk delete option for invitation codes.
+* Added – Filter to display additional columns in the Users Table (apply_filters( 'nua_user_data', $data, $user ))
+* Added – Filter to display additional columns in the Recent Users Table (apply_filters( 'nua_recent_user_data', $data, $user ))
 
 = 3.0.4 =
 * Tweak - Bug fixes and improvements.
@@ -512,3 +528,4 @@ Download version 1.3.1 immediately! A bug was found in version 1.3 that allows a
 
 = 1.3.2 =
 Download version 1.3.2 immediately! A bug was found in version 1.3 that allows a user to login using any password.
+

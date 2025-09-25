@@ -9,24 +9,19 @@ import { get_all_statuses_users } from '../../functions';
 import Recent_Updates from './recent_updates';
 import UserFilter from './user_filter';
 import CounterList from './counter-list';
-import { action_status } from '../../functions';
 import { update_user_status } from '../../functions';
-import ClearIcon from '@mui/icons-material/Clear';
-import CheckIcon from '@mui/icons-material/Check';
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import { site_url } from '../../functions';
 import axios from 'axios';
 
 
-const icons = require.context('../../assets/icons', false, /\.svg$/);
-
  const Recent_Users_Table = ( ) => {
   const counterRef = useRef();
-   const [filters_by, setFilterBy] = useState('');
    const [anchorEl, setAnchorEl] = useState(null);
    const [selectedUserId, setSelectedUserId] = useState(null);
-   const [usersdata, setUsersData] = useState([]);
+   const [usersdata, setUserData] = useState([]);
+   const [columnsOrder, setColumnsOrder] = useState([]);
    const [loading, setLoading] = useState(true);
    const [loadingUserId, setLoadingUserId] = useState(null); 
    const [error, setError] = useState(null);
@@ -48,7 +43,10 @@ const icons = require.context('../../assets/icons', false, /\.svg$/);
           },
         });
         const data = response.data;
-        setUsersData(data);
+        setUserData(data.users || []);
+        if (data.columns_order && Array.isArray(data.columns_order)) {
+            setColumnsOrder(data.columns_order);
+        }
   
       } catch (error) {
         setError(error);
@@ -174,6 +172,43 @@ let notFound = (
   </svg>
 );
 
+const defaultColumns = [
+          { key: 'user_login', label: __('User', 'new-user-approve') },
+          { key: 'user_email', label: __('Email', 'new-user-approve') },
+          { key: 'user_registered', label: __('Registration Date', 'new-user-approve') },
+          { key: 'nua_status', label: __('Status', 'new-user-approve') },
+          { key: 'actions', label: __('Actions', 'new-user-approve') },
+        ];
+        
+    const availableKeys = usersdata.length > 0 ? Object.keys(usersdata[0]) : [];
+    
+    // Columns order from API
+    let apiColumnsOrder = columnsOrder || [];
+    
+    // user_login will be first always.
+    if (!apiColumnsOrder.includes('user_login')) {
+        apiColumnsOrder = ['user_login', ...apiColumnsOrder];
+    } else {
+        apiColumnsOrder = [
+        'user_login',
+        ...apiColumnsOrder.filter((key) => key !== 'user_login'),
+        ];
+    }
+    
+    // Build dynamic columns
+    const dynamicColumns = apiColumnsOrder
+        .filter((key) => availableKeys.includes(key) || key === 'actions')
+        .map((key) => {
+        const defaultCol = defaultColumns.find((col) => col.key === key);
+        if (defaultCol) return defaultCol;
+    
+        return {
+            key,
+            label: key.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+        };
+    });
+
+
   return (
     <> 
     <div className='nua_recent_users'>
@@ -191,19 +226,19 @@ let notFound = (
     </div>
     <div className='recent_users_tbl_gird'>
     
-    <TableContainer className="recent_user_tbl_container usersTable" component={Paper}>
+    <TableContainer
+  className="recent_user_tbl_container usersTable"
+  component={Paper}
+  sx={{ maxHeight: 400, overflowX: "auto" }}
+>
   <Table sx={{ minWidth: 650 }}>
     <TableHead>
-      <TableRow sx={{ backgroundColor: '#FAFAFA', maxHeight: 50, minHeight: 50, height: 50 }}>
-        <TableCell>{__('User', 'new-user-approve')}</TableCell>
-        <TableCell sx={{ paddingLeft: 4 }}>{__('Email', 'new-user-approve')}</TableCell>
-        <TableCell sx={{ textAlign: `${usersdata.length > 0 ? '' : 'center !important'}`, width: 220 }}>
-          {__('Registration Date', 'new-user-approve')}
-        </TableCell>
-        <TableCell sx={{ textAlign: `${usersdata.length > 0 ? '' : 'center !important'}`, paddingLeft: 4 }}>
-          {__('Status', 'new-user-approve')}
-        </TableCell>
-        <TableCell sx={{ textAlign: 'left !important' }}>{__('Actions', 'new-user-approve')}</TableCell>
+      <TableRow
+        sx={{ backgroundColor: "#FAFAFA", maxHeight: 50, minHeight: 50, height: 50 }}
+      >
+        {dynamicColumns.map((col) => (
+          <TableCell key={col.key}>{col.label}</TableCell>
+        ))}
       </TableRow>
     </TableHead>
 
@@ -211,92 +246,136 @@ let notFound = (
       {loading ? (
         [...Array(5)].map((_, index) => (
           <TableRow key={index}>
-            <TableCell>
-              <Skeleton variant="text" width="80%" height={20} />
-            </TableCell>
-            <TableCell>
-              <Skeleton variant="text" width="90%" height={20} />
-            </TableCell>
-            <TableCell>
-              <Skeleton variant="text" width="70%" height={20} />
-            </TableCell>
-            <TableCell>
-              <Skeleton variant="text" width="60%" height={20} />
-            </TableCell>
-            <TableCell align="center">
-              <Skeleton variant="circular" width={30} height={30} />
-            </TableCell>
-          </TableRow>
+                    {dynamicColumns.length > 0 ? (
+                    dynamicColumns.map((col, i) => (
+                        <TableCell key={i}>
+                        <Skeleton
+                            variant={col.key === "actions" ? "circular" : "text"}
+                            width={col.key === "actions" ? 24 : "100%"}
+                            height={col.key === "actions" ? 24 : 20}
+                        />
+                        </TableCell>
+                    ))
+                    ) : (
+                    <TableCell colSpan={5}>
+                        <Skeleton variant="text" width="100%" height={20} />
+                    </TableCell>
+                    )}
+                </TableRow>
         ))
       ) : usersdata.length > 0 ? (
         usersdata.map((row) => (
           <TableRow key={row.ID}>
-            <TableCell>
-              <a
-                href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`}
-                style={{ textDecoration: 'none', color: '#858585' }}
-              >
-                {row.user_login}
-              </a>
-            </TableCell>
-            <TableCell>{row.user_email}</TableCell>
-            <TableCell>{row.user_registered}</TableCell>
-            <TableCell>
-              <div className="nua-status-container">
-                <span className={'user-' + row.nua_status}>
-                  {row.nua_status.charAt(0).toUpperCase() + row.nua_status.slice(1)}
-                </span>
-                <span>
-                  {selectedUserId === row.ID && loading === true ? (
-                    <div className="new-user-approve-loading">
-                      <div className="nua-spinner"></div>
+            {dynamicColumns.map((col) => {
+              if (col.key === "user_login") {
+                return (
+                  <TableCell key={col.key}>
+                    <a
+                      href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`}
+                      style={{ textDecoration: "none", color: "#858585" }}
+                    >
+                      {row.user_login}
+                    </a>
+                  </TableCell>
+                );
+              }
+
+              if (col.key === "nua_status") {
+                return (
+                  <TableCell key={col.key}>
+                    <div className="nua-status-container">
+                      <span className={"user-" + row.nua_status}>
+                        {row.nua_status.charAt(0).toUpperCase() +
+                          row.nua_status.slice(1)}
+                      </span>
+                      <span>
+                        {selectedUserId === row.ID && loading === true ? (
+                          <div className="new-user-approve-loading">
+                            <div className="nua-spinner"></div>
+                          </div>
+                        ) : (
+                          <span className="loadEmpty" style={{ marginLeft: 13 }}></span>
+                        )}
+                      </span>
                     </div>
-                  ) : (
-                    <span className="loadEmpty" style={{ marginLeft: 13 }}></span>
-                  )}
-                </span>
-              </div>
-            </TableCell>
-            <TableCell align="center" className="user-action-btn" style={{display:'flex'}}>
-              <IconButton
-                onClick={row.nua_status !== 'approved' ? (event) => handleMenuAction(event, row.ID) : null}
-                data-value="approve"
-                title="Approve"
-                style={{paddingLeft:'0'}}
-                disabled={row.nua_status === 'approved'}
-              >
-                <div className={`status-icon ${row.nua_status === 'approved' ? 'inactive' : 'active'}`}>
-                  {iconApprove}
-                </div>
-              </IconButton>
+                  </TableCell>
+                );
+              }
 
-              <IconButton
-                onClick={row.nua_status !== 'denied' ? (event) => handleMenuAction(event, row.ID) : null}
-                data-value="deny"
-                title="Deny"
-                disabled={row.nua_status === 'denied'}
-              >
-                <div className={`status-icon ${row.nua_status === 'denied' ? 'inactive' : 'active'}`}>
-                  {iconDeny}
-                </div>
-              </IconButton>
+              if (col.key === "actions") {
+                return (
+                  <TableCell
+                    key={col.key}
+                    align="center"
+                    className="user-action-btn"
+                    style={{ display: "flex" }}
+                  >
+                    <IconButton
+                      onClick={
+                        row.nua_status !== "approved"
+                          ? (event) => handleMenuAction(event, row.ID)
+                          : null
+                      }
+                      data-value="approve"
+                      title="Approve"
+                      style={{ paddingLeft: "0" }}
+                      disabled={row.nua_status === "approved"}
+                    >
+                      <div
+                        className={`status-icon ${
+                          row.nua_status === "approved" ? "inactive" : "active"
+                        }`}
+                      >
+                        {iconApprove}
+                      </div>
+                    </IconButton>
 
-              {loadingUserId === row.ID && (
-                <div className="new-user-approve-loading">
-                  <div className="nua-spinner"></div>
-                </div>
-              )}
-            </TableCell>
+                    <IconButton
+                      onClick={
+                        row.nua_status !== "denied"
+                          ? (event) => handleMenuAction(event, row.ID)
+                          : null
+                      }
+                      data-value="deny"
+                      title="Deny"
+                      disabled={row.nua_status === "denied"}
+                    >
+                      <div
+                        className={`status-icon ${
+                          row.nua_status === "denied" ? "inactive" : "active"
+                        }`}
+                      >
+                        {iconDeny}
+                      </div>
+                    </IconButton>
+
+                    {loadingUserId === row.ID && (
+                      <div className="new-user-approve-loading">
+                        <div className="nua-spinner"></div>
+                      </div>
+                    )}
+                  </TableCell>
+                );
+              }
+
+              // Default for extra/custom fields
+              return <TableCell key={col.key}>{row[col.key] || "-"}</TableCell>;
+            })}
           </TableRow>
         ))
       ) : (
         <TableRow>
-          <TableCell colSpan={5}>
-            <div className="user-list-empty recent-user-empty-list" style={{ textAlign: 'center' }}>
+          <TableCell colSpan={dynamicColumns.length}>
+            <div
+              className="user-list-empty recent-user-empty-list"
+              style={{ textAlign: "center" }}
+            >
               <div className="user-found-error">
                 {notFound}
-                <span>{__('No Data Available', 'new-user-approve')}</span>
-                <p className="description">{__('There’s no data available to see!', 'new-user-approve')}</p>
+                <span>{__("No Data Available", "new-user-approve")}</span>
+                <p className="description">
+                  {__("There’s no data available to see!", "new-user-approve")}
+                </p>
               </div>
             </div>
           </TableCell>
@@ -305,6 +384,7 @@ let notFound = (
     </TableBody>
   </Table>
 </TableContainer>
+
     <div className="recent_update_container">
       <h2>{__('Recent Activities', 'new-user-approve')}</h2>
       <Recent_Updates statusUpdated = {status_updated}/>

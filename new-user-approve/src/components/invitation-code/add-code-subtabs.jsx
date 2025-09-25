@@ -1,9 +1,4 @@
 import React, {useState, useEffect, useRef } from "react";
-import {styled} from "@mui/system";
-import {Tabs} from "@mui/base/Tabs";
-import {TabsList} from "@mui/base/TabsList";
-import {TabPanel} from "@mui/base/TabPanel";
-import {Tab, tabClasses} from "@mui/base/Tab";
 import Alert from "@mui/material/Alert";
 import Pagination from '@mui/material/Pagination';
 import Stack from "@mui/material/Stack";
@@ -34,11 +29,14 @@ import {
   IconButton,
   Paper,
   Chip,
-  TablePagination,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Checkbox,
+  Select
 } from "@mui/material";
 import Skeleton from '@mui/material/Skeleton';
 import {save_invitation_codes} from "../../functions";
-import {status_update_invCode} from "../../functions";
 import {delete_invCode} from "../../functions";
 import {sprintf, __} from "@wordpress/i18n";
 import ImportCodes from "./import-codes";
@@ -79,7 +77,6 @@ const Add_Code_SubTabs = () => {
   const [codeUsage, setCodeUsage] = useState("");
   const [autoCodeDate, setAutoCodeDate] = useState("");
   const [incorrectDate, setIncorrectDate] = useState(false);
-  const [incorrectAutoDate, setIncorrectAutoDate] = useState(false);
 
   const [openAddCodeModal, setOpenAddCodeModal] = useState(false);
   const [openImportModal, setOpenImportModal] = useState(false);
@@ -88,8 +85,8 @@ const Add_Code_SubTabs = () => {
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [selectedCodeId, setSelectedCodeId] = useState(null);
-
+const [selectedCodes, setSelectedCodes] = useState([]);  // for bulk delete
+const [selectedCodeId, setSelectedCodeId] = useState(null); // for single delete
 
   const handleOpenAddCodes = () => setOpenAddCodeModal(true);
   const handleCloseAddCodes = () => setOpenAddCodeModal(false);
@@ -106,6 +103,81 @@ const Add_Code_SubTabs = () => {
   const importRef = useRef();
   const emailRef = useRef();
   const editRef = useRef();
+
+  const handleSelectAll = (e) => {
+  if (e.target.checked) {
+    setSelectedCodes(rows.map(row => row.code_id));
+  } else {
+    setSelectedCodes([]);
+  }
+};
+
+const handleSelectOne = (codeId) => {
+  setSelectedCodes(prev =>
+    prev.includes(codeId)
+      ? prev.filter(id => id !== codeId)
+      : [...prev, codeId]
+  );
+};
+
+// Open bulk delete modal
+const handleOpenBulkDeleteModal = () => {
+  if (selectedCodes.length > 0) {
+    setOpenDeleteModal(true);
+  }
+};
+
+// Bulk delete confirmation
+const handleBulkDeleteConfirmation = async () => {
+  try {
+    setLoading(true);
+
+    // Prepare code IDs array depending on single or bulk delete
+    const codeIdsToDelete = selectedCodeId ? [selectedCodeId] : selectedCodes;
+
+    if (!codeIdsToDelete || codeIdsToDelete.length === 0) {
+      toast.error(__('No code IDs provided for deletion', 'new-user-approve'), { position: "bottom-right" });
+      setLoading(false);
+      return;
+    }
+
+    const response = await delete_invCode({
+      endpoint: "delete-invCode",
+      code_ids: codeIdsToDelete,
+    });
+
+    const status = response?.data?.status;
+    const message = response?.data?.message || "Unknown error";
+   
+    if (status === "Success") {
+      setRows(prevRows => prevRows.filter(row => !codeIdsToDelete.includes(row.code_id)));
+      setTotalRows(prevTotal => prevTotal - codeIdsToDelete.length);
+
+      // Clear the selections after delete
+      setSelectedCodes([]);
+      setSelectedCodeId(null);
+
+      toast.success(__(message, "new-user-approve"), { position: "bottom-right", autoClose: 2000 });
+      const newTotalRows = totalRows - codeIdsToDelete.length;
+      const newPageCount = Math.ceil(newTotalRows / rowsPerPage);
+
+      if (page > newPageCount) {
+        setPage(newPageCount); // This will trigger useEffect/fetchData automatically
+      } else {
+        await fetchData();
+      }
+    } 
+    else {
+      throw new Error(message);
+    }
+   
+  } catch (error) {
+    toast.error(__(error.message || "An error occurred", "new-user-approve"), { position: "bottom-right", autoClose: 2000 });
+  } finally {
+    setLoading(false);
+    setOpenDeleteModal(false);
+  }
+};
 
   const handleOpenDeleteModal = (code_id) => {
     setSelectedCodeId(code_id);
@@ -334,39 +406,51 @@ const Add_Code_SubTabs = () => {
   const [selectedStatus, setSelectedStatus] = useState("Active");
   const [statusList, setStatusList] = useState([]);
 
-  useEffect(() => {
-     if (currentTab == "tab=all-codes") {
-        navigate("tab=all-codes");
-      }
-    const fetchData = async () => {
-      setLoading(true);
+  const fetchData = async () => {
+  setLoading(true);
 
-      try {
-        await Promise.all([
-          get_codes(),
-          get_remaining_uses(),
-          get_total_uses(),
-          get_expiry(),
-          get_status(),
-          get_invited_users()
-        ]);
-      } catch (error) {
-        console.error("Error fetching data", error);
-      } finally {
-        setLoading(false);
-      }
+  try {
+    await Promise.all([
+      get_codes(),
+      get_remaining_uses(),
+      get_total_uses(),
+      get_expiry(),
+      get_status(),
+      get_invited_users()
+    ]);
+  } catch (error) {
+    console.error("Error fetching data", error);
+  } finally {
+    setLoading(false);
+    setSelectedCodes([]);
+    setSelectedCodeId(null);
+  }
+};
+
+useEffect(() => {
+  if (currentTab == "tab=all-codes") {
+    navigate("tab=all-codes");
+  }
+  fetchData();
+}, [page, rowsPerPage, searchTerm]);
+  
+const pageCount = Math.ceil(totalRows / rowsPerPage);
+
+ // get initial number of page
+    const startIndex = (page - 1) * rowsPerPage + 1;
+    // get total number of data
+    const endIndex = Math.min(page * rowsPerPage, totalRows);
+
+    const handleRowsPerPageChange = (event) => {
+        setRowsPerPage(event.target.value);
+        setPage(1); // reset to first page when rows per page changes
     };
 
-    fetchData();
-  }, [page, rowsPerPage, searchTerm]);
-  
+
   const getInvitedUsersForCode = (codeId) => {
     return invitedData.filter((user) => user.code_id === codeId);
   };
 
-  const handleTabChange = (event, newTab) => {
-    navigate(`${newTab}`);
-  };
 
   const handleAddCodes = (event) => {
     const {value} = event.target;
@@ -460,7 +544,7 @@ const Add_Code_SubTabs = () => {
               setStatusList(prev => [...formattedStatus, ...prev]);
             }
 
-            //uzair
+            
             if (response.data.usageLeft) {
               const formattedLeft = formattedCodes.map(code => ({
                 code_id: code.code_id,
@@ -509,15 +593,6 @@ const Add_Code_SubTabs = () => {
         get_remaining_uses(),
       ]);
   
-      // const codesData = response.data || [];
-      // const expiryData = response2.data || [];
-      // const status = response3.data || [];
-      // const usageData = response4.data || [];
-      // setRows(codesData);       
-      // setExpiryData(expiryData);
-      // setStatusList(status);
-      // // setTotalUses(totalUsage);
-      // setUsageData(usageData);
     } catch (error) {
       console.error("Failed to fetch auto codes or expiry data:", error);
     }
@@ -667,6 +742,13 @@ const Add_Code_SubTabs = () => {
       <path d="M8.608 11V5.4H10.688C11.0827 5.4 11.432 5.48 11.736 5.64C12.04 5.79467 12.2773 6.01333 12.448 6.296C12.6187 6.57333 12.704 6.896 12.704 7.264C12.704 7.62667 12.6213 7.94933 12.456 8.232C12.2907 8.51467 12.064 8.73867 11.776 8.904C11.488 9.064 11.1547 9.144 10.776 9.144H9.704V11H8.608ZM9.704 8.136H10.752C10.9973 8.136 11.1973 8.056 11.352 7.896C11.512 7.73067 11.592 7.52 11.592 7.264C11.592 7.008 11.504 6.8 11.328 6.64C11.1573 6.48 10.936 6.4 10.664 6.4H9.704V8.136ZM13.4283 11V5.4H15.5083C15.903 5.4 16.2523 5.47733 16.5563 5.632C16.8603 5.78667 17.0976 6 17.2683 6.272C17.439 6.53867 17.5243 6.85067 17.5243 7.208C17.5243 7.56 17.4336 7.87467 17.2523 8.152C17.0763 8.424 16.8336 8.63733 16.5243 8.792C16.215 8.94133 15.863 9.016 15.4683 9.016H14.5243V11H13.4283ZM16.5083 11L15.2123 8.752L16.0523 8.152L17.7483 11H16.5083ZM14.5243 8.016H15.5163C15.6816 8.016 15.8283 7.98133 15.9563 7.912C16.0896 7.84267 16.1936 7.74667 16.2683 7.624C16.3483 7.50133 16.3883 7.36267 16.3883 7.208C16.3883 6.968 16.3003 6.77333 16.1243 6.624C15.9536 6.47467 15.7323 6.4 15.4603 6.4H14.5243V8.016ZM21.1446 11.096C20.5792 11.096 20.0779 10.9733 19.6406 10.728C19.2086 10.4773 18.8699 10.136 18.6246 9.704C18.3792 9.26667 18.2566 8.768 18.2566 8.208C18.2566 7.63733 18.3792 7.136 18.6246 6.704C18.8699 6.26667 19.2059 5.92533 19.6326 5.68C20.0646 5.43467 20.5606 5.312 21.1206 5.312C21.6859 5.312 22.1819 5.43733 22.6086 5.688C23.0406 5.93333 23.3792 6.27467 23.6246 6.712C23.8699 7.144 23.9926 7.64267 23.9926 8.208C23.9926 8.768 23.8699 9.26667 23.6246 9.704C23.3846 10.136 23.0486 10.4773 22.6166 10.728C22.1899 10.9733 21.6992 11.096 21.1446 11.096ZM21.1446 10.096C21.4859 10.096 21.7846 10.016 22.0406 9.856C22.3019 9.69067 22.5046 9.46667 22.6486 9.184C22.7979 8.90133 22.8726 8.576 22.8726 8.208C22.8726 7.83467 22.7979 7.50667 22.6486 7.224C22.4992 6.94133 22.2939 6.72 22.0326 6.56C21.7712 6.39467 21.4672 6.312 21.1206 6.312C20.7846 6.312 20.4832 6.39467 20.2166 6.56C19.9552 6.72 19.7499 6.94133 19.6006 7.224C19.4512 7.50667 19.3766 7.83467 19.3766 8.208C19.3766 8.576 19.4512 8.90133 19.6006 9.184C19.7499 9.46667 19.9579 9.69067 20.2246 9.856C20.4912 10.016 20.7979 10.096 21.1446 10.096Z" fill="#664C1C"/>
     </svg>
   );
+
+  let bulkDelete = (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M5.46664 2.7521H5.33331C5.40664 2.7521 5.46664 2.6945 5.46664 2.6241V2.7521ZM5.46664 2.7521H10.5333V2.6241C10.5333 2.6945 10.5933 2.7521 10.6666 2.7521H10.5333V3.9041H11.7333V2.6241C11.7333 2.0593 11.255 1.6001 10.6666 1.6001H5.33331C4.74498 1.6001 4.26664 2.0593 4.26664 2.6241V3.9041H5.46664V2.7521ZM13.8666 3.9041H2.13331C1.83831 3.9041 1.59998 4.1329 1.59998 4.4161V4.9281C1.59998 4.9985 1.65998 5.0561 1.73331 5.0561H2.73998L3.15164 13.4241C3.17831 13.9697 3.64831 14.4001 4.21664 14.4001H11.7833C12.3533 14.4001 12.8216 13.9713 12.8483 13.4241L13.26 5.0561H14.2666C14.34 5.0561 14.4 4.9985 14.4 4.9281V4.4161C14.4 4.1329 14.1616 3.9041 13.8666 3.9041Z" fill="#DA6262"/>
+    </svg>
+  );
+
   return (
     <React.Fragment>
       <div className="invitation_code_subtabs">
@@ -694,20 +776,6 @@ const Add_Code_SubTabs = () => {
               {sendIcon}
               {__("Send Email", "new-user-approve")}
             </button>
-           
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%', position: 'relative' }}>
-            <TextField
-              className="nua-code-search"
-              placeholder="Search codes..."
-              variant="outlined"
-              size="small"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              sx={{ marginBottom: 1 }}
-            />
-            <div className="code-search-icon">{searchIcon}</div>
-          </div>
-
         </div>
 
         {/* Add codes */}
@@ -1110,17 +1178,66 @@ const Add_Code_SubTabs = () => {
 
         {/* </Routes> */}
         <div className="rowsCount">
-          <h2 className='users_list_title'>  {__('All Codes', 'new-user-approve') }</h2>    
-          <span>{totalRows}{' '}{__('Codes', 'new-user-approve') }</span>
+ 
+          <h2 className='users_list_title'>  {__('All Codes', 'new-user-approve') }</h2>
+          <div className="inv-search">
+ <      div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start',  position: 'relative', width: 340 }}>
+            <TextField
+              className="nua-code-search"
+              placeholder="Search codes..."
+              variant="outlined"
+              size="small"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              sx={{ marginBottom: 1 }}
+            />
+             <div className="code-search-icon">{searchIcon}</div>
+               </div>  
+          </div>
+          
+           <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+            <span className='selectSpan' style={{marginRight: 8}}>{__('Show:', 'new-user-approve')}</span>
+                <FormControl size="small" sx={{ minWidth: 120 }}>
+                    <Select
+                        labelId="rows-per-page-label"
+                        value={rowsPerPage}
+                        onChange={handleRowsPerPageChange}
+                    >
+                        <MenuItem value={10}>{__('10', 'new-user-approve')}</MenuItem>
+                        <MenuItem value={20}>{__('20', 'new-user-approve')}</MenuItem>
+                        <MenuItem value={50}>{__('50', 'new-user-approve')}</MenuItem>
+                        <MenuItem value={100}>{__('100', 'new-user-approve')}</MenuItem>
+                    </Select>
+                </FormControl>
+                <span className='selectSpan' style={{marginLeft: 8}}>{__('entries', 'new-user-approve')}</span>
+            </Stack>
+           
+         
+           {/* <span>{totalRows}{' '}{__('Codes', 'new-user-approve') }</span> */}
         </div>        
-    
+        {selectedCodes.length > 0 && (
+          <div className="bulk-actions-bar" style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+            <Typography variant="body1" sx={{ marginRight: 2 }}>
+                <span className="nua_bulkActions">{__('Bulk actions', 'new-user-approve')}:</span> <span className='nua_bulkLength'>{`${selectedCodes.length} `}{__('code(s) selected', 'new-user-approve')}</span>
+            </Typography>
+            <Button
+              className="bulkDeny bulkButton"
+              onClick={() => handleOpenDeleteModal(null)}
+              variant="outlined"
+              color="warning"
+            >
+              {bulkDelete}
+              {__('Delete', 'new-user-approve')}
+            </Button>
+          </div>
+          )}    
         {/* Add codes Html */}
         <Paper className="invitation-codes-header" elevation={1} sx={{borderRadius: 2, padding: 3, marginTop: 4}}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <strong>{__('Invitation Code', 'new-user-approve') }</strong>
+                  <input type="checkbox" className="nua_checkbox" checked={selectedCodes.length === rows.length && rows.length > 0} onChange={handleSelectAll}/><strong>{__('Invitation Code', 'new-user-approve') }</strong>
                 </TableCell>
                 <TableCell>
                   <strong>{__('Uses Remaining', 'new-user-approve') }</strong>
@@ -1154,8 +1271,8 @@ const Add_Code_SubTabs = () => {
                  
                   return (
                     <TableRow class key={index}>
-                      <TableCell>{item.invitation_code}</TableCell>
-
+                      <TableCell><input type="checkbox" className="nua_checkbox" checked={selectedCodes.includes(item.code_id)} onChange={() => handleSelectOne(item.code_id)}/>{item.invitation_code}</TableCell>
+                     
                       <TableCell>
                         {(() => {
                           const match = usageData.find(
@@ -1251,7 +1368,7 @@ const Add_Code_SubTabs = () => {
                                   value={selectedRow.uses_left}
                                 />
                               </div>
-                                  {/* uzair */}
+                            
                               <div className="invitation-field">
                                 <label className="invitation-field__label">{__('Usage Limit', 'new-user-approve') }</label>
                                 <input
@@ -1459,7 +1576,7 @@ const Add_Code_SubTabs = () => {
                           className="openNuaModal delete-inv-modal openNuaTabsModal NuaModal"
                         >
 
-
+                          {/* uzair */}
                 <DialogTitle className="delete-title"></DialogTitle>
                           <IconButton
                           aria-label="close"
@@ -1481,7 +1598,7 @@ const Add_Code_SubTabs = () => {
                             </div>
                             <div className="delete-text">
                             <h3>{__('Are you sure?')}</h3>
-                            <p>{__('The code will be permanently deleted and you won’t be able to see it again.', 'new-user-approve')}</p>
+                            <p>{__('The invitation code(s) will be permanently deleted and you won’t be able to see it again.', 'new-user-approve')}</p>
                             </div>
                            
                           </DialogContent>
@@ -1490,7 +1607,7 @@ const Add_Code_SubTabs = () => {
                                 {__("Cancel", "new-user-approve")}
                               </Button>
                              
-                              <Button className="importBtn nua-btn" onClick={handleDeleteConfirmation}>{__('Delete', 'new-user-approve')}
+                              <Button className="importBtn nua-btn" onClick={handleBulkDeleteConfirmation}>{__('Delete', 'new-user-approve')}
                               {loading == true ? 
                               <div className='new-user-approve-loading'>
                                   <div className="nua-spinner"></div>
@@ -1516,35 +1633,41 @@ const Add_Code_SubTabs = () => {
             </TableBody>
           </Table>
           {rows.length === 0 ? (
-            <div className="user-list-empty recent-user-empty-list" style={{ textAlign: 'center' }}>
-              <div className="user-found-error inv-code">
-                {notFound}
-                <span>{__('No invitation code found', 'new-user-approve')}</span>
-              </div>
-            </div>
-          ) : (
-            rows.map((row) => (
-              <div key={row.code_id}>
-                <span>{row.code}</span>
-              </div>
-            ))
-          )}
-
-          {!loading && rows.length > 0 && (
-            <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
-              <Pagination
-                count={Math.ceil(totalRows / rowsPerPage)} 
-                page={page}
-                onChange={(e, newPage) => setPage(newPage)}
-                variant="outlined"
-                shape="rounded"
-                className="nua-nav-pagination"
-              />
-            </Stack>
-          )}
-
+                    
+                    <div className="user-list-empty recent-user-empty-list" style={{ textAlign: 'center' }}>
+                                  <div className="user-found-error inv-code">
+                                    {notFound}
+                                    <span>{__('No invitation code found', 'new-user-approve')}</span>
+                                  </div>
+                                </div>
+                  ) : (
+                    rows.map((row) => (
+                      <div key={row.code_id}>
+                        <span>{row.code}</span>
+                      </div>
+                    ))
+                  )}
+        
+       
         </Paper>
+         {!loading && (
+          <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
+            <Pagination
+            count={Math.max(1, pageCount)}
+            page={page}
+            onChange={(event, value) => setPage(value)}
+            variant="outlined"
+            shape="rounded"
+            className ="nua-nav-pagination"
+            />
+            <Typography variant="body2" className='nua-table-total-data'>
+            {`${startIndex}–${endIndex} of ${totalRows}`}<span style={{marginLeft: 5}}>{__('entries', 'new-user-approve')}</span>
+            </Typography>
+        </Stack>
+          
+        )}
       </div>
+        
       <PopupModal isVisible={isPopupVisible} onClose={() => setPopupVisible(false)} />
       <ToastContainer />
       

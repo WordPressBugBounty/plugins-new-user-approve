@@ -39,7 +39,7 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 			// Load up the localization file if we're using WordPress in a different language
 			// Just drop it in this plugin's "localization" folder and name it "new-user-approve-[value in wp-config].mo"
 			// load_plugin_textdomain( 'new-user-approve', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-			register_activation_hook( NUA_FILE, array( $this, 'activation' ) );
+			register_activation_hook( __FILE__, array( $this, 'activation' ) );
 			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
 			// Actions
 			add_action( 'admin_head' , array( $this, 'change_background_color' ));
@@ -88,12 +88,41 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 			add_action('woocommerce_checkout_order_processed', array( $this, 'disable_woo_auto_login_on_checkout' ), 10, 0);
 			add_action('init', array( $this, 'update_admin_notice' ));
 			add_action( 'admin_menu', array( $this, 'admin_menu_link' ), 5 );
-			add_action( 'init',  array( $this, 'wpdocs_load_textdomain' ));
+			add_action( 'plugins_loaded',  array( $this, 'wpdocs_load_textdomain' ));
+			//compatibility with membership pro plugin.
+			add_filter( 'pmpro_setup_new_user',array( $this, 'allow_pmpro_setup_user'), 20, 4 );
+			add_action('pmpro_after_checkout', array( $this,'logout_after_pmpro_registration'), 20);
+			add_action('the_content', array( $this,'nua_show_pending_user_message'), 20);
 		}
 
-		public function wpdocs_load_textdomain() {
-			load_plugin_textdomain( 'new-user-approve', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+			public function allow_pmpro_setup_user( $proceed, $user_id, $user_data, $level ) {
+				return true; 
 			}
+
+			public function logout_after_pmpro_registration($user_id) {
+				if (get_current_user_id() === (int) $user_id ) {
+					wp_logout();
+					wp_redirect( add_query_arg( 'nua_status', 'pending', wp_get_referer() ) );
+						exit;
+				}
+				
+			}
+
+			public function nua_show_pending_user_message($content) {
+				if ( isset($_GET['nua_status']) && $_GET['nua_status'] === 'pending' ) {
+					$message = '<div class="nua-pending-message" style="background:#00a6361f;padding:15px;border-left:4px solid #00a636;margin-bottom:20px;">'
+						. __( 'Thank you for registering. Your account is currently pending approval. Please wait for admin approval before attempting to log in.', 'new-user-approve' ) .
+					'</div>';
+					
+					return $message . $content;
+				}
+
+				return $content;
+			}
+
+		public function wpdocs_load_textdomain() {
+			load_plugin_textdomain( 'new-user-approve', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		}
 
 		public function nua_init_admin_functions() {
 			$this->verify_settings();
@@ -122,14 +151,13 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 				}
 			}
 		}
-
 		
 		public function admin_menu_link() {
-			$cap_main = current_user_can( 'manage_options' ) ? 'manage_options' : 'nua_main_menu';
-			$hook=add_menu_page( __( 'New User Approve', 'new-user-approve' ), __( 'New User Approve', 'new-user-approve' ), $cap_main, 'new-user-approve-admin', array( $this, 'empty_admin_page' ), 'dashicons-nua-main' );
+		
+			$hook = add_menu_page( __( 'New User Approve', 'new-user-approve' ), __( 'New User Approve', 'new-user-approve' ), 'nua_main_menu', 'new-user-approve-admin', array( $this, 'empty_admin_page' ), 'dashicons-nua-main' );
+			
 			add_action( 'admin_head-' . $hook, array( $this, 'admin_custom_icon_style' ) );
 		}
-
 		public function empty_admin_page() {
 		
 			echo '<div class="wrap"></div>';
@@ -173,12 +201,6 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 		 */
 		public function activation() {
 			global  $wp_version ;
-			$role = get_role( 'administrator' );
-			if ( $role ) {
-				foreach ( $this->get_caps() as $cap ) {
-					$role->add_cap( $cap );
-				}
-			}
 			$min_wp_version = '3.5.1';
 			// translators: %s is for wordpress version
 			$exit_msg = sprintf( __( 'New User Approve requires WordPress %s or newer.', 'new-user-approve' ), $min_wp_version );
@@ -560,10 +582,13 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 		 * @since 2.0 `nua-admin` enqueued for zapier
 		 */
 		public function nua_admin_scripts() {
+			$pages = array( 'new-user-approve-auto-approve', 'nua-invitation-code', 'new-user-approve', 'new-user-approve-admin' );
+			wp_enqueue_style( 'nua-fonts', plugins_url( '/assets/css/nua-fonts.css', __FILE__ ), array(), NUA_VERSION );
+			if (isset($_GET['page']) && in_array($_GET['page'], $pages)) {
 			wp_enqueue_script('jquery');
 			wp_enqueue_editor();
 			wp_enqueue_media();
-			wp_enqueue_script('new-user-approve-buildjs', plugins_url('/build/index.js', __FILE__), array( 'wp-blocks', 'wp-block-library', 'wp-element', 'wp-i18n', 'wp-editor', 'wp-data' ), '1.0.0', true);
+			wp_enqueue_script('new-user-approve-buildjs', plugins_url('/build/index.js', __FILE__), array( 'wp-blocks', 'wp-block-library', 'wp-element', 'wp-i18n', 'wp-components', 'wp-editor', 'wp-data' ), NUA_VERSION, true);
 			wp_enqueue_style( 'new-user-approve-buildcss', plugins_url('/build/style-index.css', __FILE__) );
 			wp_localize_script('new-user-approve-buildjs', 'siteDetail', array(
 				'siteUrl' => get_site_url(),
@@ -609,26 +634,22 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 			));
 
 			wp_enqueue_style( 'nua-fonts', plugins_url( '/assets/css/nua-fonts.css', __FILE__ ), array(), NUA_VERSION );
-			$pages = array( 'new-user-approve-auto-approve', 'nua-invitation-code', 'new-user-approve', 'new-user-approve-admin' );
-
-			if (isset($_GET['page']) && in_array($_GET['page'], $pages)) {
+			
 				wp_enqueue_style( 'nua-admin-style', plugins_url( '/assets/css/nua-admin-style.css', __FILE__ ), array( 'nua-fonts' ), NUA_VERSION);
 
 				$current_user = wp_get_current_user();
-				$cap = function( $capability ) {
-					return current_user_can( 'manage_options' ) || current_user_can( $capability );
-				};
 				wp_enqueue_script( 'nua-admin', plugins_url( '/assets/js/admin.js', __FILE__ ), array( 'jquery' ), NUA_VERSION );
 				wp_localize_script(
 				'nua-admin',
 				'nuaAdmin',
 				array(
-					'info'                  => $current_user->user_nicename,
-					'nua_view_invitation_tab' => $cap( 'nua_view_invitation_tab' ),
-					'nua_auto_approve_cap'    => $cap( 'nua_auto_approve_cap' ),
-					'nua_integration_cap'     => $cap( 'nua_integration_cap' ),
-					'nua_settings_cap'        => $cap( 'nua_settings_cap' ),
-					'nua_users_cap'           => $cap( 'nua_users_cap' )
+					'info'  =>  $current_user->user_nicename,
+					 'nua_view_invitation_tab'    => current_user_can( 'nua_view_invitation_tab' ),
+					  'nua_auto_approve_cap'    => current_user_can( 'nua_auto_approve_cap' ),
+					  'nua_integration_cap'    => current_user_can( 'nua_integration_cap' ),
+					  'nua_settings_cap'    => current_user_can( 'nua_settings_cap' ),
+					   'nua_users_cap'    => current_user_can( 'nua_users_cap' )
+					  
 				),
 				
 				);
@@ -667,7 +688,7 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 		 * @param $user_email email address of the user
 		 */
 		public function admin_approval_email( $user_login, $user_email ) {
-			$default_admin_url = admin_url( 'users.php?s&pw-status-query-submit=Filter&new_user_approve_filter=pending&paged=1' );
+			$default_admin_url = admin_url( 'admin.php?page=new-user-approve-admin#/action=users/tab=pending-users' );
 			$admin_url = apply_filters( 'new_user_approve_admin_link', $default_admin_url );
 			/* send email to admin for approval */
 			$message = apply_filters( 'new_user_approve_request_approval_message_default', nua_default_notification_message() );

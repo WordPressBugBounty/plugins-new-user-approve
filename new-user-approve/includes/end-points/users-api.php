@@ -105,32 +105,43 @@ class Users_API {
 
 
 	public function recent_users( $request ) {
-		
+
 		$nonce = $request->get_header('X-WP-Nonce');
 		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
+			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), ['status' => 403] );
 		}
 
-		$filter_by = isset($_GET['filter_by']) && !empty($_GET['filter_by']) ? sanitize_text_field($_GET['filter_by']) :'30 days ago';
+		$filter_by    = sanitize_text_field( $request->get_param('filter_by') ?: '30 days ago' );
+		$limit        = (int) apply_filters( 'recent_users_limit', 5 );
+		$new_results  = $this->nua_users_filter( $filter_by, $limit );
 
-		$number_limit = apply_filters('recent_users_limit', 5);
-		$new_results = $this->nua_users_filter($filter_by, $number_limit);
-		if ( !empty( $new_results ) ) {
+		$users        = [];
+		$default_cols = ['user_login','user_email','user_registered','nua_status','actions'];
 
-			$users = array();
-			foreach ( $new_results as  $user) {
-				
-				$user_status = pw_new_user_approve()->get_user_status( $user->ID );
-				$user_status = array( 'nua_status' => $user_status );
-				 // Convert `user_registered` to local timezone
-				$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-				$usersData   = (object) array_merge( (array) $user->data, array( 'user_registered' => $user_registered ), (array) $user_status  );
-				$users []  = $usersData;
-			}
-			return new WP_REST_Response( $users, 200 );
+		foreach ( $new_results as $user ) {
+			$data = [
+				'ID'              => $user->ID,
+				'user_login'      => $user->user_login,
+				'user_email'      => $user->user_email,
+				'user_registered' => get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' ),
+				'nua_status'      => pw_new_user_approve()->get_user_status( $user->ID ),
+			];
+			$users[] = (object) apply_filters( 'nua_recent_user_data', $data, $user );
 		}
-		return array( 'data' => 'empty' );
+
+		$extra_cols = !empty($users[0]) ? array_keys((array) $users[0]) : [];
+		$extra_cols = array_filter($extra_cols, fn($col) => $col !== 'ID');
+
+		$columns = apply_filters( 'nua_user_columns', array_merge($default_cols, $extra_cols) );
+
+		return [
+			'users'         => $users,
+			'totals'        => count($users),
+			'columns_order' => array_values(array_unique($columns)),
+		];
 	}
+
+
 	// updating user manually.
 	public function update_user( $request ) {
 
@@ -143,275 +154,276 @@ class Users_API {
 		if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
 			$postData = file_get_contents('php://input');
 			$data = json_decode($postData, true);
-			
-			if ( $data ) {
-				// request handling function
-				if ( ( !isset($data['userID']) || empty($data['userID']) ) || ( !isset($data['status_label']) || empty($data['status_label']) ) ) {
-					return new \WP_Error( 400, __( 'Incomplete Request', 'new-user-approve' ), 'Incomplete Request' );
+
+			if ($data) {
+
+				// Handle Bulk Users
+				$user_ids = array();
+
+				if (isset($data['userIDs']) && is_array($data['userIDs']) && !empty($data['userIDs'])) {
+					$user_ids = array_map('absint', $data['userIDs']);
+				} elseif (isset($data['userID']) && !empty($data['userID'])) {
+					$user_ids[] = absint($data['userID']);  // fallback for single user
+				} else {
+					return new \WP_Error(400, __('Incomplete Request', 'new-user-approve'), 'Incomplete Request');
+				}
+
+				if (!isset($data['status_label']) || empty($data['status_label'])) {
+					return new \WP_Error(400, __('Incomplete Request', 'new-user-approve'), 'Incomplete Request');
 				}
 
 				$statuses = array(
 					'approve' => 'approved',
-					'deny' => 'denied'
+					'deny'    => 'denied'
 				);
 
-				$user_id =  absint($data['userID']);
-				$label   =  sanitize_text_field($data['status_label']) ;
-				$user_status = $statuses[ $label ] ;
-			   
-				if ( $user_status == 'approved' ) {
-					pw_new_user_approve()->approve_user( $user_id );
+				$label = sanitize_text_field($data['status_label']);
+				$user_status = $statuses[$label];
+
+				foreach ($user_ids as $user_id) {
+					if ($user_status === 'approved') {
+						pw_new_user_approve()->approve_user($user_id);
+					} elseif ($user_status === 'denied') {
+						pw_new_user_approve()->update_deny_status($user_id);
+						pw_new_user_approve()->deny_user($user_id);
+					}
 				}
-				
-				if ( $user_status == 'denied' ) {
 
-					//change the status
-					pw_new_user_approve()->update_deny_status( $user_id ); 
+				return new WP_REST_Response(array('message' => 'Success'), 200);
 
-					// send the denied email
-					pw_new_user_approve()->deny_user( $user_id );
-				}
-				// do_action('updated_recent_requested_user', $user_id, $user_status);
-
-				return new WP_REST_Response( $data , 200 );
 			} else {
-				$response =new \WP_Error( 400, __( 'Request has been Failed', 'new-user-approve' ), 'Request has been Failed' );
-				return $response;
+				return new \WP_Error(400, __('Request has been Failed', 'new-user-approve'), 'Request has been Failed');
 			}
 		}
+
 	}
 	public function get_all_users( $request ) {
-	
-		// Nonce Verification
+
 		$nonce = $request->get_header('X-WP-Nonce');
 		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
+			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), ['status' => 403] );
 		}
 
-		$page = $request->get_param('page') ? intval($request->get_param('page')) : 1;
-		$limit = $request->get_param('limit') ? intval($request->get_param('limit')) : 10;
+		$page   = (int) $request->get_param('page') ?: 1;
+		$limit  = (int) $request->get_param('limit') ?: 10;
 		$offset = ( $page - 1 ) * $limit;
-		$search = $request->get_param( 'search' ) ? sanitize_text_field( $request->get_param( 'search' ) ) : '';
-		
-		$args = array(
+		$search = sanitize_text_field( $request->get_param('search') ?: '' );
 
-			'meta_query' => array(
-				array(
-					'key' => 'pw_user_status',
-					'value' => '',
-					'compare' => '!='
-				)
-			),
-		
-			'orderby' => 'user_registered', // Order by registration date
-			'order'   => 'DESC',            // Get the most recent record
-			'number'  => $limit, 
-			'offset' => $offset,            
-			'search'  => '*' . $search . '*',
-			'search_columns' => array( 'user_login', 'user_nicename', 'user_email' ),
+		$args = [
+			'meta_query'     => [[ 'key' => 'pw_user_status', 'value' => '', 'compare' => '!=' ]],
+			'orderby'        => 'user_registered',
+			'order'          => 'DESC',
+			'number'         => $limit,
+			'offset'         => $offset,
+			'search'         => '*' . $search . '*',
+			'search_columns' => ['user_login', 'user_nicename', 'user_email'],
+		];
 
+		$results      = new WP_User_Query( apply_filters('get_all_users_query', $args) );
+		$users        = [];
+		$default_cols = ['user_login','user_email','user_registered','nua_status','actions'];
 
-
-		);
-		$query = apply_filters('get_all_users_query', $args);
-
-		$results = new WP_User_Query( $query );
-		$new_results =  $results->get_results();
-		
-		$total_users = $results->get_total();
-		$users = array();
-		$all_users = array();
-		foreach ( $new_results as  $user) {
-
-			$user_status = pw_new_user_approve()->get_user_status( $user->ID );
-			$user_status = array( 'nua_status' => $user_status );
-			 // Convert `user_registered` to local timezone
-			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			$usersData = (object) array(
-			'ID' => $user->ID,
-			'user_nicename' => $user->user_nicename,
-			'user_email' => $user->user_email,
-			'display_name' => $user->display_name,
-			'user_registered' => $user_registered,
-			'nua_status' => $user_status['nua_status'],
-		);
-			$users[]    = $usersData;
+		foreach ( $results->get_results() as $user ) {
+			$data = [
+				'ID'              => $user->ID,
+				'user_login'      => $user->user_login,
+				'user_email'      => $user->user_email,
+				'user_registered' => get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' ),
+				'nua_status'      => pw_new_user_approve()->get_user_status( $user->ID ),
+			];
+			$users[] = (object) apply_filters( 'nua_user_data', $data, $user );
 		}
 
-		$all_users['users'] = $users;
-		$all_users['totals']  = $total_users;
-		return $all_users;
+		$extra_cols = !empty($users[0]) ? array_keys((array) $users[0]) : [];
+		$extra_cols = array_filter($extra_cols, fn($col) => $col !== 'ID');
+
+		$columns = apply_filters( 'nua_user_columns', array_merge($default_cols, $extra_cols) );
+
+		return [
+			'users'         => $users,
+			'totals'        => $results->get_total(),
+			'columns_order' => array_values(array_unique($columns)),
+		];
 	}
+
+
 	public function get_approved_users( $request ) {
 
-		// Nonce Verification
 		$nonce = $request->get_header('X-WP-Nonce');
 		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
+			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), ['status' => 403] );
 		}
 
-		$page = $request->get_param('page') ? intval($request->get_param('page')) : 1;
-		$limit = $request->get_param('limit') ? intval($request->get_param('limit')) : 5;
+		$page   = (int) $request->get_param('page') ?: 1;
+		$limit  = (int) $request->get_param('limit') ?: 5;
 		$offset = ( $page - 1 ) * $limit;
-		$search = $request->get_param( 'search' ) ? sanitize_text_field( $request->get_param( 'search' ) ) : '';
+		$search = sanitize_text_field( $request->get_param('search') ?: '' );
 
-		$args = array(
-			'meta_query' => array(
-				array(
-					'key' => 'pw_user_status',
-					'value' => 'approved',
-					'compare' => '='
-				)
-			),
-			'orderby' => 'user_registered', // Order by registration date
-			'order'   => 'DESC',  
-			'number' => $limit,
-			'offset' => $offset,
-			'search' => '*' . $search . '*',
-			'search_columns' => array( 'user_login', 'user_nicename', 'user_email' ),
-		);
-		$query = apply_filters('get_approved_users_query', $args);
+		$args = [
+			'meta_query'     => [[ 'key' => 'pw_user_status', 'value' => 'approved' ]],
+			'orderby'        => 'user_registered',
+			'order'          => 'DESC',
+			'number'         => $limit,
+			'offset'         => $offset,
+			'search'         => '*' . $search . '*',
+			'search_columns' => ['user_login', 'user_nicename', 'user_email'],
+		];
 
-		$results = new WP_User_Query( $query );
-		$new_results =  $results->get_results();
-		$total_users = $results->get_total();
-		$users = array();
-		$all_users = array();
-		foreach ( $new_results as  $user) {
-			
-			$user_status = pw_new_user_approve()->get_user_status( $user->ID );
-			$user_status = array( 'nua_status' => $user_status );
-			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			$usersData = (object) array(
-			'ID' => $user->ID,
-			'user_nicename' => $user->user_nicename,
-			'user_email' => $user->user_email,
-			'display_name' => $user->display_name,
-			'user_registered' => $user_registered,
-			'nua_status' => $user_status['nua_status'],
-		);
-			$users[]     = $usersData;
+		$results     = new WP_User_Query( apply_filters('get_approved_users_query', $args) );
+		$users       = [];
+		$default_cols = ['user_login','user_email','user_registered','nua_status','actions'];
+
+		foreach ( $results->get_results() as $user ) {
+			$data = [
+				'ID'              => $user->ID,
+				'user_login'      => $user->user_login,
+				'user_email'      => $user->user_email,
+				'user_registered' => get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' ),
+				'nua_status'      => pw_new_user_approve()->get_user_status( $user->ID ),
+			];
+			$users[] = (object) apply_filters( 'nua_user_data', $data, $user );
 		}
 
-		$all_users['users'] = $users;
-		$all_users['totals']  = $total_users;
-		return $all_users;
-	}
+		$extra_cols = !empty($users[0]) ? array_keys((array) $users[0]) : [];
+		$extra_cols = array_filter($extra_cols, fn($col) => $col !== 'ID');
 
+		$columns    = apply_filters( 'nua_user_columns', array_merge($default_cols, $extra_cols) );
+
+		return [
+			'users'         => $users,
+			'totals'        => $results->get_total(),
+			'columns_order' => array_values(array_unique($columns)),
+		];
+	}
 
 	public function get_pending_users( $request ) {
-
 		// Nonce Verification
 		$nonce = $request->get_header('X-WP-Nonce');
 		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
 		}
 
-		$page = $request->get_param('page') ? intval($request->get_param('page')) : 1;
-		$limit = $request->get_param('limit') ? intval($request->get_param('limit')) : 5;
+		$page   = $request->get_param('page') ? intval($request->get_param('page')) : 1;
+		$limit  = $request->get_param('limit') ? intval($request->get_param('limit')) : 5;
 		$offset = ( $page - 1 ) * $limit;
-		$search = $request->get_param( 'search' ) ? sanitize_text_field( $request->get_param( 'search' ) ) : '';
+		$search = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
 
 		$args = array(
 			'meta_query' => array(
 				array(
-					'key' => 'pw_user_status',
-					'value' => 'pending',
-					'compare' => '='
-				)
+					'key'     => 'pw_user_status',
+					'value'   => 'pending',
+					'compare' => '=',
+				),
 			),
-			'orderby' => 'user_registered', // Order by registration date
-			'order'   => 'DESC',  
-			'number' => $limit,
-			'offset' => $offset,
-			'search' => '*' . $search . '*',
+			'orderby'        => 'user_registered',
+			'order'          => 'DESC',
+			'number'         => $limit,
+			'offset'         => $offset,
+			'search'         => '*' . $search . '*',
 			'search_columns' => array( 'user_login', 'user_nicename', 'user_email' ),
 		);
-		$query = apply_filters('get_pending_users_query', $args);
 
-		$results = new WP_User_Query( $query );
-		$new_results =  $results->get_results();
+		$query       = apply_filters('get_pending_users_query', $args);
+		$results     = new WP_User_Query( $query );
+		$new_results = $results->get_results();
 		$total_users = $results->get_total();
+
 		$users = array();
-		$all_users = array();
-		foreach ( $new_results as  $user) {
-			
-			$user_status = pw_new_user_approve()->get_user_status( $user->ID );
-			$user_status = array( 'nua_status' => $user_status );
+		foreach ( $new_results as $user ) {
+			$status          = pw_new_user_approve()->get_user_status( $user->ID );
 			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			
-			$usersData = (object) array(
-			'ID' => $user->ID,
-			'user_nicename' => $user->user_nicename,
-			'user_email' => $user->user_email,
-			'display_name' => $user->display_name,
-			'user_registered' => $user_registered,
-			'nua_status' => $user_status['nua_status'],
-		);
-			$users[]     = $usersData;
+
+			$data = array(
+				'ID'              => $user->ID,
+				'user_login'      => $user->user_login,
+				'user_email'      => $user->user_email,
+				'user_registered' => $user_registered,
+				'nua_status'      => $status,
+			);
+
+			$users[] = (object) apply_filters( 'nua_user_data', $data, $user );
 		}
 
-		$all_users['users'] = $users;
-		$all_users['totals']  = $total_users;
-		return $all_users;
-	}
+		$default_cols = array( 'user_login', 'user_email', 'user_registered', 'nua_status', 'actions' );
+		$extra_cols = !empty($users[0]) ? array_keys((array) $users[0]) : [];
+		$extra_cols = array_filter($extra_cols, fn($col) => $col !== 'ID');
 
+		$columns = array_merge( $default_cols, $extra_cols );
+		$columns = apply_filters( 'nua_user_columns', $columns );
+		$columns = array_values( array_unique( $columns ) );
+
+		return array(
+			'users'         => $users,
+			'totals'        => $total_users,
+			'columns_order' => $columns,
+		);
+	}
 
 	public function get_denied_users( $request ) {
-
 		// Nonce Verification
 		$nonce = $request->get_header('X-WP-Nonce');
 		if ( ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
 			return new WP_Error( 'rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ) );
 		}
 
-		$page = $request->get_param('page') ? intval($request->get_param('page')) : 1;
-		$limit = $request->get_param('limit') ? intval($request->get_param('limit')) : 5;
+		$page   = $request->get_param('page') ? intval($request->get_param('page')) : 1;
+		$limit  = $request->get_param('limit') ? intval($request->get_param('limit')) : 5;
 		$offset = ( $page - 1 ) * $limit;
-		$search = $request->get_param( 'search' ) ? sanitize_text_field( $request->get_param( 'search' ) ) : '';
+		$search = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
 
 		$args = array(
 			'meta_query' => array(
 				array(
-					'key' => 'pw_user_status',
-					'value' => 'denied',
-					'compare' => '='
-				)
+					'key'     => 'pw_user_status',
+					'value'   => 'denied',
+					'compare' => '=',
+				),
 			),
-			'orderby' => 'user_registered', // Order by registration date
-			'order'   => 'DESC',  
-			'number' => $limit,
-			'offset' => $offset,
-			'search' => '*' . $search . '*',
+			'orderby'        => 'user_registered',
+			'order'          => 'DESC',
+			'number'         => $limit,
+			'offset'         => $offset,
+			'search'         => '*' . $search . '*',
 			'search_columns' => array( 'user_login', 'user_nicename', 'user_email' ),
 		);
-		$query = apply_filters('get_denied_users_query', $args);
 
-		$results = new WP_User_Query( $query );
-		$new_results =  $results->get_results();
-		$total_users = $results->get_total(); 
+		$query       = apply_filters('get_denied_users_query', $args);
+		$results     = new WP_User_Query( $query );
+		$new_results = $results->get_results();
+		$total_users = $results->get_total();
+
 		$users = array();
-		$all_users = array();
-		foreach ( $new_results as  $user) {
-			
-			$user_status = pw_new_user_approve()->get_user_status( $user->ID );
-			$user_status = array( 'nua_status' => $user_status );
+		foreach ( $new_results as $user ) {
+			$status          = pw_new_user_approve()->get_user_status( $user->ID );
 			$user_registered = get_date_from_gmt( $user->user_registered, 'Y-m-d H:i:s' );
-			$usersData = (object) array(
-			'ID' => $user->ID,
-			'user_nicename' => $user->user_nicename,
-			'user_email' => $user->user_email,
-			'display_name' => $user->display_name,
-			'user_registered' => $user_registered,
-			'nua_status' => $user_status['nua_status'],
-		);
-			$users[]     = $usersData;
+
+			$data = array(
+				'ID'              => $user->ID,
+				'user_login'      => $user->user_login,
+				'user_email'      => $user->user_email,
+				'user_registered' => $user_registered,
+				'nua_status'      => $status,
+			);
+
+			$users[] = (object) apply_filters( 'nua_user_data', $data, $user );
 		}
 
-		$all_users['users'] = $users;
-		$all_users['totals']  = $total_users;
-		return $all_users;
+		$default_cols = array( 'user_login', 'user_email', 'user_registered', 'nua_status', 'actions' );
+		$extra_cols = !empty($users[0]) ? array_keys((array) $users[0]) : [];
+		$extra_cols = array_filter($extra_cols, fn($col) => $col !== 'ID');
+
+		$columns = array_merge( $default_cols, $extra_cols );
+		$columns = apply_filters( 'nua_user_columns', $columns );
+		$columns = array_values( array_unique( $columns ) );
+
+		return array(
+			'users'         => $users,
+			'totals'        => $total_users,
+			'columns_order' => $columns,
+		);
 	}
+
 
 
 	public function get_approved_user_roles( $request ) {

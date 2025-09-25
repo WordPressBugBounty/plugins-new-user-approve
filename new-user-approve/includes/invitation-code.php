@@ -68,11 +68,139 @@ if ( ! class_exists( 'NUA_Invitation_Code' ) ) {
 				add_action('woocommerce_register_form', array( $this, 'nua_invitation_code_field' ));
 				add_action('um_after_form_fields', array( $this, 'nua_invitation_code_field' ), 10, 2);
 				add_action('nua_invited_user', array( $this, 'message_above_regform' ), 10, 1);
+				// compatibility with UsersWP plugin.
+				add_action('uwp_template_fields', array( $this, 'uwp_nua_invitation_code_field' ), 10, 1);
+				add_filter( 'uwp_validate_fields_before', array( $this, 'uwp_invite_code_check' ), 10, 3 );
 
 			}
 
 			add_action('admin_notices', array( $this, 'nua_invite_code_errors' ));
 		}
+
+
+		public  function uwp_nua_invitation_code_field($form_type) {
+		if ( $form_type !== 'register' ) {
+        	return;
+    	}
+		$options = get_option('new_user_approve_options' );
+		$required = false;
+		if (!empty($options['nua_checkbox_textbox'])) {
+			$required = true;
+		}
+		?>
+		
+		<p class="nua_inv_field form-group"> 
+		<?php
+		if ($required == true) :
+			?>
+			<!-- snfr -->
+			<label for="invitation_code"><?php esc_html_e('Invitation Code', 'new-user-approve'); ?>&nbsp;
+			  <span id="nua-required" aria-hidden="true" style="color:#a00">*</span>
+			  <span class="screen-reader-text">Required</span>
+			</label>
+			<?php
+			else :
+				?>
+				<!-- snfr -->
+				<label> <?php esc_html_e('Invitation Code', 'new-user-approve'); ?></label>
+			<?php endif; ?>
+			<input type="text" class="nua_invitation_code form-control" name="nua_invitation_code"/>
+			<?php wp_nonce_field('nua_invitation_code_action', 'nua_invitation_code_nonce'); ?>
+		</p>
+		<?php
+	}
+
+	public function uwp_invite_code_check( $errors, $data, $type ) {
+		if ( $type !== 'register' ) {
+			return $errors;
+		}
+
+		$options = get_option( 'new_user_approve_options' );
+
+		// Use POST for nonce verification
+		if ( isset( $_POST['nua_invitation_code_nonce'] ) &&
+			wp_verify_nonce( $_POST['nua_invitation_code_nonce'], 'nua_invitation_code_action' )
+		) {
+        if ( isset( $data['nua_invitation_code'] ) && ! empty( $data['nua_invitation_code'] ) ) {
+
+            $args = array(
+                'numberposts' => -1,
+                'post_type'   => $this->code_post_type,
+                'post_status' => 'publish',
+                'meta_query'  => array(
+                    'relation' => 'AND',
+                    array(
+                        array(
+                            'key'     => $this->code_key,
+                            'value'   => sanitize_text_field( $data['nua_invitation_code'] ),
+                            'compare' => '=',
+                        ),
+                        array(
+                            'key'     => $this->usage_limit_key,
+                            'value'   => '1',
+                            'compare' => '>=',
+                        ),
+                        array(
+                            'key'     => $this->expiry_date_key,
+                            'value'   => time(),
+                            'compare' => '>=',
+                        ),
+                        array(
+                            'key'     => $this->status_key,
+                            'value'   => 'Active',
+                            'compare' => '=',
+                        ),
+                    ),
+                ),
+            );
+
+            $posts = get_posts( $args );
+            $flag  = true;
+
+            foreach ( $posts as $post_inv ) {
+                $code_inv = get_post_meta( $post_inv->ID, $this->code_key, true );
+                if ( $code_inv === sanitize_text_field( $data['nua_invitation_code'] ) ) {
+                    $flag = false;
+                    global $inv_file_lock;
+                    $inv_file_lock = $this->invite_code_hold( $post_inv->ID );
+                    if ( $inv_file_lock === false ) {
+                        $errors->add( 'invcode_error', '<strong>Notice</strong>: Server is busy, please try again!' );
+                        return $errors;
+                    }
+                    return $errors;
+                }
+            }
+
+            if ( $flag ) {
+                $errors->add( 'invcode_error', '<strong>ERROR</strong>: The Invitation code is invalid' );
+                return $errors;
+            }
+
+            if ( isset( $data['nua_invitation_code'] ) &&
+                 isset( $options['nua_registration_deadline'] ) &&
+                 ! isset( $options['nua_auto_approve_deadline'] )
+            ) {
+                $errors->add( 'invcode_error', '<strong>Error</strong>: Cannot use Code because deadline exceeded.' );
+            }
+
+        } elseif ( ! isset( $data['nua_invitation_code'] ) ||
+            ( isset( $data['nua_invitation_code'] ) && empty( $data['nua_invitation_code'] ) && ! empty( $options['nua_checkbox_textbox'] ) )
+        ) {
+            $errors->add( 'invcode_error', '<strong>ERROR</strong>: Please add an Invitation code.' );
+        }
+		} elseif ( ! isset( $data['nua_invitation_code'] ) ||
+			( isset( $data['nua_invitation_code'] ) && empty( $data['nua_invitation_code'] ) && ! empty( $options['nua_checkbox_textbox'] ) )
+		) {
+			$errors->add( 'invcode_nonce_error', '<strong>ERROR</strong>: Something went wrong.' );
+		}
+
+    return $errors;
+	}
+
+
+
+
+
 		public function nua_disable_welcome_email_callback( $disabled, $user_id ) { 
 			$status=get_user_meta( $user_id, 'pw_user_status', true );
 			if ('approved'==$status) {

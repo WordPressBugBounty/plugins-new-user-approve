@@ -88,22 +88,17 @@ const Auto_Approve = () => {
         </div>
       </div>
 
+       
+
+        {/* <textarea name="whitelist2" className="whitelist2" row={40} /> */}
+
+
         <div className="nua-domain-text nua-setting-pro">
         <div className="nua-domain-text-a">
-     <span style={{fontSize: '1.3em'}} className='setting-label enable-whitelist-label'>
-          {__('Enter Domain(s)', 'new-user-approve')}
-          
-          <span className="nua-tooltip-wrapper">
-            <span className="dashicons dashicons-editor-help nua-tooltip-icon" style={{fontSize: 16}}></span>
-            <div className="nua-tooltip-text">
-              {__('Enter one domain per line (e.g., Domain Names, Site Builder, Hosting, and More | Domain.com). To block a specific subdomain, you can also enter it directly (e.g., mail.domain.com).', 'new-user-approve')}
-            </div>
-          </span>
-          <p className={'whitelist-desc auto-approve-textarea-desc'}>
+        <h2 className="enable-whitelist-label" style={{marginTop: '0px'}}>{__(`Enter Domain(s)`, 'new-user-approve')}</h2>
+        <p className={'whitelist-desc auto-approve-textarea-desc'}>
           {__(`One domain per line.`, 'new-user-approve')}
         </p>
-
-        </span>
         </div>
         <div>
         <textarea 

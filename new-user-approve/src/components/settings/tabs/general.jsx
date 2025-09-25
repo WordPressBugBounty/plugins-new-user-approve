@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { get_general_settings } from '../../../functions';
 import { update_general_settings } from '../../../functions';
 import Select from 'react-select'
-import { get_user_roles } from '../../../functions';
-import { sprintf, __ } from '@wordpress/i18n';
-import { format_selected_values } from '../../../functions';
+import { __ } from '@wordpress/i18n';
 import { ToastContainer, toast } from 'react-toastify';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Tabs} from '@mui/base/Tabs';
@@ -12,14 +10,9 @@ import { TabsList  } from '@mui/base/TabsList';
 import { TabPanel  } from '@mui/base/TabPanel';
 import { Tab , tabClasses } from '@mui/base/Tab';
 import RegistrationTab from '../tabs/registration'
-import NotificationTab from '../tabs/notification'
 import Admin_Notification from '../tabs/admin-notification';
 import User_Notification from '../tabs/user-notification';
 import HelpTab from '../tabs/help'
-import { get_registration_settings } from '../../../functions';
-import { update_registration_settings } from '../../../functions';
-import { ResetRegistrationNumber } from '../../../functions';
-import Skeleton from '@mui/material/Skeleton';
 import { BrowserRouter as Router, Routes, Route, useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import PopupModal from '../../popup-modal';
 
@@ -64,9 +57,6 @@ const [isPopupVisible, setPopupVisible] = useState(false);
         }
 
     }
-
-
-    
 
     const HandleMessageChange = (e) => {
         setPopupVisible(true);
@@ -305,9 +295,9 @@ const handleRestNumber = async  ( ) => {
   </div>
 </div>
 
-                  <hr />
+  <hr />
           
-               <div className="nua_inner_settings">
+   <div className="nua_inner_settings">
   <h2>{__('Approval Settings', 'new-user-approve')}{proIcon}</h2>
 
   {/* Enable Auto-Approve */}
@@ -389,12 +379,8 @@ const handleRestNumber = async  ( ) => {
           <Select
             isDisabled
             isMulti
-            // options={Object.entries(user_role_list).map(([value, label]) => ({
-            //   value: value,
-            //   label: label
-            // }))}
+        
             classNamePrefix="Select Roles"
-            // value={roles_selectedList}
             onChange={handleUserRoleListChange}
             placeholder="Select Roles"
           />

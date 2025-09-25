@@ -361,11 +361,15 @@ export const get_general_settings = async () => {
   }
 };
 
-export const delete_invCode = async ({ endpoint, code_id }) => {
+export const delete_invCode = async ({ endpoint, code_ids }) => {
   let request_url = "";
-  if (endpoint == "delete-invCode") {
+  if (endpoint === "delete-invCode") {
     request_url = NUARestAPI.delete_invCode;
   }
+  
+  // Always ensure array format
+  const idsArray = Array.isArray(code_ids) ? code_ids : [code_ids];
+
   try {
     const response = await fetch(`${request_url}`, {
       method: "POST",
@@ -373,14 +377,15 @@ export const delete_invCode = async ({ endpoint, code_id }) => {
         "Content-Type": "application/json",
         "X-WP-Nonce": wpApiSettings.nonce,
       },
-      body: JSON.stringify({ code_id }),
+      body: JSON.stringify({ code_ids: idsArray }),
     });
     const data = await response.json();
     return { data: data };
   } catch (error) {
     return { error };
   }
-};  
+};
+ 
 
 // setting help
 

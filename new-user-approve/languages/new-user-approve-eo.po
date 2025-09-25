@@ -1,17 +1,16 @@
-# Copyright (C) 2025 New User Approve
-# This file is distributed under the same license as the New User Approve plugin.
 msgid ""
 msgstr ""
 "Project-Id-Version: New User Approve 3.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/objects_ws-new-user-approve-7ea9cfa93df0\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Marcus Kazmierczak <marcus@mkaz.com>\n"
+"Language-Team: Esperanto <marcus@mkaz.com>\eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-07-31T09:10:04+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.12.0\n"
+"PO-Revision-Date: 2025-08-01 01:57+0500\n"
+"Language: \n"
+"X-Generator: Poedit 3.6\n"
 "X-Domain: new-user-approve\n"
 
 #. Plugin Name of the plugin
@@ -99,19 +98,19 @@ msgstr ""
 
 #: src/components/dashboard/counter-list.jsx:53
 msgid "Total Requests"
-msgstr ""
+msgstr "Tdjdjdj"
 
 #: src/components/dashboard/counter-list.jsx:63
 msgid "Pending Requests"
-msgstr ""
+msgstr "Pmdmd"
 
 #: src/components/dashboard/counter-list.jsx:73
 msgid "Approved Requests"
-msgstr ""
+msgstr "AHdjjjd"
 
 #: src/components/dashboard/counter-list.jsx:83
 msgid "Rejected Requests"
-msgstr ""
+msgstr "Adhdhd"
 
 #: src/components/dashboard/fetch_users/all-users.jsx:98
 #: src/components/dashboard/fetch_users/approved-users.jsx:92
@@ -413,7 +412,7 @@ msgstr ""
 
 #: src/components/dashboard/recent_users_table.jsx:181
 msgid "Analytics"
-msgstr ""
+msgstr "Akdkdkdk"
 
 #: src/components/dashboard/recent_users_table.jsx:190
 msgid "Recent Requests"

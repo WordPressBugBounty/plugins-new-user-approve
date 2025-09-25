@@ -1,20 +1,13 @@
 import React, { Component, useEffect, useState } from 'react';
-import { styled } from '@mui/system';
 import { Tabs} from '@mui/base/Tabs';
 import { TabsList  } from '@mui/base/TabsList';
 import { TabPanel  } from '@mui/base/TabPanel';
 import { Tab , tabClasses } from '@mui/base/Tab';
-// import { get_general_settings } from '../../functions';
-import { update_general_settings } from '../../functions';
 import Add_Code_SubTabs from '../invitation-code/add-code-subtabs';
 import Recent_Users from './recent-users';
 import Users_SubTabs from './users-sub-tabs';
-// import Users_SubTabs from './tes';
-import Users from './fetch_users/users';
-// import Auto_Approve from './auto-approve';
 import Auto_Approve from './auto-approve';
 import Integrations from './integrations/integrations';
-// import Invitation from '../invitation-code/invitation-code-main-tabs';
 import Settings from '../settings/tabs/general';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 
@@ -22,25 +15,9 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation 
 import { sprintf, __ } from '@wordpress/i18n';
 const icons = require.context('../../assets/icons', false, /\.svg$/);
 
-
-
 const NUA_Dash_Tabs = () => {
-// const [showInvitationTab, setShowInvitationTab] = useState(false);   
- useEffect(() => {
-    
-    // const general_settings = async () => {
 
-    //     const response = await get_general_settings();
-    //     if(response.data.data.nua_invitation_code === true){
-    //         setShowInvitationTab(true);
-    //     }
-  
-    // }
-    // general_settings();
-}, [])
-
-    
-        let dash_icon = (
+    let dash_icon = (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M2 6C2 4.11438 2 3.17157 2.58579 2.58579C3.17157 2 4.11438 2 6 2C7.88562 2 8.82843 2 9.41421 2.58579C10 3.17157 10 4.11438 10 6V8C10 9.88562 10 10.8284 9.41421 11.4142C8.82843 12 7.88562 12 6 12C4.11438 12 3.17157 12 2.58579 11.4142C2 10.8284 2 9.88562 2 8V6Z" fill="#242424"/>
             <path d="M2 19C2 18.0681 2 17.6022 2.15224 17.2346C2.35523 16.7446 2.74458 16.3552 3.23463 16.1522C3.60218 16 4.06812 16 5 16H7C7.93188 16 8.39782 16 8.76537 16.1522C9.25542 16.3552 9.64477 16.7446 9.84776 17.2346C10 17.6022 10 18.0681 10 19C10 19.9319 10 20.3978 9.84776 20.7654C9.64477 21.2554 9.25542 21.6448 8.76537 21.8478C8.39782 22 7.93188 22 7 22H5C4.06812 22 3.60218 22 3.23463 21.8478C2.74458 21.6448 2.35523 21.2554 2.15224 20.7654C2 20.3978 2 19.9319 2 19Z" fill="#242424"/>
@@ -52,13 +29,7 @@ const NUA_Dash_Tabs = () => {
         let users_icon = (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" > <path d="M6.57757 15.1335C5.1628 15.8917 1.45336 17.4398 3.71266 19.377C4.81631 20.3233 6.04549 21.0001 7.59087 21.0001H16.4091C17.9545 21.0001 19.1837 20.3233 20.2873 19.377C22.5466 17.4398 18.8372 15.8917 17.4224 15.1335C14.1048 13.3556 9.89519 13.3556 6.57757 15.1335Z" fill="#242424" /> <path d="M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" fill="#242424" /> </svg>
         );
-        let user_roles_icon = (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.5 14.5C18.8137 14.5 21.5 11.8137 21.5 8.5C21.5 5.18629 18.8137 2.5 15.5 2.5C12.1863 2.5 9.5 5.18629 9.5 8.5C9.5 9.38041 9.68962 10.2165 10.0303 10.9697L2.5 18.5V21.5H5.5V19.5H7.5V17.5H9.5L13.0303 13.9697C13.7835 14.3104 14.6196 14.5 15.5 14.5Z" fill="#242424"/>
-            <path d="M17.5 6.5L16.5 7.5L17.5 6.5Z" fill="white"/>
-            <path d="M17.5 6.5L16.5 7.5" stroke="white" stroke-width="1.54" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        );
+       
         let invitation_icon = (
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 9.36L12 14.36L20 9.36L12 4.36L4 9.36ZM22 9.36V19.36C22 19.8904 21.7893 20.3991 21.4142 20.7742C21.0391 21.1493 20.5304 21.36 20 21.36H4C3.46957 21.36 2.96086 21.1493 2.58579 20.7742C2.21071 20.3991 2 19.8904 2 19.36V9.36C2 8.63 2.39 8 2.97 7.65L12 2L21.03 7.65C21.61 8 22 8.63 22 9.36Z" fill="#242424"/>

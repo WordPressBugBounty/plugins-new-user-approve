@@ -12,7 +12,11 @@ import {
     TableRow, 
     Paper, 
     IconButton, 
-    Box} from '@mui/material';
+    Box,
+    MenuItem,
+    FormControl,
+    Select,
+Typography } from '@mui/material';
 import Skeleton from '@mui/material/Skeleton';
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
@@ -21,18 +25,19 @@ import { update_user_status } from '../../../functions';
 import { site_url } from '../../../functions';
 
 const All_Users = () => {
-    const [usersData, setUserData] = useState([]);
+    const [usersdata, setUserData] = useState([]);
     const [loading, setLaoding]   = useState(true);
     const [loadingUserId, setLoadingUserId] = useState(null); 
+    const [selectedUserId, setSelectedUserId] = useState(null);
     const [error, setError]       = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
     const [user_id, setUserID]    = useState(null);
-
+    const [columnsOrder, setColumnsOrder] = useState([]);
     const [page, setPage] = useState(1);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [totalUsers, setTotalUsers] = useState(0);
     const [search, setSearch] = useState("");
-    const [searchLoading, setSearchLoading] = useState(false);
+    const [searchLoading, setSearchLoading] = useState(true);
 
     const fetchAllUsers = async () => {
         try{
@@ -44,8 +49,11 @@ const All_Users = () => {
                   },
               });
             const data = response.data;
-            setUserData(data.users);
-            setTotalUsers(data.totals);
+            setUserData(data.users || []);
+            setTotalUsers(data.totals || 0);
+            if (data.columns_order && Array.isArray(data.columns_order)) {
+                setColumnsOrder(data.columns_order);
+            }
         }
         catch (error) {
             setError(error);
@@ -62,6 +70,16 @@ const All_Users = () => {
     }, [search, page, rowsPerPage]);
 
     const pageCount = Math.ceil(totalUsers / rowsPerPage);
+
+     // get initial number of page
+    const startIndex = (page - 1) * rowsPerPage + 1;
+    // get total number of data
+    const endIndex = Math.min(page * rowsPerPage, totalUsers);
+
+    const handleRowsPerPageChange = (event) => {
+        setRowsPerPage(event.target.value);
+        setPage(1); // reset to first page when rows per page changes
+    };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
@@ -166,6 +184,47 @@ const All_Users = () => {
         </defs>
         </svg>
       );
+    let searchIcon = (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 18C11.775 17.9998 13.4989 17.4056 14.897 16.312L19.293 20.708L20.707 19.294L16.311 14.898C17.4051 13.4997 17.9997 11.7755 18 10C18 5.589 14.411 2 10 2C5.589 2 2 5.589 2 10C2 14.411 5.589 18 10 18ZM10 4C13.309 4 16 6.691 16 10C16 13.309 13.309 16 10 16C6.691 16 4 13.309 4 10C4 6.691 6.691 4 10 4Z" fill="#9DADC1"/>
+        </svg>
+    );
+
+    const defaultColumns = [
+        { key: 'user_login', label: __('User', 'new-user-approve') },
+        { key: 'user_email', label: __('Email', 'new-user-approve') },
+        { key: 'user_registered', label: __('Registration Date', 'new-user-approve') },
+        { key: 'nua_status', label: __('Status', 'new-user-approve') },
+        { key: 'actions', label: __('Actions', 'new-user-approve') },
+    ];
+        
+    const availableKeys = usersdata.length > 0 ? Object.keys(usersdata[0]) : [];
+    
+    // Columns order from API
+    let apiColumnsOrder = columnsOrder || [];
+    
+    // user_login will be first always.
+    if (!apiColumnsOrder.includes('user_login')) {
+        apiColumnsOrder = ['user_login', ...apiColumnsOrder];
+    } else {
+        apiColumnsOrder = [
+        'user_login',
+        ...apiColumnsOrder.filter((key) => key !== 'user_login'),
+        ];
+    }
+    
+    // Build dynamic columns
+    const dynamicColumns = apiColumnsOrder
+        .filter((key) => availableKeys.includes(key) || key === 'actions')
+        .map((key) => {
+        const defaultCol = defaultColumns.find((col) => col.key === key);
+        if (defaultCol) return defaultCol;
+    
+        return {
+            key,
+            label: key.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+        };
+    });
       
     
     return (
@@ -173,108 +232,172 @@ const All_Users = () => {
         <div className = "all_users_list">
         <div className = "all_users_list_header">
             <h2 className='users_list_title'>  {__('All Users', 'new-user-approve') }</h2>
+
+             
             {/* search field */}
-            <Box className="nua-search-field-box" component="form" noValidate autoComplete="off"  sx={ {  width: '30ch', position:'relative' } }>
-                <input type="text" className='nua-search-field' placeholder="Search User"  onChange={(e) => { setSearch(e.target.value); setPage(1); setSearchLoading(true); }}/>
-                { searchLoading && (
-                <div className='new-user-approve-loading nua-search-loading'>
-                <div className="nua-spinner"></div></div> )}
-            </Box>
+            <div className="nua-header-filters">
+                <Box className="nua-search-field-box" component="form" noValidate autoComplete="off"  sx={ {  width: '30ch', position:'relative' } }>
+                    <input type="text" className='nua-search-field' placeholder="Search User"  onChange={(e) => { setSearch(e.target.value); setPage(1); setSearchLoading(false); }}/>
+                    
+                    <div className="code-search-icon">{searchIcon}</div>
+                    { searchLoading && (
+                    <div className='new-user-approve-loading nua-search-loading'>
+                    <div className="nua-spinner"></div></div> )}
+                </Box>
+                <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
+                    <span className='selectSpan' style={{marginRight: 8}}>{__('Show:', 'new-user-approve')}</span>
+                    <FormControl size="small" sx={{ minWidth: 120 }}>
+                        <Select
+                            labelId="rows-per-page-label"
+                            value={rowsPerPage}
+                            onChange={handleRowsPerPageChange}
+                        >
+                            <MenuItem value={10}>{__('10', 'new-user-approve')}</MenuItem>
+                            <MenuItem value={20}>{__('20', 'new-user-approve')}</MenuItem>
+                            <MenuItem value={50}>{__('50', 'new-user-approve')}</MenuItem>
+                            <MenuItem value={100}>{__('100', 'new-user-approve')}</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <span className='selectSpan' style={{marginLeft: 8}}>{__('entries', 'new-user-approve')}</span>
+                  
+                </Stack>
+            </div>
+           
 
         </div>
-        <TableContainer className="all_users_tbl_container usersTable" component={Paper}>
+        <TableContainer className="all_users_tbl_container usersTable" component={Paper} sx={{ overflowX: 'auto' }}>
+  <Table sx={{ minWidth: 650 }}>
+    {/* Dynamic Header */}
+    {dynamicColumns.length > 0 && (
+      <TableHead>
+        <TableRow sx={{ backgroundColor: '#FAFAFA', maxHeight: 50, minHeight: 50, height: 50 }}>
+          {dynamicColumns.map((col) => (
+            <TableCell key={col.key}>{col.label}</TableCell>
+          ))}
+        </TableRow>
+      </TableHead>
+    )}
 
-            <Table sx={{ minWidth: 650 }}>
-                <TableHead>
-                <TableRow sx= {{ backgroundColor: '#FAFAFA', maxHeight:50, minHeight:50, height:50  }}>
-                    <TableCell> {__('User', 'new-user-approve') }</TableCell>
-                    <TableCell sx={{paddingLeft:4}}> {__('Email', 'new-user-approve') }</TableCell>
-                    <TableCell sx={{textAlign:`${usersData.length > 0 ? "" : "center !important"}`, width:220}}> {__('Registration Date', 'new-user-approve') }</TableCell>
-                    <TableCell sx={{paddingLeft:4}}> {__('Status', 'new-user-approve') }</TableCell>
-                    <TableCell> {__('Actions', 'new-user-approve') }</TableCell>
-                    {/* <TableCell></TableCell> */}
-                </TableRow>
-                </TableHead>
-                <TableBody>
-        {loading ? (
-            // Show 5 skeleton rows while loading
-            Array.from({ length: 10 }).map((_, index) => (
-            <TableRow key={index}>
-                <TableCell><Skeleton variant="text" /></TableCell>
-                <TableCell><Skeleton variant="text" /></TableCell>
-                <TableCell><Skeleton variant="text" width={100} /></TableCell>
-                <TableCell><Skeleton variant="rectangular" width={80} height={30} /></TableCell>
-                <TableCell><Skeleton variant="circular" width={24} height={24} /></TableCell>
-            </TableRow>
-            ))
-        ) : usersData.length > 0 ? (
-            usersData.map((row) => (
-                    <TableRow id={row.ID}>
-                    <TableCell><a href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`} style={{textDecoration:'none', color:'#858585'}}>{row.display_name}</a></TableCell>
-                    <TableCell>{row.user_email}</TableCell>
-                    <TableCell>{row.user_registered}</TableCell>
-                    <TableCell>
-                        <div className="nua-status-container">
-                            <span className={'user-'+row.nua_status}>{row.nua_status.charAt(0).toUpperCase() + row.nua_status.slice(1)}</span> 
-                            <span> { user_id === row.ID && loading == true ?  <div className='new-user-approve-loading'><div className="nua-spinner"></div></div> : <span className="loadEmpty" style={{marginLeft:13}}></span> }  </span>
-                        </div>
-                    </TableCell>
-   
-
-                    <TableCell align="center" className="user-action-btn">
-                        {/* Approve Button */}
-                        <IconButton
-                            onClick={row.nua_status !== 'approved' ? (event) => handleMenuAction(event, row.ID) : null}
-                            data-value="approve"
-                            title="Approve"
-                            style={{paddingLeft:'0' }}
-                            disabled={row.nua_status === 'approved'}
-                        >
-                            <div className={`status-icon ${row.nua_status === 'approved' ? 'inactive' : 'active'}`}>
-                            {iconApprove}
-                            </div>
-                        </IconButton>
-
-                        {/* Deny Button */}
-                        <IconButton
-                            onClick={row.nua_status !== 'denied' ? (event) => handleMenuAction(event, row.ID) : null}
-                            data-value="deny"
-                            title="Deny"
-                            disabled={row.nua_status === 'denied'}
-                        >
-                            <div className={`status-icon ${row.nua_status === 'denied' ? 'inactive' : 'active'}`}>
-                            {iconDeny}
-                            </div>
-                        </IconButton>
-
-                        {loadingUserId === row.ID && (
-                            <div className="new-user-approve-loading ">
-                            <div className="nua-spinner"></div>
-                            </div>
-                        )}
+    <TableBody>
+      {loading ? (
+        // Skeleton rows
+        [...Array(10)].map((_, index) => (
+          <TableRow key={index}>
+                    {dynamicColumns.length > 0 ? (
+                    dynamicColumns.map((col, i) => (
+                        <TableCell key={i}>
+                        <Skeleton
+                            variant={col.key === "actions" ? "circular" : "text"}
+                            width={col.key === "actions" ? 24 : "100%"}
+                            height={col.key === "actions" ? 24 : 20}
+                        />
                         </TableCell>
+                    ))
+                    ) : (
+                    <TableCell colSpan={5}>
+                        <Skeleton variant="text" width="100%" height={20} />
+                    </TableCell>
+                    )}
+                </TableRow>
+        ))
+      ) : usersdata.length > 0 ? (
+        usersdata.map((row) => (
+          <TableRow key={row.ID}>
+            {dynamicColumns.map((col) => {
+              if (col.key === "user_login") {
+                return (
+                  <TableCell key={col.key}>
+                    <a
+                      href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID}`}
+                      style={{ textDecoration: "none", color: "#858585" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {row.user_login}
+                    </a>
+                  </TableCell>
+                );
+              }
 
+              if (col.key === "nua_status") {
+                return (
+                  <TableCell key={col.key}>
+                    <div className="nua-status-container">
+                      <span className={"user-" + row.nua_status}>
+                        {row.nua_status.charAt(0).toUpperCase() + row.nua_status.slice(1)}
+                      </span>
+                      <span>
+                        {selectedUserId === row.ID && loading === true ? (
+                          <div className="new-user-approve-loading">
+                            <div className="nua-spinner"></div>
+                          </div>
+                        ) : (
+                          <span className="loadEmpty" style={{ marginLeft: 13 }}></span>
+                        )}
+                      </span>
+                    </div>
+                  </TableCell>
+                );
+              }
 
-                    </TableRow>
-             ))
-            ) : (
-            
-                 <TableRow>
-                          <TableCell colSpan={5}>
-                            <div className="user-list-empty all-user-empty-list" style={{ textAlign: 'center' }}>
-                              <div className="user-found-error">
-                                {notFound}
-                                <span>{__('No Data Available', 'new-user-approve')}</span>
-                                <p className="description">{__('There’s no data available to see!', 'new-user-approve')}</p>
-                              </div>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-            )}
-          </TableBody>
-            </Table>
+              if (col.key === "actions") {
+                return (
+                  <TableCell key={col.key} align="center" className="user-action-btn" style={{ display: "flex" }}>
+                    <IconButton
+                      onClick={row.nua_status !== "approved" ? (event) => handleMenuAction(event, row.ID) : null}
+                      data-value="approve"
+                      title="Approve"
+                      style={{ paddingLeft: "0" }}
+                      disabled={row.nua_status === "approved"}
+                    >
+                      <div className={`status-icon ${row.nua_status === "approved" ? "inactive" : "active"}`}>
+                        {iconApprove}
+                      </div>
+                    </IconButton>
+
+                    <IconButton
+                      onClick={row.nua_status !== "denied" ? (event) => handleMenuAction(event, row.ID) : null}
+                      data-value="deny"
+                      title="Deny"
+                      disabled={row.nua_status === "denied"}
+                    >
+                      <div className={`status-icon ${row.nua_status === "denied" ? "inactive" : "active"}`}>
+                        {iconDeny}
+                      </div>
+                    </IconButton>
+
+                    {loadingUserId === row.ID && (
+                      <div className="new-user-approve-loading">
+                        <div className="nua-spinner"></div>
+                      </div>
+                    )}
+                  </TableCell>
+                );
+              }
+
+              // Default for extra/custom fields
+              return <TableCell key={col.key}>{row[col.key] || "-"}</TableCell>;
+            })}
+          </TableRow>
+        ))
+      ) : (
+        <TableRow>
+          <TableCell colSpan={dynamicColumns.length || 5}>
+            <div className="user-list-empty all-user-empty-list" style={{ textAlign: "center" }}>
+              <div className="user-found-error">
+                {notFound}
+                <span>{__("No Data Available", "new-user-approve")}</span>
+                <p className="description">{__("There’s no data available to see!", "new-user-approve")}</p>
+              </div>
+            </div>
+          </TableCell>
+        </TableRow>
+      )}
+    </TableBody>
+  </Table>
         </TableContainer>
-        {usersData.length > 0 && (
+
+         {usersdata.length > 0 && (
             <Stack spacing={2} alignItems="center" mt={2} className="nua-table-pagination">
                 <Pagination
                 count={Math.max(1, pageCount)}
@@ -284,9 +407,12 @@ const All_Users = () => {
                 shape="rounded"
                 className ="nua-nav-pagination"
                 />
-                    </Stack>
+                <Typography variant="body2" className='nua-table-total-data'>
+                    {`${startIndex}–${endIndex} of ${totalUsers}`}<span style={{marginLeft: 5}}>{__('entries', 'new-user-approve')}</span>
+                    </Typography>
+                </Stack>
         )}
-                
+               
          <ToastContainer />
         </div>
     );

@@ -479,30 +479,56 @@ class Invitation_Code_API {
 	}
 
 	public function delete_invCode( $request ) {
-		// Nonce verification
-		$nonce = $request->get_header('X-WP-Nonce');
-		if (!wp_verify_nonce($nonce, 'wp_rest')) {
-			return new WP_Error('rest_forbidden', __('Invalid nonce.', 'new-user-approve'), array( 'status' => 403 ));
-		}
-		
-		$params = $request->get_json_params();
-		$code_id = $params['code_id'] ?? null;
-		
-		if (!$code_id || get_post_type($code_id) !== $this->code_post_type) {
-			return new WP_Error('invalid_code', __('Invalid or missing invitation code.', 'new-user-approve'), array( 'status' => 400 ));
-		}
+    // Nonce verification
+    $nonce = $request->get_header('X-WP-Nonce');
+    if (!wp_verify_nonce($nonce, 'wp_rest')) {
+        return new WP_Error(
+            'rest_forbidden',
+            __('Invalid nonce.', 'new-user-approve'),
+            array( 'status' => 403 )
+        );
+    }
+
+    $params = $request->get_json_params();
+    $code_ids = array_map('intval', (array) $params['code_ids']);
 	
-		$deleted = wp_delete_post($code_id, true);
-	
-		if ($deleted) {
-			return new WP_REST_Response(array(
-				'status'  => 'Success',
-				'message' => __('This invitation code has been deleted successfully.', 'new-user-approve'),
-			), 200);
-		}
-	
-		return new WP_Error('delete_failed', __('Failed to delete the invitation code.', 'new-user-approve'), array( 'status' => 500 ));
-	}
+   if (empty($code_ids)) {
+        return new WP_Error(
+            'no_ids_provided',
+            __('No code IDs provided.', 'new-user-approve'),
+            array( 'status' => 400 )
+        );
+    }
+
+    $deleted_count = 0;
+
+    foreach ($code_ids as $code_id) {
+        if (get_post_type($code_id) === $this->code_post_type) {
+            $deleted = wp_delete_post($code_id, true);
+            if ($deleted) {
+                $deleted_count++;
+            }
+        }
+    }
+
+    if ($deleted_count > 0) {
+        return new WP_REST_Response(array(
+            'status'  => 'Success',
+            'message' => sprintf(
+                __('%d invitation code(s) deleted successfully.', 'new-user-approve'),
+                $deleted_count
+            ),
+        ), 200);
+    }
+
+    return new WP_Error(
+        'delete_failed',
+        __('Failed to delete the invitation code(s).', 'new-user-approve'),
+        array( 'status' => 500 )
+    );
+}
+
+
 
 	// Update invitation code
 	public function update_invitation_code( $request ) {
