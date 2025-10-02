@@ -1,10 +1,10 @@
-﻿=== New User Approve ===
+=== New User Approve ===
 Contributors: wpexpertsio
 Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.8.1
-Stable tag: 3.0.8
+Stable tag: 3.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -162,8 +162,9 @@ You can set a limit by date/time or total number of signups. After the limit, re
 
 == Changelog ==
 
-= 3.0.8 =
-* Fixed - Bug Fixes.
+
+= 3.0.9 =
+* Fixed - Bug fixes and improvements.
 
 = 3.0.7 =
 * Fixed - Users data missing after update.
@@ -528,4 +529,3 @@ Download version 1.3.1 immediately! A bug was found in version 1.3 that allows a
 
 = 1.3.2 =
 Download version 1.3.2 immediately! A bug was found in version 1.3 that allows a user to login using any password.
-

@@ -13,57 +13,57 @@ span#nua-required {
   font-family: "figtree", sans-serif;
 }
 .nua_inner_settings h3 {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
-h2.enable-whitelist-label{
-font-weight: 500!important;  
-margin-top: 0px;
+h2.enable-whitelist-label {
+  font-weight: 500 !important;
+  margin-top: 0px;
 }
 .menu-top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 24px;
-    background-color: #FFFFFF;
-    height: 84px;
-  }
-  
-  .logo.nua-logo-wrapper  {
-    align-items: center;
-    background: #fff;
-    display: flex;
-    height: 84px;
-    padding: 0 24px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background-color: #ffffff;
+  height: 84px;
+}
 
-  .Toastify__progress-bar--success{
-  background-color: #618E5F;  
-  }
-  .logo img {
-    height: 50px; /* Adjust height as needed */
-  }
+.logo.nua-logo-wrapper {
+  align-items: center;
+  background: #fff;
+  display: flex;
+  height: 84px;
+  padding: 0 24px;
+}
 
-body h4, body h2{
-  font-family: "figtree", sans-serif!important;
-  font-weight: 600!important;
+.Toastify__progress-bar--success {
+  background-color: #618e5f;
+}
+.logo img {
+  height: 50px; /* Adjust height as needed */
+}
+
+body h4,
+body h2 {
+  font-family: "figtree", sans-serif !important;
+  font-weight: 600 !important;
 }
 
 .ProButton {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    width: 148px;
-    height: 40px;
-    gap: 4px;
-    justify-content: center;
-    background: #6EA26D;
-    color: #fff;
-    font-size: 16px;
-    border: unset;
-    padding: 8px 32px 8px 32px;
-    border-radius: 8px;
-  }
-  
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 148px;
+  height: 40px;
+  gap: 4px;
+  justify-content: center;
+  background: #6ea26d;
+  color: #fff;
+  font-size: 16px;
+  border: unset;
+  padding: 8px 32px 8px 32px;
+  border-radius: 8px;
+}
 
 /* Add media queries for responsive adjustments */
 @media (max-width: 768px) {
@@ -74,16 +74,16 @@ body h4, body h2{
     margin-top: 10px; /* Add spacing on smaller screens */
   }
 }
-.toplevel_page_new-user-approve-admin #wpcontent{
- padding-left: unset; 
+.toplevel_page_new-user-approve-admin #wpcontent {
+  padding-left: unset;
 }
-.toplevel_page_new-user-approve-admin .wrap{
+.toplevel_page_new-user-approve-admin .wrap {
   margin: unset;
 }
 
-.logo.nua-logo-wrapper{
+.logo.nua-logo-wrapper {
   padding: 0px 24px 0px 24px;
-  background: #fff; 
+  background: #fff;
   display: flex;
   align-items: center;
   height: 84px;
@@ -104,9 +104,9 @@ body h4, body h2{
 .user-found-error p {
   color: #858585;
 }
-.user-found-error.inv-code{
+.user-found-error.inv-code {
   width: 100%;
-  margin-top: 15px; 
+  margin-top: 15px;
   padding-bottom: 15px;
 }
 .nua_dash_parent_tablist button:hover::after {
@@ -120,7 +120,7 @@ body h4, body h2{
   transform: translateX(-50%);
   width: 0;
   height: 3px;
-  background-color: #618E5F;
+  background-color: #618e5f;
   transition: width 0.3s ease-in-out;
 }
 .nua-editor-overlay {
@@ -142,7 +142,7 @@ button.nua_active_tab:after,
   transform-origin: center;
   width: 100%;
   height: 3px;
-  background-color: #618E5F;
+  background-color: #618e5f;
   transition: all 0.3s ease-in-out;
 }
 
@@ -188,14 +188,12 @@ button.nua_active_tab:after,
   line-height: 120%;
   color: #242424;
 }
-p.description{
+p.description {
   font-size: 14px;
-  color: #707070!important;
+  color: #707070 !important;
   line-height: 20px;
-  margin-top: 8px;  
+  margin-top: 8px;
 }
-
-
 
 /* p.description.codeDescription {
   margin-top: -80px;
@@ -257,12 +255,12 @@ html:not([lang^="en"]) .nua_dash_parent_tablist button:hover {
   font-weight: 500;
   margin: 0 0 20px;
   line-height: 1.5;
-  color: #D7F2D6;
+  color: #d7f2d6;
 }
 
 .nua-bookNow .booknow-content button {
-  background-color: #FFBF46;
-  color: #3B423B;
+  background-color: #ffbf46;
+  color: #3b423b;
   font-weight: 400;
   border: none;
   width: 133px;
@@ -290,7 +288,7 @@ html:not([lang^="en"]) .nua_dash_parent_tablist button:hover {
   border-radius: 15px;
   background-color: #ffffff;
 }
-.invitation_code_subtabs{
+.invitation_code_subtabs {
   padding: 24px;
   margin-top: 0px;
 }
@@ -307,7 +305,7 @@ html:not([lang^="en"]) .nua_dash_parent_tablist button:hover {
   background-color: #ffffff;
   gap: 30px;
 }
-.nua_notification_sub_tabstablist{
+.nua_notification_sub_tabstablist {
   padding: unset;
 }
 
@@ -395,10 +393,10 @@ html:not([lang^="en"]) .nua_dash_parent_tablist button:hover {
   gap: 80px;
 }
 .activity-title {
-font-size: 18px;
-color: #707070;
-text-transform: capitalize;
-font-weight: 600;
+  font-size: 18px;
+  color: #707070;
+  text-transform: capitalize;
+  font-weight: 600;
 }
 .activity-desc {
   font-size: 15px;
@@ -431,10 +429,10 @@ font-weight: 600;
   text-decoration: none;
   box-shadow: -3px 2px 11px 0px #eeeeee;
 }
-td.actionsRow{
+td.actionsRow {
   padding-left: 0;
 }
-.viewCode-dialog{
+.viewCode-dialog {
   border-bottom: 0 !important;
   padding: 32px 40px !important;
 }
@@ -469,36 +467,36 @@ td.actionsRow{
 .invitation_code_subtabs_list .btn:hover {
   background-color: #f1f5f9;
 }
-.nua_edit_invitation_code span{
+.nua_edit_invitation_code span {
   width: 45%;
 }
-.nua_edit_invitation_code .edit_invitation_code{
+.nua_edit_invitation_code .edit_invitation_code {
   display: block;
   width: 100%;
-  margin-bottom: 24px; 
-} 
+  margin-bottom: 24px;
+}
 .inv-code-details {
-  background: #F2F8F3;
+  background: #f2f8f3;
   padding: 32px 40px;
 }
-.inv-field-group{
+.inv-field-group {
   display: flex;
-  gap: 16px; 
+  gap: 16px;
   margin-top: 25px;
 }
 .inv-field-group-initial {
   display: flex;
   flex-direction: column;
 }
-.invitation-field{
-  width: 120px; 
+.invitation-field {
+  width: 120px;
 }
-.invitation-field__input{
+.invitation-field__input {
   width: 100%;
   height: 40px;
   background-color: #fff !important;
   border: unset;
-  border-left: 3px solid #7CB77A;
+  border-left: 3px solid #7cb77a;
   padding: 10px 9px;
   font-size: 14px;
   color: #707070;
@@ -509,42 +507,42 @@ td.actionsRow{
   font-size: 14px;
   font-weight: 600;
 }
-.users-reg-text{
+.users-reg-text {
   font-size: 14px;
   line-height: 20px;
   display: block;
 }
-.users-reg-table{
-  box-shadow: none !important; 
+.users-reg-table {
+  box-shadow: none !important;
 }
-.users-reg-table tbody tr{
-  height: 53px;  
+.users-reg-table tbody tr {
+  height: 53px;
 }
-.users-reg-table thead tr th, .invitation-codes-header table th{
-  color: #242424!important;
+.users-reg-table thead tr th,
+.invitation-codes-header table th {
+  color: #242424 !important;
   padding-left: 0;
 }
-.users-reg-table tbody tr td{
+.users-reg-table tbody tr td {
   font-size: 14px;
   padding-left: 0;
   letter-spacing: 0px;
   font-weight: 500 !important;
 }
 
-
-.MuiTextField-root.nua-code-search{
+.MuiTextField-root.nua-code-search {
   width: 100%;
   margin-bottom: 0px;
 }
-.MuiTextField-root.nua-code-search > div{
+.MuiTextField-root.nua-code-search > div {
   height: 40px;
   margin-bottom: 1em;
 }
-.MuiTextField-root.nua-code-search input{
+.MuiTextField-root.nua-code-search input {
   border: 0px;
   padding-left: 20px;
 }
-.MuiTextField-root.nua-code-search input:focus{
+.MuiTextField-root.nua-code-search input:focus {
   box-shadow: unset;
 }
 .invitation_code_subtabs_list {
@@ -553,107 +551,107 @@ td.actionsRow{
   padding: 0px;
   height: 66px;
 }
-.openNuaModal{
-  font-family: "figtree", sans-serif!important;
+.openNuaModal {
+  font-family: "figtree", sans-serif !important;
 }
-.openNuaModal.NuaModal .MuiModal-backdrop{
-  opacity: 0.3 !important;  
+.openNuaModal.NuaModal .MuiModal-backdrop {
+  opacity: 0.3 !important;
 }
 .openNuaModal .MuiDialog-paper,
 .openNuaTabsModal .MuiDialog-paper {
   box-shadow: unset;
-    margin-top: 64px;
-    max-width: 560px;
-    border-radius: 12px;
+  margin-top: 64px;
+  max-width: 560px;
+  border-radius: 12px;
 }
-.openNuaModal.delete-inv-modal .MuiDialog-paper{
+.openNuaModal.delete-inv-modal .MuiDialog-paper {
   max-width: 400px;
 }
-.MuiDialogContent-dividers.delete-confirmation{
+.MuiDialogContent-dividers.delete-confirmation {
   display: flex;
   align-items: center;
   gap: 20px;
   border-top: 0px;
-  padding-top: 0!important;
+  padding-top: 0 !important;
 }
-.openNuaModal.delete-inv-modal .nua-modal-close{
-top: 8px;
+.openNuaModal.delete-inv-modal .nua-modal-close {
+  top: 8px;
 }
-.openNuaTabsModal .MuiDialog-paper h2{
+.openNuaTabsModal .MuiDialog-paper h2 {
   font-size: 16px;
   color: #242424;
 }
-.openNuaTabsModal .MuiDialog-paper .MuiDialogContent-dividers{
-  border-top-color: #E6EBEF;
+.openNuaTabsModal .MuiDialog-paper .MuiDialogContent-dividers {
+  border-top-color: #e6ebef;
   padding: 20px 40px;
 }
 .code-deactivate-btn {
   background: #ff0000fc !important;
 }
-.invitation-codes-header, .usersTable{
-  padding: 0px!important;
-  margin-top: 0!important;
+.invitation-codes-header,
+.usersTable {
+  padding: 0px !important;
+  margin-top: 0 !important;
   border-radius: 12px !important;
-  box-shadow: unset!important;
-  border: 1px solid #E6EBEF;
+  box-shadow: unset !important;
+  border: 1px solid #e6ebef;
 }
-.nua-field-col{
+.nua-field-col {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.add-codes-modal .nua-field-col{
+.add-codes-modal .nua-field-col {
   margin-bottom: 24px;
 }
 
-.nua-auto-code .nua-field-col-a{
+.nua-auto-code .nua-field-col-a {
   display: flex;
   gap: 17px;
   justify-content: unset;
   flex-wrap: unset;
 }
-.nua-auto-code .nua-field-col-b{
+.nua-auto-code .nua-field-col-b {
   display: flex;
   justify-content: space-between;
 }
-.nua-auto-code .auto-code-usage-limit, .nua-auto-code span.auto-code-expiry{
+.nua-auto-code .auto-code-usage-limit,
+.nua-auto-code span.auto-code-expiry {
   width: 47%;
 }
 
-
-
-
 span.actionsIcon {
-  border: 1px solid #E6EBEF;
+  border: 1px solid #e6ebef;
   padding-left: 6px;
   padding-right: 6px;
   border-radius: 4px;
 }
 
-.invitation-codes-header thead.MuiTableHead-root, .usersTable thead tr{
-  background-color: #F3F5F7;
+.invitation-codes-header thead.MuiTableHead-root,
+.usersTable thead tr {
+  background-color: #f3f5f7;
 }
-.usersTable thead tr th{
+.usersTable thead tr th {
   width: 25%;
-  text-align: initial!important;
+  text-align: initial !important;
 }
-.usersTable thead tr th:last-child{
-  padding-right: 45px !important; 
+.usersTable thead tr th:last-child {
+  padding-right: 45px !important;
 }
 
-.invitation-codes-header table th:first-child{
+.invitation-codes-header table th:first-child {
   border-radius: 12px 0 0 0px;
 }
 
-.invitation-codes-header table th:last-child{
+.invitation-codes-header table th:last-child {
   border-radius: 0px 12px 0 0px;
   padding: unset;
 }
-td.actionsRow button{
+td.actionsRow button {
   padding: 0;
-  padding-right: 6px;  
+  padding-right: 6px;
 }
-.invitation-codes-header table th strong{
+.invitation-codes-header table th strong {
   font-size: 16px;
   color: #242424;
   font-weight: 500;
@@ -662,58 +660,67 @@ td.actionsRow button{
   opacity: 0.6;
   cursor: not-allowed;
 } */
-.invitation-codes-header table tbody tr:hover, .usersTable table tbody tr:hover, .users-reg-table tbody tr:hover{
-  background-color: #FAFAFA;
+.invitation-codes-header table tbody tr:hover,
+.usersTable table tbody tr:hover,
+.users-reg-table tbody tr:hover {
+  background-color: #fafafa;
 }
-.invitation-codes-header table tbody tr td, .usersTable table tbody tr td {
-  height: 38px!important;
+.invitation-codes-header table tbody tr td,
+.usersTable table tbody tr td {
+  height: 38px !important;
   padding-bottom: 10px;
   padding-top: 10px;
   line-height: 20px;
-  color: #242424!important;
-  text-align: left!important;
+  color: #242424 !important;
+  text-align: left !important;
   padding-left: 0;
 }
-.user_roles_tbl_container.usersTable table tbody tr td{
+.user_roles_tbl_container.usersTable table tbody tr td {
   height: 28px !important;
   padding-bottom: 0px;
-  padding-top: 0px; 
+  padding-top: 0px;
 }
-.usersTable table thead tr th:nth-child(1), .usersTable table tbody tr td:nth-child(1){
-  padding-left: 15px!important;
+.usersTable table thead tr th:nth-child(1),
+.usersTable table tbody tr td:nth-child(1) {
+  padding-left: 15px !important;
 }
-.invitation-codes-header table th:nth-child(1), .invitation-codes-header table td:nth-child(1){
+.invitation-codes-header table th:nth-child(1),
+.invitation-codes-header table td:nth-child(1) {
   width: 25%;
   padding-left: 15px;
 }
 
-.invitation-codes-header table th:nth-child(2), .invitation-codes-header table td:nth-child(2){
+.invitation-codes-header table th:nth-child(2),
+.invitation-codes-header table td:nth-child(2) {
   width: 20%;
 }
 
-.invitation-codes-header table th:nth-child(3), .invitation-codes-header table td:nth-child(3){
+.invitation-codes-header table th:nth-child(3),
+.invitation-codes-header table td:nth-child(3) {
   width: 20%;
 }
 
-.invitation-codes-header table th:nth-child(4), .invitation-codes-header table td:nth-child(4){
+.invitation-codes-header table th:nth-child(4),
+.invitation-codes-header table td:nth-child(4) {
   width: 20%;
 }
 
-.invitation-codes-header table th:nth-child(5), .invitation-codes-header table td:nth-child(5){
+.invitation-codes-header table th:nth-child(5),
+.invitation-codes-header table td:nth-child(5) {
   width: 25%;
 }
 
-
-.usersTable table thead tr th{
-  color: #242424!important;
-  font-weight: 500!important;
-  padding-left: 0!important;
+.usersTable table thead tr th {
+  color: #242424 !important;
+  font-weight: 500 !important;
+  padding-left: 0 !important;
 }
-.invitation-codes-header table tr:last-child td{
-    border-bottom:0px;
+.invitation-codes-header table tr:last-child td {
+  border-bottom: 0px;
 }
-.usersTable table tbody tr td a, .users-reg-table tbody tr td a{
-  color: #618E5F !important;
+.usersTable table tbody tr td a,
+.users-reg-table tbody tr td a {
+  color: #618e5f !important;
   text-decoration: unset;
 }
 
@@ -825,7 +832,7 @@ td.actionsRow button{
   align-items: center;
   padding: 40px;
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   overflow: hidden;
   width: auto;
   margin-top: 40px;
@@ -867,8 +874,8 @@ td.actionsRow button{
 }
 
 .dashboard-screen .nua-pro-small-banner-btns button {
-  background-color: #FFBF46;
-  color: #3B423B;
+  background-color: #ffbf46;
+  color: #3b423b;
   font-weight: 400;
   border: none;
   padding: 10px 18px;
@@ -881,7 +888,6 @@ td.actionsRow button{
   background-color: #e0a800;
 }
 
-
 .dashboard-screen .popup-inner-img img {
   width: 240px;
   max-width: 100%;
@@ -889,91 +895,86 @@ td.actionsRow button{
   object-fit: contain;
 }
 
-
-.nua-parent-popup{
-top: 50% !important;
-left: 50% !important;
-transform: translate(-50%, -50%);
+.nua-parent-popup {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
 }
-.nua-parent-popup .nua-pro-small-banner{
-margin: 0 auto;  
+.nua-parent-popup .nua-pro-small-banner {
+  margin: 0 auto;
 }
-.nua-pro-small-banner{
-display: flex;
-flex-direction: column;
-align-items: center;
-background: linear-gradient(-50deg, #375136 46%, #537952 100%);
-background-size: 100% 258%;
-width: 800px;
-border-radius: 10px;  
+.nua-pro-small-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(-50deg, #375136 46%, #537952 100%);
+  background-size: 100% 258%;
+  width: 800px;
+  border-radius: 10px;
 }
-.nua-pro-close{
-text-align: right;
-color: #D7F2D6;  
+.nua-pro-close {
+  text-align: right;
+  color: #d7f2d6;
 }
-.nua-popup-inner-content{
-display: flex;
-flex-direction: row-reverse;  
+.nua-popup-inner-content {
+  display: flex;
+  flex-direction: row-reverse;
 }
-.popup-inner-img img{
-width: 280px;
-height: 377px;  
+.popup-inner-img img {
+  width: 280px;
+  height: 377px;
 }
-.nua-pro-small-banner-content{
-padding-right: 39px;
-display: flex;
-flex-direction: column;
-gap: 4px;  
+.nua-pro-small-banner-content {
+  padding-right: 39px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-.nua-banner-logo{
-text-align: left;
-margin-bottom: 35px;  
+.nua-banner-logo {
+  text-align: left;
+  margin-bottom: 35px;
 }
-.nua-pro-small-banner h1{
-font-family: 'figtree';
-color: #D7F2D6;
-font-size: 22px;
-font-weight: 500;
-text-align: left;
-line-height: 30px;
-margin-bottom: 0;  
+.nua-pro-small-banner h1 {
+  font-family: "figtree";
+  color: #d7f2d6;
+  font-size: 22px;
+  font-weight: 500;
+  text-align: left;
+  line-height: 30px;
+  margin-bottom: 0;
 }
-.nua-pro-small-banner p{
-font-family: 'figtree';
-color: #D7F2D6;
-font-size: 16px;
-text-align: left;
-line-height: 24px;  
+.nua-pro-small-banner p {
+  font-family: "figtree";
+  color: #d7f2d6;
+  font-size: 16px;
+  text-align: left;
+  line-height: 24px;
 }
-.nua-pro-small-banner .nua-pro-small-banner-btns{
-text-align: left;
+.nua-pro-small-banner .nua-pro-small-banner-btns {
+  text-align: left;
 }
-.nua-pro-small-banner button{
-background-color: #FFBF46;
-border: 0px;
-padding: 12px 12px;
-color: white;
-border-radius: 8px;
-width: 142px;
-font-family: 'figtree';
-font-size: 16px;
-cursor: pointer;
-color: #3B423B;
-height: 48px;  
+.nua-pro-small-banner button {
+  background-color: #ffbf46;
+  border: 0px;
+  padding: 12px 12px;
+  color: white;
+  border-radius: 8px;
+  width: 142px;
+  font-family: "figtree";
+  font-size: 16px;
+  cursor: pointer;
+  color: #3b423b;
+  height: 48px;
 }
-
-
-
-
 
 /* end */
 
 /* guide and doc item list */
 #nua_guide_doc_section {
   display: grid;
-grid-template-columns: 4fr 1fr;
-margin-top: 40px;
-grid-column-gap: 30px;
+  grid-template-columns: 4fr 1fr;
+  margin-top: 40px;
+  grid-column-gap: 30px;
 }
 
 .nua_doc_item_lists {
@@ -1050,22 +1051,23 @@ a span.nua-doc-item {
 }
 
 .nua-header-filters {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 span.selectSpan {
-    font-size: 14px;
-    color: #858585;
+  font-size: 14px;
+  color: #858585;
 }
 .users_list_title {
   text-align: left;
   font-size: 20px;
 }
-.nua-header-filters .MuiFormControl-root, .rowsCount .MuiFormControl-root {
-    min-width:72px;
+.nua-header-filters .MuiFormControl-root,
+.rowsCount .MuiFormControl-root {
+  min-width: 72px;
 }
-.nua-header-filters .MuiFormControl-root  .MuiSelect-select{
- border-color: #D5D5D5 !important;
+.nua-header-filters .MuiFormControl-root .MuiSelect-select {
+  border-color: #d5d5d5 !important;
 }
 
 .user-list-empty {
@@ -1073,7 +1075,7 @@ span.selectSpan {
   flex-direction: column;
   align-items: flex-start;
   margin: 0 auto;
-  margin-top: 10px!important;
+  margin-top: 10px !important;
 }
 .rowsCount {
   display: flex;
@@ -1082,60 +1084,61 @@ span.selectSpan {
 }
 
 /* auto approve */
-.nua-auto-settings span.setting-label{
-position: relative;
-width: unset;  
+.nua-auto-settings span.setting-label {
+  position: relative;
+  width: unset;
 }
-.nua-tooltip-wrapper{
-position: relative;
-display: inline-block;
-margin-left: 8px;  
+.nua-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-left: 8px;
 }
-.nua-tooltip-icon{
-font-size: 16px;
-color: #ABABAB;  
+.nua-tooltip-icon {
+  font-size: 16px;
+  color: #ababab;
 }
 
 .nua-inv-code span.nua-tooltip-wrapper:hover .nua-tooltip-text {
-    visibility:unset;
-    opacity:1;
+  visibility: unset;
+  opacity: 1;
 }
-.nua-pro-icon{
-position: relative;
-top: 2px;
-left: 5px;
+.nua-pro-icon {
+  position: relative;
+  top: 2px;
+  left: 5px;
 }
-button.download-button{
-padding: 0px;
-padding-top: 5px;  
+button.download-button {
+  padding: 0px;
+  padding-top: 5px;
 }
-.nua-tooltip-text{
-visibility: hidden;
-opacity: 0;
-width: max-content;
-max-width: 175px;
-background-color: #333;
-color: #fff;
-text-align: center;
-padding: 8px 15px;
-border-radius: 1px;
-position: absolute;
-z-index: 999;
-bottom: 125%;
-left: 50%;
-transform: translateX(-50%);
-transition: opacity 0.3s;
-font-size: 12px;
-white-space: pre-line;  
+.nua-tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  max-width: 175px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 8px 15px;
+  border-radius: 1px;
+  position: absolute;
+  z-index: 999;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  font-size: 12px;
+  white-space: pre-line;
 }
 
-.auto-approve-tabs .nua-tooltip-wrapper{
-top: 5px;  
+.auto-approve-tabs .nua-tooltip-wrapper {
+  top: 5px;
 }
 
 .auto-approve-main-tabpanel,
 .integration-main-tabpanel,
-.users-main-tabpanel, .invitation-main-tabpanel {
+.users-main-tabpanel,
+.invitation-main-tabpanel {
   background-color: #fff;
   border-radius: 12px;
   margin-top: 15px;
@@ -1151,7 +1154,7 @@ top: 5px;
   display: flex;
   gap: 58px;
 }
-.nua-domain-text-a{
+.nua-domain-text-a {
   display: flex;
   flex-direction: column;
 }
@@ -1159,15 +1162,15 @@ top: 5px;
   font-size: 20px;
   line-height: 140%;
 }
-.nua-zapier-section .nua-domain-text.triggers{
-  align-items: baseline;  
+.nua-zapier-section .nua-domain-text.triggers {
+  align-items: baseline;
 }
-.nua-domain-text .nua-setting-textarea{
+.nua-domain-text .nua-setting-textarea {
   width: 500px;
   max-height: 184px;
   border-radius: 8px;
 }
-.auto-approve-tabs .setting-option{
+.auto-approve-tabs .setting-option {
   gap: 27px;
 }
 
@@ -1182,8 +1185,8 @@ top: 5px;
 }
 
 .nua-setting-textarea {
-  background-color: #FAFAFA;
-  border-color: #D5D5D5;
+  background-color: #fafafa;
+  border-color: #d5d5d5;
   border-radius: 10px;
   max-height: 150px !important;
   min-height: 150px !important;
@@ -1192,28 +1195,28 @@ top: 5px;
 
 .auto-approve-textarea-desc {
   text-align: left;
-    margin-top: 0px;
-    color: #707070;
+  margin-top: 0px;
+  color: #707070;
 }
-.nua-custom-message-b input.auto-code-field{
+.nua-custom-message-b input.auto-code-field {
   max-width: 500px;
-  width: 500px; 
+  width: 500px;
 }
-.nua-custom-message-b p{
+.nua-custom-message-b p {
   margin-top: 14px;
   font-size: 13px;
-  color: #707070; 
+  color: #707070;
 }
-.nua-domain-text.custom-message{
+.nua-domain-text.custom-message {
   gap: 48px;
 }
-.nua-zapier-section .nua-domain-text{
-align-items: center;  
+.nua-zapier-section .nua-domain-text {
+  align-items: center;
 }
 .zapier-triggers-names-list ul li span {
-    margin-left: 5px;
+  margin-left: 5px;
 }
-.nua-custom-message-b .auto-approve-save-btn-box{
+.nua-custom-message-b .auto-approve-save-btn-box {
   padding-left: 0px;
   margin-top: 50px;
 }
@@ -1221,49 +1224,51 @@ align-items: center;
   text-align: left;
   margin-top: -11px;
 }
-.auto-approve-tabs .setting-label, .nua-help-section .setting-label{
+.auto-approve-tabs .setting-label,
+.nua-help-section .setting-label {
   font-size: 20px;
   line-height: 140%;
   color: #242424;
 }
-.nua-help-section .setting-label{
+.nua-help-section .setting-label {
   min-width: 154px;
 }
 .auto-code-field {
-  border-color: #D5D5D5 !important;
+  border-color: #d5d5d5 !important;
   height: 40px;
-  border-radius: 6px!important;
-  background-color: #FAFAFA!important;
+  border-radius: 6px !important;
+  background-color: #fafafa !important;
   width: 100%;
 }
-.auto-code-field input{
-  background-color: #FAFAFA;
+.auto-code-field input {
+  background-color: #fafafa;
 }
-.nua-field-col span.invitation-code-usage{
+.nua-field-col span.invitation-code-usage {
   width: 100%;
 }
-.nua-field-col span.nua-code-status, span.invitation-code-expiry{
+.nua-field-col span.nua-code-status,
+span.invitation-code-expiry {
   width: 45%;
 }
 
 .invitation-code-expiry-date input,
 .auto-code-expiry-date input,
 #invite_email_subject {
-  height: 40px; 
+  height: 40px;
   border: unset;
-  border: 1px solid #D5D5D5;
-  background-color: #FAFAFA
+  border: 1px solid #d5d5d5;
+  background-color: #fafafa;
 }
-.auto-code-expiry-date input{
- border: unset; 
+.auto-code-expiry-date input {
+  border: unset;
 }
-.auto-code-expiry-date{
- width: 100%!important; 
+.auto-code-expiry-date {
+  width: 100% !important;
 }
-.nua-field-col .invitation-code-expiry-date{
+.nua-field-col .invitation-code-expiry-date {
   width: 100%;
 }
-.nua-field-col h4{
+.nua-field-col h4 {
   font-size: 14px;
   margin-bottom: 24px;
   margin-top: 0;
@@ -1271,9 +1276,9 @@ align-items: center;
 .add-codes-modal .nua-field-col h4 {
   margin-bottom: 12px;
 }
-.invitation-code-expiry-date input{
+.invitation-code-expiry-date input {
   border: unset;
-  background: #FAFAFA;
+  background: #fafafa;
 }
 /* .invitation-code-expiry-date input {
   height: 48px;
@@ -1375,10 +1380,10 @@ div#select-roles input {
 }
 
 .add-invitation-code {
-    margin-bottom: 24px;
-    display: block;
+  margin-bottom: 24px;
+  display: block;
 }
-.add-invitation-code h4{
+.add-invitation-code h4 {
   font-size: 14px;
   margin-top: 0px;
 }
@@ -1403,31 +1408,33 @@ div#select-roles input {
 }
 /* new user approve buttons */
 
-.nua-btn, .importBtn.nua-btn {
-display: flex;
-align-items: center;
-padding: 10px;
-width: 130px;
-height: 40px;
-font-weight: 500;
-background-color: #618E5F;
-color: white;
-border: 0px;
-border-radius: 4px;
-cursor: pointer;
-justify-content: center;
-font-size: 14px;
-text-transform: capitalize;
-gap: 6px;
+.nua-btn,
+.importBtn.nua-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 130px;
+  height: 40px;
+  font-weight: 500;
+  background-color: #618e5f;
+  color: white;
+  border: 0px;
+  border-radius: 4px;
+  cursor: pointer;
+  justify-content: center;
+  font-size: 14px;
+  text-transform: capitalize;
+  gap: 6px;
 }
-button.nua-btn.reset-nua-number-of-register{
-  width: 108px; 
+button.nua-btn.reset-nua-number-of-register {
+  width: 108px;
   margin-left: 10px;
 }
-.nua-btn:hover, .importBtn.nua-btn:hover {
+.nua-btn:hover,
+.importBtn.nua-btn:hover {
   background-color: #8ab48a;
 }
-.openNuaModal.delete-inv-modal .nua-btn{
+.openNuaModal.delete-inv-modal .nua-btn {
   width: 82px;
 }
 /* zapier */
@@ -1466,24 +1473,24 @@ button.nua-btn.reset-nua-number-of-register{
   min-width: 369px;
 }
 
-.nua_weburl svg{
+.nua_weburl svg {
   cursor: copy;
 }
-.nua_weburl .content-copy path{
- color: #618E5F; 
+.nua_weburl .content-copy path {
+  color: #618e5f;
 }
-.nua_weburl .web_value{
+.nua_weburl .web_value {
   border: 0;
-  background: #F0F8F0;
+  background: #f0f8f0;
   width: 100%;
   min-width: 100%;
-  color: #537A52;
+  color: #537a52;
   font-size: 16px;
 }
-.nua_weburl .api-key{
- min-width: 100%;
- border-radius: 8px;
- height: 42px;
+.nua_weburl .api-key {
+  min-width: 100%;
+  border-radius: 8px;
+  height: 42px;
 }
 .zapierApi {
   display: flex;
@@ -1497,21 +1504,21 @@ button.generate-api-btn.nua-btn {
 .zapierApi input {
   width: 100%;
 }
-.zapierApi .generate-api-btn{
+.zapierApi .generate-api-btn {
   min-width: 186px;
   gap: 5px;
 }
-.zapier-triggers-names-list{
- flex-direction: column; 
- gap: 0;
+.zapier-triggers-names-list {
+  flex-direction: column;
+  gap: 0;
 }
-.zapier-triggers-names-list .setting-option{
-margin: 0;
-width: 100%;  
+.zapier-triggers-names-list .setting-option {
+  margin: 0;
+  width: 100%;
 }
 
-.zapier-triggers-names-list ul li{
-  background: #FAFAFA;
+.zapier-triggers-names-list ul li {
+  background: #fafafa;
   height: 30px;
   border-radius: 8px;
   list-style: none;
@@ -1520,14 +1527,14 @@ width: 100%;
   width: fit-content;
   font-size: 14px;
   display: flex;
-  color: #5C5C5C;
+  color: #5c5c5c;
   margin: 0;
   margin-bottom: 9px;
 }
-.zapier-tab button{
+.zapier-tab button {
   display: flex;
   align-items: center;
-  gap: 5px; 
+  gap: 5px;
 }
 /* invitation Code */
 
@@ -1569,8 +1576,10 @@ width: 100%;
   width: 130px;
   height: 50px;
 }
-.nua_main_settings, .registration_settings, .nua-help-section{
-padding-top: 20px;
+.nua_main_settings,
+.registration_settings,
+.nua-help-section {
+  padding-top: 20px;
 }
 
 /* invitation code : add code */
@@ -1595,7 +1604,7 @@ padding-top: 20px;
 
 /* impot code */
 
-.import-code-section{
+.import-code-section {
   margin-bottom: 25px;
 }
 
@@ -1604,27 +1613,27 @@ padding-top: 20px;
   flex-direction: column;
   position: relative;
 }
-.import-code .import-csv{
+.import-code .import-csv {
   position: absolute;
   width: 100%;
   height: 100%;
   opacity: 0;
   top: 0;
   left: 0;
-  cursor: pointer; 
+  cursor: pointer;
 }
-.import-code .import-csv input{
+.import-code .import-csv input {
   width: 100%;
   height: 176px;
   padding: 0px;
 }
-.import-csv-file{
-  border: 3px dashed #D5D5D5; 
+.import-csv-file {
+  border: 3px dashed #d5d5d5;
   text-align: center;
   flex-direction: column;
   align-items: center;
   padding: 30px;
-  background: #FAFAFA;
+  background: #fafafa;
   border-radius: 6px;
 }
 .import-code .import-csv-file h4 {
@@ -1641,10 +1650,10 @@ padding-top: 20px;
   display: flex;
   justify-content: end;
 }
-.download-sample-codes-csv h3{
+.download-sample-codes-csv h3 {
   margin: 0;
   font-size: 12px;
-  color: #618E5F; 
+  color: #618e5f;
 }
 .selected-file-wrapper {
   background: #fff;
@@ -1658,18 +1667,18 @@ padding-top: 20px;
   position: relative;
   z-index: 1;
 }
-.selected-file-wrapper .file-name{
- font-size: 14px;
- color: #242424;
- font-weight: 400; 
- flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.selected-file-wrapper .file-name {
+  font-size: 14px;
+  color: #242424;
+  font-weight: 400;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-button.clear-file-btn{
+button.clear-file-btn {
   border: unset;
-  background: unset; 
+  background: unset;
 }
 /* ivitation code email */
 
@@ -1681,7 +1690,8 @@ button.clear-file-btn{
   border-radius: 10px;
   text-align: left;
 }
-.invitation-email-box h4, .nua_edit_invitation_code h4{
+.invitation-email-box h4,
+.nua_edit_invitation_code h4 {
   margin-top: 0;
   margin-bottom: 24px;
   font-size: 14px;
@@ -1689,20 +1699,21 @@ button.clear-file-btn{
   line-height: 20%;
 }
 
-.invitation-email-box .nua-field-col, .nua_edit_invitation_code .nua-field-col{
+.invitation-email-box .nua-field-col,
+.nua_edit_invitation_code .nua-field-col {
   width: 100%;
   margin-bottom: 24px;
 }
-span.nua-code-email{
+span.nua-code-email {
   width: 47%;
 }
-.invite-email-select .css-13cymwt-control{
-  background-color: #FAFAFA;
+.invite-email-select .css-13cymwt-control {
+  background-color: #fafafa;
 }
-.invite-email-select .css-1u9des2-indicatorSeparator{
+.invite-email-select .css-1u9des2-indicatorSeparator {
   display: none;
 }
-.openNuaTabsModal .invitation-email-box .setting-option{
+.openNuaTabsModal .invitation-email-box .setting-option {
   display: block;
   width: 100%;
   margin-top: 0px;
@@ -1731,20 +1742,20 @@ span.nua-code-email{
 
 /* users status color */
 
-
-
 .status-icon.inactive path {
-  fill: #ADADAD;
+  fill: #adadad;
 }
-.user-action-btn{
+.user-action-btn {
   position: relative;
 }
 .save-changes.loading {
   opacity: 0.5;
   pointer-events: none; /* optional: prevent clicks while loading */
 }
-.user-action-btn .MuiIconButton-root:hover, .actionsRow .MuiIconButton-root:hover, .user_roles_tbl_container.usersTable table tbody tr td button:hover {
-  background: unset!important;
+.user-action-btn .MuiIconButton-root:hover,
+.actionsRow .MuiIconButton-root:hover,
+.user_roles_tbl_container.usersTable table tbody tr td button:hover {
+  background: unset !important;
 }
 
 .user-action-btn button.MuiIconButton-root .statusDiv {
@@ -1752,8 +1763,8 @@ span.nua-code-email{
   gap: 16px;
 }
 
-.user-action-btn button.MuiIconButton-root span{
- display: flex; 
+.user-action-btn button.MuiIconButton-root span {
+  display: flex;
 }
 .user-action-btn .new-user-approve-loading {
   position: absolute;
@@ -1761,7 +1772,7 @@ span.nua-code-email{
   top: 26px;
 }
 
-.recent_user_tbl_container .user-action-btn .new-user-approve-loading{
+.recent_user_tbl_container .user-action-btn .new-user-approve-loading {
   right: 10px;
   top: 24px;
 }
@@ -1894,7 +1905,7 @@ button.nua-btn.save-changes::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #E1F4E1 !important;
+  background-color: #e1f4e1 !important;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -1906,14 +1917,14 @@ button.nua-btn.save-changes::after {
   width: 16px;
   left: 2px;
   top: 2px;
-  background-color: #618E5F !important;
+  background-color: #618e5f !important;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 input:checked + .nua_slider {
-  background-color: #618E5F !important;
-  border: 1px solid #618E5F;
+  background-color: #618e5f !important;
+  border: 1px solid #618e5f;
 }
 
 input:focus + .nua_slider {
@@ -1924,7 +1935,7 @@ input:checked + .nua_slider:before {
   -webkit-transform: translateX(20px);
   -ms-transform: translateX(20px);
   transform: translateX(20px);
-  background-color: #E1F4E1 !important;
+  background-color: #e1f4e1 !important;
   top: 2px;
 }
 
@@ -1933,31 +1944,31 @@ input:checked + .nua_slider:before {
   border-radius: 63px;
   height: 20px;
   width: 40px;
-  border: 1px solid #B6CAB4
+  border: 1px solid #b6cab4;
 }
 
 .nua_slider.round:before {
   border-radius: 63%;
 }
-.openNuaTabsModal .nua-modal-close{
+.openNuaTabsModal .nua-modal-close {
   color: #242424;
 }
-.nua-modal-close svg{
+.nua-modal-close svg {
   width: 16px;
   height: 16px;
 }
-.openNuaTabsModal .setting-option{
+.openNuaTabsModal .setting-option {
   justify-content: end;
-  gap: 25px; 
+  gap: 25px;
 }
-.openNuaTabsModal .MuiDialogActions-root .cancelBtn{
+.openNuaTabsModal .MuiDialogActions-root .cancelBtn {
   font-size: 14px;
-  color:#618E5F;
+  color: #618e5f;
   text-transform: capitalize;
 }
-.openNuaTabsModal .nua-modal-footer{
+.openNuaTabsModal .nua-modal-footer {
   padding-left: 24px;
-  padding-right: 24px; 
+  padding-right: 24px;
 }
 .setting-option {
   display: flex;
@@ -1978,7 +1989,7 @@ input:checked + .nua_slider:before {
   text-align: left;
 }
 .nua-user-role-request-shortcode-element {
-  background: #F0F8F0;
+  background: #f0f8f0;
   border-radius: 6px;
   min-width: 250px;
 }
@@ -1993,11 +2004,11 @@ input:checked + .nua_slider:before {
 #nua_welcome_notification_email_subject {
   border-color: #7cb77a;
 }
-#nua_admin_email_address{
-  max-width: 250px; 
+#nua_admin_email_address {
+  max-width: 250px;
 }
-.nua-user-role-list-element.setting-element{
-  min-width: 250px; 
+.nua-user-role-list-element.setting-element {
+  min-width: 250px;
 }
 /* nua buttons color */
 /* button focus */
@@ -2007,13 +2018,13 @@ p.help-email {
   gap: 8px;
 }
 .help-email .nua-support-email {
-font-size: 16px;
-text-align: center;
-display: block;
-color: #618E5F;
-border: 0px;
-background: unset !important;
-padding: 0;
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  color: #618e5f;
+  border: 0px;
+  background: unset !important;
+  padding: 0;
 }
 
 a.button.nua-support-email:hover {
@@ -2032,7 +2043,7 @@ a.button.nua-support-email:hover {
 #nua-to-copy-shortcode {
   margin: 10px 15px;
   margin-left: 0px;
-  color: #537A52;
+  color: #537a52;
   font-size: 14px;
   display: flex;
   padding-left: 6px;
@@ -2041,8 +2052,8 @@ a.button.nua-support-email:hover {
   padding: 8px;
   border-radius: 6px;
 }
-.nua_user_role_request_shortcode.setting-option{
-align-items: center;  
+.nua_user_role_request_shortcode.setting-option {
+  align-items: center;
 }
 
 #nua-copy-icon {
@@ -2078,28 +2089,28 @@ align-items: center;
 .registration_settings {
   align-items: flex-start;
 }
-.registration_settings .wp-editor-wrap{
+.registration_settings .wp-editor-wrap {
   max-width: 550px;
   width: 550px;
   top: -28px;
   height: 183px;
 }
-.registration_settings p.description{
+.registration_settings p.description {
   max-width: 530px;
-  margin-top: 12px; 
+  margin-top: 12px;
 }
 #registration_heading,
 .setting-section {
   text-align: left;
 }
-.nua-help-section p.description{
-width: 100%;
+.nua-help-section p.description {
+  width: 100%;
 }
 .nua-reset-count {
   margin-left: 10px;
 }
-.Toastify__toast--success .Toastify__toast-icon svg{
-  fill: #618E5F!important;
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #618e5f !important;
 }
 .setting-editor-area {
   width: 500px;
@@ -2117,11 +2128,11 @@ width: 100%;
   align-items: center;
 }
 
-.nua_inner_settings .setting-option .auto-code-field{
+.nua_inner_settings .setting-option .auto-code-field {
   min-width: 250px;
 }
-.nua_inner_settings input.nua-number-of-register.auto-code-field{
-width: auto;
+.nua_inner_settings input.nua-number-of-register.auto-code-field {
+  width: auto;
 }
 /* registration setting end */
 
@@ -2206,7 +2217,6 @@ button.nua_active_tab svg path {
   transition: width 0.3s ease;
 }
 
-
 .invitation_code_subtabs_list button.nua_active_subtab:nth-child(2)::after {
   left: 50% !important;
   width: 75% !important;
@@ -2237,7 +2247,6 @@ button.nua_active_tab svg path {
 
 /* save changes button */
 
-
 /* fix new changes */
 .all-user-empty-list .new-user-approve-loading,
 .pending-user-empty-list .new-user-approve-loading,
@@ -2257,37 +2266,37 @@ button.nua_active_tab svg path {
 }
 
 input.nua_checkbox {
-    width: 17px;
-    height: 17px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    cursor: pointer;
-    position: relative;
-    margin: 10px;
+  width: 17px;
+  height: 17px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  margin: 10px;
 }
 
 input.nua_checkbox:checked {
-    background-color: #618E5F;
-    border: 1px solid #618E5F;
+  background-color: #618e5f;
+  border: 1px solid #618e5f;
 }
 
 input.nua_checkbox:checked::after {
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 1px;
-    width: 4px;
-    height: 9px;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    border-color: white;
-    border-style: solid;
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 9px;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  border-color: white;
+  border-style: solid;
 }
-input.nua_checkbox:checked::before{
- content:''
+input.nua_checkbox:checked::before {
+  content: "";
 }
 span.nua_bulkActions {
   font-size: 14px;
@@ -2295,41 +2304,40 @@ span.nua_bulkActions {
   line-height: 20px;
 }
 span.nua_bulkLength {
-    color:#858585;
-    font-size:14px;
+  color: #858585;
+  font-size: 14px;
 }
 button.bulkButton {
-    width:112px;
-    height:40px;
-    margin-right:8px;
-    font-weight:600;
-    font-size:14px;
-    line-height:20px;
-   color:#618E5F;
-   text-transform:capitalize;
+  width: 112px;
+  height: 40px;
+  margin-right: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #618e5f;
+  text-transform: capitalize;
   gap: 3px;
 }
-button.bulkApprove{
- border: 1px solid #ABE2A9;   
- background:#EEFFED;
+button.bulkApprove {
+  border: 1px solid #abe2a9;
+  background: #eeffed;
 }
-button.bulkApprove:hover{
- border: 1px solid #ABE2A9;   
- background:#EEFFED; 
+button.bulkApprove:hover {
+  border: 1px solid #abe2a9;
+  background: #eeffed;
 }
-button.bulkDeny{
- border: 1px solid #E2A7A7;   
- background:#FFEDED;
- color:#DA6262;
-}
-
-button.bulkDeny:hover{
- border: 1px solid #E2A7A7;   
- background:#FFEDED;
+button.bulkDeny {
+  border: 1px solid #e2a7a7;
+  background: #ffeded;
+  color: #da6262;
 }
 
+button.bulkDeny:hover {
+  border: 1px solid #e2a7a7;
+  background: #ffeded;
+}
 
-.invitation-codes-header .user-list-empty{
+.invitation-codes-header .user-list-empty {
   margin-top: 25px;
 }
 /* fix new changes */
@@ -2347,6 +2355,9 @@ button.bulkDeny:hover{
   color: #858585;
 }
 
+.user_roles_tbl_container tbody {
+  opacity: 0.5;
+}
 .MuiTable-root .MuiTableHead-root .MuiTableRow-root .MuiTableCell-root {
   font-family: "figtree", sans-serif;
   font-size: 16px;
@@ -2361,9 +2372,9 @@ button.bulkDeny:hover{
   color: #618e5f;
 }
 
-.edit_menu_btn{
-  border: 1px solid #E6EBEF!important;
-  border-radius: 4px!important;
+.edit_menu_btn {
+  border: 1px solid #e6ebef !important;
+  border-radius: 4px !important;
 }
 
 /* wp editor */
@@ -2376,16 +2387,16 @@ button.bulkDeny:hover{
 
 /* settings help */
 
-
-.nua_setting_tab.nua_main_settings .nua_inner_settings, .registration_settings .nua_inner_settings{ 
+.nua_setting_tab.nua_main_settings .nua_inner_settings,
+.registration_settings .nua_inner_settings {
   margin-bottom: 32px;
 }
-.nua_setting_tab.nua_main_settings .setting-option{
-  gap: 180px; 
+.nua_setting_tab.nua_main_settings .setting-option {
+  gap: 180px;
   margin-bottom: 32px;
 }
-svg.proicon{
-margin-left: 10px;  
+svg.proicon {
+  margin-left: 10px;
 }
 
 .invite-code-email-as-html-element.setting-element {
@@ -2394,17 +2405,17 @@ margin-left: 10px;
   margin-top: 24px;
   align-items: center;
 }
-.invite-code-email-as-html-element.setting-element label.nua_switch{
+.invite-code-email-as-html-element.setting-element label.nua_switch {
   height: auto;
 }
 span.help-siteUrl {
   color: #242424;
 }
-.nua-path-class{
- fill: beige !important;
+.nua-path-class {
+  fill: beige !important;
 }
-.nua-setting-pro{
-opacity: 0.5;  
+.nua-setting-pro {
+  opacity: 0.5;
 }
 #nua-diagnostics-textarea {
   width: 600px;
@@ -2413,7 +2424,7 @@ opacity: 0.5;
   max-height: 342px;
   font-family: "figtree", sans-serif;
   background: 0 0;
-  border-color: #D5D5D5;
+  border-color: #d5d5d5;
   background-color: #fafafa;
   border-radius: 10px;
   white-space: pre;
@@ -2444,25 +2455,25 @@ opacity: 0.5;
   gap: 5px;
   align-items: center;
 }
-.nua-table-pagination{
+.nua-table-pagination {
   padding-bottom: 15px;
-  padding-top: 15px;  
-  flex-direction: row!important;
+  padding-top: 15px;
+  flex-direction: row !important;
   justify-content: space-between;
 }
-.nua-table-total-data{
-margin-top: 0 !important;
-font-size: 14px;
-color: #858585;  
+.nua-table-total-data {
+  margin-top: 0 !important;
+  font-size: 14px;
+  color: #858585;
 }
 .inv-search {
-    margin-left: auto;
-    margin-right: 19px;
+  margin-left: auto;
+  margin-right: 19px;
 }
 .nua-nav-pagination ul li button.Mui-selected {
-  background-color: #6EA26D;
+  background-color: #6ea26d;
   color: white;
-  border-color: #6EA26D;
+  border-color: #6ea26d;
 }
 
 .nua-nav-pagination ul li button.Mui-selected:hover {
@@ -2470,7 +2481,7 @@ color: #858585;
   color: white;
   border-color: #74b27b;
 }
-.nua-nav-pagination ul li button{
+.nua-nav-pagination ul li button {
   width: 42px;
   height: 32px;
 }
@@ -2480,17 +2491,17 @@ color: #858585;
   align-items: center;
   justify-content: space-between;
 }
-.nua-search-field-box{
+.nua-search-field-box {
   width: 320px !important;
 }
 
 .nua-search-field {
-  border-color: #D5D5D5 !important;
+  border-color: #d5d5d5 !important;
   height: 40px;
   margin-bottom: 15px;
   width: 100%;
 }
-.MuiFormControl-root.role-control{
+.MuiFormControl-root.role-control {
   margin: unset;
 }
 .nua-search-loading {
@@ -2532,7 +2543,7 @@ color: #858585;
   display: flex;
   align-items: center;
 }
-.settting-section.nua-help-section .nua-setting-control{
+.settting-section.nua-help-section .nua-setting-control {
   flex: 4;
 }
 /* recent */
