@@ -46,8 +46,7 @@ const Approved_Users = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${
-          NUARestAPI.get_approved_users + NUARestAPI.permalink_delimeter
+        `${NUARestAPI.get_approved_users + NUARestAPI.permalink_delimeter
         }page=${page}&limit=${rowsPerPage}&search=${search}`,
         {
           headers: {
@@ -351,6 +350,7 @@ const Approved_Users = () => {
             noValidate
             autoComplete="off"
             sx={{ width: "30ch", position: "relative" }}
+            onSubmit={(e) => e.preventDefault()}
           >
             <input
               type="text"
@@ -499,9 +499,8 @@ const Approved_Users = () => {
                             onChange={() => handleSelectClick(row.ID)}
                           />
                           <a
-                            href={`${site_url()}/wp-admin/user-edit.php?user_id=${
-                              row.ID
-                            }`}
+                            href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID
+                              }`}
                             style={{
                               textDecoration: "none",
                               color: "#858585",

@@ -100,11 +100,6 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
   return (
     <React.Fragment>
       <div className="invitation-email-box nua-setting-pro">
-        {/* --------------------------------------------------------------- */}
-        {/* <div className="notificationDiv"> */}
-        {/* { emailResponseStatus === 'success' ? ( <span className={'invite-email-saved-' + emailResponseStatus}> {emailResponseMsg} </span> ) : '' }
-                    { emailResponseStatus === 'failed' ? ( <span className={'invite-email-saved-' + emailResponseStatus} style={{ color: 'red' }}>{__('Error', 'new-user-approve')}: {emailResponseMsg} </span> ) : '' } */}
-        {/* </div> */}
 
         <div className="nua-field-col">
           <span className="nua-code-email">
@@ -122,10 +117,7 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
               }))}
             />
           </span>
-          {/* <p className='description'>
-                    {__(`Select page where users will be redirected when click on invitation link.`, 'new-user-approve')}
-                </p> */}
-          {/* --------------------------------------------------------------- */}
+
           <span className="nua-code-email">
             <h4> {__("Invitation Code", "new-user-approve")} </h4>
             <CodeSelect
@@ -143,10 +135,7 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
             />
           </span>
         </div>
-        {/* <p className='description'>
-                    {__(`Select Invitation code to send in email.`, 'new-user-approve')}
-                </p> */}
-        {/* --------------------------------------------------------------- */}
+
         <h4> {__("User Email", "new-user-approve")} </h4>
 
         <div className="users-email setting-option">
@@ -165,7 +154,6 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
           </div>
         </div>
 
-        {/* --------------------------------------------------------------- */}
         <h4 style={{ marginTop: "32px" }}>
           {" "}
           {__("Email Subject", "new-user-approve")}{" "}
@@ -207,7 +195,7 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
             </p>
           </div>
         </div>
-        {/* --------------------------------------------------------------- */}
+
         <div className="invite_code_email_as_html setting-option">
           <div className="invite-code-email-as-html-element setting-element">
             <h4 style={{ marginBottom: "0px" }}>
@@ -226,8 +214,6 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
             </label>
           </div>
         </div>
-
-        {/* --------------------------------------------------------------- */}
 
         <div
           className="invite-code-email-btn setting-option"

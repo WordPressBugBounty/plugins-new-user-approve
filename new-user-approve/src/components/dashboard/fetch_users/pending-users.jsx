@@ -49,8 +49,7 @@ const Pending_Users = () => {
     try {
       setLaoding(true);
       const response = await axios.get(
-        `${
-          NUARestAPI.get_pending_users + NUARestAPI.permalink_delimeter
+        `${NUARestAPI.get_pending_users + NUARestAPI.permalink_delimeter
         }page=${page}&limit=${rowsPerPage}&search=${search}`,
         {
           headers: {
@@ -398,6 +397,7 @@ const Pending_Users = () => {
             noValidate
             autoComplete="off"
             sx={{ width: "30ch", position: "relative" }}
+            onSubmit={(e) => e.preventDefault()}
           >
             <input
               type="text"
@@ -557,9 +557,8 @@ const Pending_Users = () => {
                             onChange={() => handleSelectClick(row.ID)}
                           />
                           <a
-                            href={`${site_url()}/wp-admin/user-edit.php?user_id=${
-                              row.ID
-                            }`}
+                            href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID
+                              }`}
                             style={{
                               textDecoration: "none",
                               color: "#858585",

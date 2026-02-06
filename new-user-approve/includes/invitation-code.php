@@ -103,11 +103,30 @@ if (!class_exists("NUA_Invitation_Code")) {
                     $this,
                     "nua_invitation_code_field",
                 ]);
+                // compatibility with Ultimate Member plugin.
                 add_action(
                     "um_after_form_fields",
-                    [$this, "nua_invitation_code_field"],
+                    [$this, "um_nua_invitation_code_field"],
                     10,
-                    2
+                    1
+                );
+                add_action(
+                    "um_submit_form_errors_hook__registration", 
+                    [$this, "um_invite_code_check"], 
+                    20, 
+                    1
+                );
+                add_action(
+                    "um_submit_form_errors_hook__profile", 
+                    [$this, "um_invite_code_check"], 
+                    20, 
+                    1
+                );
+                add_action(
+                    "um_submit_form_errors_hook_login", 
+                    [$this, "um_invite_code_check"], 
+                    20, 
+                    1
                 );
                 add_action(
                     "nua_invited_user",
@@ -131,6 +150,102 @@ if (!class_exists("NUA_Invitation_Code")) {
             }
 
             add_action("admin_notices", [$this, "nua_invite_code_errors"]);
+        }
+
+        public function um_nua_invitation_code_field( $args ) {
+            $flag = apply_filters( "um_nua_hide_invitation_code_field", false, $args );
+
+			if ( $flag ) {
+				return;
+			}
+
+            $form_id = $args['form_id'];
+			$options = get_option("new_user_approve_options");
+            ?>
+
+            <div id="um_field_<?php echo esc_attr( $form_id ); ?>_nua_invitation_code" class="um-field um-field-text  um-field-nua_invitation_code um-field-text um-field-type_text" data-key="nua_invitation_code">
+                <div class="um-field-area">
+                    <input autocomplete="off" class="um-form-field" type="text" name="nua_invitation_code" id="nua_invitation_code-<?php echo esc_attr( $form_id ); ?>" value="<?php echo esc_attr( $_POST["nua_invitation_code-" . esc_attr( $form_id )] ); ?>">
+                    <?php wp_nonce_field("nua_invitation_code_action", "nua_invitation_code_nonce"); ?>
+                </div>
+                <?php if ( isset( UM()->form()->errors["nua_invitation_code"] ) ) : ?>
+                    <div class="um-field-error" id="um-error-for-nua_invitation_code-<?php echo esc_attr( $form_id ); ?>">
+                        <span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>
+                        <?php echo esc_html( UM()->form()->errors["nua_invitation_code"] ); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php
+	    }
+
+        public function um_invite_code_check( $submitted_data ) {
+            $options = get_option("new_user_approve_options");
+
+            if ( isset( $submitted_data["nua_invitation_code_nonce"] ) && wp_verify_nonce( $submitted_data["nua_invitation_code_nonce"], "nua_invitation_code_action" ) ) {
+                if ( isset( $submitted_data["nua_invitation_code"] ) && ! empty( $submitted_data["nua_invitation_code"] ) ) {
+                    $args = [
+                        "numberposts" => -1,
+                        "post_type" => $this->code_post_type,
+                        "post_status" => "publish",
+                        "meta_query" => [
+                            "relation" => "AND",
+                            [
+                                [
+                                    "key" => $this->code_key,
+                                    "value" => sanitize_text_field(
+                                        $submitted_data["nua_invitation_code"]
+                                    ),
+                                    "compare" => "=",
+                                ],
+                                [
+                                    "key" => $this->usage_limit_key,
+                                    "value" => "1",
+                                    "compare" => ">=",
+                                ],
+                                [
+                                    "key" => $this->expiry_date_key,
+                                    "value" => time(),
+                                    "compare" => ">=",
+                                ],
+                                [
+                                    "key" => $this->status_key,
+                                    "value" => "Active",
+                                    "compare" => "=",
+                                ],
+                            ],
+                        ],
+                    ];
+
+                    $posts = get_posts( $args );
+                    $flag = true;
+
+                    foreach ( $posts as $post_inv ) {
+                        $code_inv = get_post_meta( $post_inv->ID, $this->code_key, true );
+
+                        if ( $code_inv === sanitize_text_field( $submitted_data["nua_invitation_code"] ) ) {
+                            $flag = false;
+                            global $inv_file_lock;
+
+                            $inv_file_lock = $this->invite_code_hold( $post_inv->ID );
+                            if ( $inv_file_lock === false ) {
+                                UM()->form()->add_error( 'nua_invitation_code', "Server is busy, please try again!" );
+                            }
+                        }
+                    }
+
+                    if ( $flag ) {
+                        UM()->form()->add_error( "nua_invitation_code", "The Invitation code is invalid" );
+                    }
+
+                    if ( isset( $submitted_data["nua_invitation_code"] ) && isset( $options["nua_registration_deadline"] ) && ! isset( $options["nua_auto_approve_deadline"] ) ) {
+                        UM()->form()->add_error( "nua_invitation_code", "Cannot use Code because deadline exceeded." );
+                    }
+                } elseif ( ! isset( $submitted_data["nua_invitation_code"] ) || ( isset( $submitted_data["nua_invitation_code"] ) && empty( $submitted_data["nua_invitation_code"] ) && ! empty( $options["nua_checkbox_textbox"] ) ) ) {
+                    UM()->form()->add_error( "nua_invitation_code", "Please add an Invitation code." );
+                }
+            } elseif ( ! isset( $submitted_data["nua_invitation_code"] ) || ( isset( $submitted_data["nua_invitation_code"] ) && empty( $submitted_data["nua_invitation_code"] ) && ! empty( $options["nua_checkbox_textbox"] ) ) ) {
+                UM()->form()->add_error( "nua_invitation_code", "Something went wrong.");
+            }
         }
 
         public function uwp_nua_invitation_code_field($form_type)

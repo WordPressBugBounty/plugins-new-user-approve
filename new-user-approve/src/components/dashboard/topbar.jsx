@@ -1,35 +1,21 @@
-import React from "react";
-import { redirect } from "react-router-dom";
-
 const images = require.context(
   "../../assets/images",
   false,
   /\.(png|jpe?g|svg)$/
 );
 
+const BF_DEADLINE = new Date("2025-12-10T23:59:59").getTime();
 function Logo() {
-  // require(`./images/${imageName}`).default;
   let dash_icon = images(`./nua-logo.png`);
 
   return (
     <div className="logo">
-      {/* Add your logo image here */}
       <img src={dash_icon} alt={"nua-logo"} />
     </div>
   );
 }
 
-function getPro(e) {
-  window.open(
-    "https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=header_pro_btn",
-    "_blank",
-    "noopener,noreferrer"
-  );
-  return null;
-}
-
 function GetProButton() {
-  let getProBtn = images(`./getProBtn.png`);
   let crownIcon = (
     <svg
       width="24"
@@ -59,10 +45,47 @@ function GetProButton() {
     </svg>
   );
 
+  const now = Date.now();
+  const isBlackFriday = now < BF_DEADLINE;
+
+  const promoTitle = isBlackFriday
+    ? "🎉 Black Friday Sale is On!"
+    : "";
+
+  const promoSubText = isBlackFriday
+    ? "Grab the biggest deals of the year before they’re gone!"
+    : "";
+
+  const buttonLabel = isBlackFriday ? "Black Friday Deals" : "Upgrade To Pro";
+
+  const buttonClass = isBlackFriday ? "ProButton bf-button" : "ProButton regular-button";
+
+  const proLink = isBlackFriday
+    ? "https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=header_pro_btn_bf"
+    : "https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=header_pro_btn";
+
+  function getPro() {
+    window.open(proLink, "_blank", "noopener,noreferrer");
+  }
+
   return (
-    <button className="ProButton" onClick={getPro}>
-      {crownIcon}Get Pro
-    </button>
+    <div className="getProText">
+      <div>
+        <p style={{ textAlign: "right", fontSize: "14px" }}>
+          <strong>{promoTitle}</strong>
+          <br />
+          {promoSubText}
+        </p>
+      </div>
+
+      <div className="getProBtn">
+        <button className={buttonClass} onClick={getPro}>
+          {!isBlackFriday && crownIcon}
+          {buttonLabel}
+        </button>
+
+      </div>
+    </div>
   );
 }
 

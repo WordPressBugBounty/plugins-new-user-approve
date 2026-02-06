@@ -594,6 +594,8 @@ if (!class_exists("Pw_New_User_Approve_User_List")) {
     ); ?></label>
 				</th>
 				<td>
+				<?php wp_nonce_field("nua_approve_status_action", "nua_approve_status_nonce"); ?>
+
 					<select id="new_user_approve_status" name="new_user_approve_status">
 						<?php if ($user_status == "pending"): ?>
 							<option value=""><?php esc_html_e(
@@ -642,25 +644,29 @@ if (!class_exists("Pw_New_User_Approve_User_List")) {
             if (!current_user_can("edit_user", $user_id)) {
                 return false;
             }
-            $nonce = "";
-            if (wp_verify_nonce($nonce)) {
-                return;
-            }
-            if (!empty($_POST["new_user_approve_status"])) {
-                $new_status = sanitize_text_field(
-                    wp_unslash($_POST["new_user_approve_status"])
-                );
+            if (
+                isset($_POST["nua_approve_status_nonce"]) &&
+                wp_verify_nonce(
+                    $_POST["nua_approve_status_nonce"],
+                    "nua_approve_status_action"
+                )
+            ) {
+                if (!empty($_POST["new_user_approve_status"])) {
+                    $new_status = sanitize_text_field(
+                        wp_unslash($_POST["new_user_approve_status"])
+                    );
 
-                if ($new_status == "approved") {
-                    $new_status = "approve";
-                } elseif ($new_status == "denied") {
-                    $new_status = "deny";
+                    if ($new_status == "approved") {
+                        $new_status = "approve";
+                    } elseif ($new_status == "denied") {
+                        $new_status = "deny";
+                    }
+
+                    pw_new_user_approve()->update_user_status(
+                        $user_id,
+                        $new_status
+                    );
                 }
-
-                pw_new_user_approve()->update_user_status(
-                    $user_id,
-                    $new_status
-                );
             }
         }
 

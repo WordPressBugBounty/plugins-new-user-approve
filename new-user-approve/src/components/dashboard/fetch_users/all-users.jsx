@@ -44,8 +44,7 @@ const All_Users = () => {
     try {
       setLaoding(true);
       const response = await axios.get(
-        `${
-          NUARestAPI.get_all_users + NUARestAPI.permalink_delimeter
+        `${NUARestAPI.get_all_users + NUARestAPI.permalink_delimeter
         }page=${page}&limit=${rowsPerPage}&search=${search}`,
         {
           headers: {
@@ -302,6 +301,7 @@ const All_Users = () => {
             noValidate
             autoComplete="off"
             sx={{ width: "30ch", position: "relative" }}
+            onSubmit={(e) => e.preventDefault()}
           >
             <input
               type="text"
@@ -402,9 +402,8 @@ const All_Users = () => {
                       return (
                         <TableCell key={col.key}>
                           <a
-                            href={`${site_url()}/wp-admin/user-edit.php?user_id=${
-                              row.ID
-                            }`}
+                            href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID
+                              }`}
                             style={{ textDecoration: "none", color: "#858585" }}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -460,11 +459,10 @@ const All_Users = () => {
                             disabled={row.nua_status === "approved"}
                           >
                             <div
-                              className={`status-icon ${
-                                row.nua_status === "approved"
-                                  ? "inactive"
-                                  : "active"
-                              }`}
+                              className={`status-icon ${row.nua_status === "approved"
+                                ? "inactive"
+                                : "active"
+                                }`}
                             >
                               {iconApprove}
                             </div>
@@ -481,11 +479,10 @@ const All_Users = () => {
                             disabled={row.nua_status === "denied"}
                           >
                             <div
-                              className={`status-icon ${
-                                row.nua_status === "denied"
-                                  ? "inactive"
-                                  : "active"
-                              }`}
+                              className={`status-icon ${row.nua_status === "denied"
+                                ? "inactive"
+                                : "active"
+                                }`}
                             >
                               {iconDeny}
                             </div>

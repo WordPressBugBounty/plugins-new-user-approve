@@ -102,11 +102,7 @@ if (!class_exists("RestRoutes")) {
         {
             $api_key = $request->get_param("api_key");
 
-            if ($api_key == $this->api_key()) {
-                return new \WP_REST_Response(true, 200);
-            }
-
-            if ($api_key == null) {
+            if ($api_key === null) {
                 return new \WP_Error(
                     400,
                     __("Required Parameter Missing", "new-user-approve"),
@@ -114,20 +110,24 @@ if (!class_exists("RestRoutes")) {
                 );
             }
 
-            if ($api_key != $this->api_key()) {
-                return new \WP_Error(
-                    400,
-                    __("Invalid API Key", "new-user-approve"),
-                    "invalid api_key"
-                );
+            if ($api_key === $this->api_key()) {
+                return new \WP_REST_Response(true, 200);
             }
+
+            // else invalid key
+            return new \WP_Error(
+                400,
+                __("Invalid API Key", "new-user-approve"),
+                "invalid api_key"
+            );
         }
+
 
         public function user_whitelisted($request)
         {
             $api_key = $request->get_param("api_key");
 
-            if ($api_key == null) {
+            if ($api_key === null) {
                 return new \WP_Error(
                     400,
                     __("Required Parameter Missing", "new-user-approve"),
@@ -135,24 +135,23 @@ if (!class_exists("RestRoutes")) {
                 );
             }
 
-            if ($api_key != $this->api_key()) {
+            if ($api_key !== $this->api_key()) {
                 return new \WP_Error(
-                    400,
+                    401,
                     __("Invalid API Key", "new-user-approve"),
                     "invalid api_key"
                 );
             }
 
-            if ($api_key == $this->api_key()) {
-                return $this->user_data("nua_user_whitelisted");
-            }
+            return $this->user_data("nua_user_whitelisted");
         }
+
 
         public function user_pending($request)
         {
             $api_key = $request->get_param("api_key");
 
-            if ($api_key == null) {
+            if ($api_key === null) {
                 return new \WP_Error(
                     400,
                     __("Required Parameter Missing", "new-user-approve"),
@@ -160,24 +159,23 @@ if (!class_exists("RestRoutes")) {
                 );
             }
 
-            if ($api_key != $this->api_key()) {
+            if ($api_key !== $this->api_key()) {
                 return new \WP_Error(
-                    400,
+                    401,
                     __("Invalid API Key", "new-user-approve"),
                     "invalid api_key"
                 );
             }
 
-            if ($api_key == $this->api_key()) {
-                return $this->user_data("nua_user_pending");
-            }
+            return $this->user_data("nua_user_pending");
         }
+
 
         public function user_invcode($request)
         {
             $api_key = $request->get_param("api_key");
 
-            if ($api_key == null) {
+            if ($api_key === null) {
                 return new \WP_Error(
                     400,
                     __("Required Parameter Missing", "new-user-approve"),
@@ -185,24 +183,22 @@ if (!class_exists("RestRoutes")) {
                 );
             }
 
-            if ($api_key != $this->api_key()) {
+            if ($api_key !== $this->api_key()) {
                 return new \WP_Error(
-                    400,
+                    401,
                     __("Invalid API Key", "new-user-approve"),
                     "invalid api_key"
                 );
             }
 
-            if ($api_key == $this->api_key()) {
-                return $this->user_data("nua_user_invcode");
-            }
+            return $this->user_data("nua_user_invcode");
         }
 
         public function user_approved($request)
         {
             $api_key = $request->get_param("api_key");
 
-            if ($api_key == null) {
+            if ($api_key === null) {
                 return new \WP_Error(
                     400,
                     __("Required Parameter Missing", "new-user-approve"),
@@ -210,24 +206,23 @@ if (!class_exists("RestRoutes")) {
                 );
             }
 
-            if ($api_key != $this->api_key()) {
+            if ($api_key !== $this->api_key()) {
                 return new \WP_Error(
-                    400,
+                    401,
                     __("Invalid API Key", "new-user-approve"),
                     "invalid api_key"
                 );
             }
 
-            if ($api_key == $this->api_key()) {
-                return $this->user_data("nua_user_approved");
-            }
+            return $this->user_data("nua_user_approved");
         }
+
 
         public function user_approved_via_role($request)
         {
             $api_key = $request->get_param("api_key");
 
-            if ($api_key == null) {
+            if ($api_key === null) {
                 return new \WP_Error(
                     400,
                     __("Required Parameter Missing", "new-user-approve"),
@@ -235,24 +230,23 @@ if (!class_exists("RestRoutes")) {
                 );
             }
 
-            if ($api_key != $this->api_key()) {
+            if ($api_key !== $this->api_key()) {
                 return new \WP_Error(
-                    400,
+                    401,
                     __("Invalid API Key", "new-user-approve"),
                     "invalid api_key"
                 );
             }
 
-            if ($api_key == $this->api_key()) {
-                return $this->user_data("nua_user_approved_via_role");
-            }
+            return $this->user_data("nua_user_approved_via_role");
         }
+
 
         public function user_denied($request)
         {
             $api_key = $request->get_param("api_key");
 
-            if ($api_key == null) {
+            if ($api_key === null) {
                 return new \WP_Error(
                     400,
                     __("Required Parameter Missing", "new-user-approve"),
@@ -260,18 +254,17 @@ if (!class_exists("RestRoutes")) {
                 );
             }
 
-            if ($api_key != $this->api_key()) {
+            if ($api_key !== $this->api_key()) {
                 return new \WP_Error(
-                    400,
+                    401,
                     __("Invalid API Key", "new-user-approve"),
                     "invalid api_key"
                 );
             }
 
-            if ($api_key == $this->api_key()) {
-                return $this->user_data("nua_user_denied");
-            }
+            return $this->user_data("nua_user_denied");
         }
+
 
         public function user_data($option_name)
         {
@@ -323,10 +316,7 @@ if (!class_exists("RestRoutes")) {
                             true
                         );
                     }
-                    // else if ( 'nua_user_approved' == $option_name && ( !empty(get_user_meta( $user->ID, 'nua_invcode_used', true )) || !empty(get_user_meta( $user->ID, 'nua_wl_domain_used', true )) || !empty(get_user_meta($user_id, 'nua_user_role_based_approved', true)) ) ) {
-                    // 		// user is auto approved through invitation code or whitelist
-                    // 	   continue;
-                    // }
+                  
                     elseif ("nua_user_approved_via_role" == $option_name) {
                         $time_val = get_user_meta(
                             $user->ID,

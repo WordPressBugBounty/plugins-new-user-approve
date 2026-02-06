@@ -19,11 +19,6 @@ import {
 
 import Update_User_Role_Modal from "./update-user-role-modal";
 import PopupModal from "../../popup-modal";
-const icons = require.context(
-  "../../../assets/icons",
-  false,
-  /\.(png|svg|jpe?g|)$/
-);
 
 const User_Roles = () => {
   const [loading, setLaoding] = useState(true);
@@ -62,16 +57,6 @@ const User_Roles = () => {
 
   const handleEditChange = () => {
     setPopupVisible(true);
-    setAnchorEl(null);
-    setUserID(null);
-  };
-
-  const handleMenuOpen = (event, userId) => {
-    setAnchorEl(event.currentTarget);
-    setUserID(userId);
-  };
-
-  const handleMenuClose = () => {
     setAnchorEl(null);
     setUserID(null);
   };

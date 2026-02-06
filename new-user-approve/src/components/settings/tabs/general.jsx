@@ -656,7 +656,7 @@ const General_Settings = () => {
                           name="nua_admin_email_address"
                           type="text"
                           className="auto-code-field"
-                          placeholder="example@email.com"
+                          placeholder="Enter Email Address"
                           value={""}
                           onClick={PopupShow}
                           onChange={handleAdminAddressChange}
@@ -671,9 +671,8 @@ const General_Settings = () => {
                     style={{ marginBottom: "0px" }}
                   >
                     <button
-                      className={`nua-btn save-changes ${
-                        loading ? "loading" : ""
-                      }`}
+                      className={`nua-btn save-changes ${loading ? "loading" : ""
+                        }`}
                       onClick={handleSaveChange}
                     >
                       {__("Save Changes", "new-user-approve")}

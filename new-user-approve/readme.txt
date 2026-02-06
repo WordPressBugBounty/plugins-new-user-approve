@@ -1,19 +1,18 @@
-=== New User Approve ===
+﻿=== New User Approve ===
 Contributors: wpexpertsio
 Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
-Tested up to: 6.8.1
-Stable tag: 3.0.9
+Tested up to: 6.9
+Stable tag: 3.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-New User Approve allows a site administrator to approve a user before they
-are able to login to the site.
+WordPress user approval plugin to moderate registrations. Approve or deny real users and prevent fake signups to control who registers on site.
 
 == Description ==
 
-[Documentation](https://newuserapprove.com/documentation/introduction/?utm_source=wp_org&utm_medium=read_me) | [New User Approve PRO](https://newuserapprove.com/pricing/?utm_source=wp_org&utm_medium=read_me) | [Contact Us](https://newuserapprove.com/get-in-touch/?utm_source=wp_org&utm_medium=read_me)
+🚀 [Go Pro](https://newuserapprove.com/pricing/?utm_source=wp_org&utm_medium=read_me) | 📘 [Documentation](https://newuserapprove.com/documentation/introduction/?utm_source=wp_org&utm_medium=read_me) | 📱 [Mobile App](https://newuserapprove.com/mobile-app/?utm_source=wp_org&utm_medium=read_me) | 💬 [Contact Us](https://newuserapprove.com/get-in-touch/?utm_source=wp_org&utm_medium=read_me)
 
 https://youtu.be/KlhWmlfuaVg
 
@@ -22,10 +21,22 @@ Running a WordPress site is exciting but it also means you’re constantly battl
 New User Approve comes is a powerful WordPress user approval plugin that puts you in full control of your community, membership site, online store, or private portal. With this manual user approval plugin, you can moderate user registration, protect your content, and keep your website free from unwanted registration requests.
 Whether you want to restrict user access before approval, prevent fake user signups, or simply make sure every new member is legit, New User Approve makes it easy, professional, and efficient. 
 
+==⭐ New User Approve Offers Mobile App for Faster User Approvals ⭐==
+New User Approve also includes a dedicated mobile app that lets you manage registrations without opening your WordPress dashboard. It gives you quick access to every pending user and keeps your site protected even when you are away from your computer.
+
+**With the mobile app, you can:**
+⚡ Review complete user profiles in a clean, mobile-friendly layout
+⚡ Approve or deny registrations with single tap
+⚡ Verify identities with clear, mobile-friendly user profiles
+⚡ Keep full control of who joins your site without logging into WordPress
+⚡ Stay updated with instant push notifications for every new signup
+
+This feature ensures you never miss an approval request and keeps your site consistently secure, responsive, and easy to manage from anywhere.
+
 ==⭐ Why You Need New User Approve ⭐==
 Imagine running a membership site, community forum, or private business portal where quality and security matter. The last thing you want is spam bots flooding your database or strangers sneaking into confidential areas.
 
-**New User Approve helps** you:
+**New User Approve helps you:**
 ⚡ **Stop spam registrations** and fake accounts before they ever log in
 ⚡ **Verify user identities** by reviewing each signup manually
 ⚡ Maintain **complete control** over who becomes part of your community
@@ -150,6 +161,9 @@ Yes. Approved users can submit role change requests via shortcode or the account
 = What is the registration deadline feature? =
 You can set a limit by date/time or total number of signups. After the limit, registration is blocked, unless the user has a valid invitation code.
 
+= Where do I report security bugs found in this plugin? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/vdp/dbce4406-5bdd-4b7b-814d-e767f14bc307/?utm_source=wp_org&utm_medium=read_me)
+
 == Screenshots ==
 
 1. New & Improved Dashboard.
@@ -162,6 +176,29 @@ You can set a limit by date/time or total number of signups. After the limit, re
 
 == Changelog ==
 
+= 3.2.3 =
+* Fixed - Change date_create to DateTime as date_create is deprecated.
+
+= 3.2.2 =
+* Fixed - Vulnerability fixes.
+
+= 3.2.1 =
+* Fixed - Vulnerability fixes.
+* Fixed - Code Improvement.
+
+= 3.2.0 =
+* Added - Mobile App Menu.
+* Fixed - vulnerability fixes.
+* Fixed - Freemius SDK Update.
+
+= 3.1.2 =
+* Fixed - Code Improvement.
+
+= 3.1.1 =
+* Fixed - Code Improvement.
+
+= 3.1.0 =
+* Fixed - Code Improvement.
 
 = 3.0.9 =
 * Fixed - Bug fixes and improvements.
@@ -529,3 +566,4 @@ Download version 1.3.1 immediately! A bug was found in version 1.3 that allows a
 
 = 1.3.2 =
 Download version 1.3.2 immediately! A bug was found in version 1.3 that allows a user to login using any password.
+

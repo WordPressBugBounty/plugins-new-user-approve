@@ -13,7 +13,7 @@ if (!class_exists("PW_New_User_Approve_Admin_Approve")) {
     class PW_New_User_Approve_Admin_Approve
     {
         public $_admin_page = "new-user-approve-admin";
-        public $_admin_upgrade_page = "https://newuserapprove.com/pricing/?utm_source=wordpress&utm_medium=plugin#lifetime-plan";
+        
 
         /**
          * The only instance of pw_new_user_approve_admin_approve.
@@ -54,8 +54,6 @@ if (!class_exists("PW_New_User_Approve_Admin_Approve")) {
             add_action("admin_init", [$this, "process_input"]);
             add_action("admin_notices", [$this, "admin_notice"]);
             add_action("admin_init", [$this, "notice_ignore"]);
-            add_action("admin_init", [$this, "_add_meta_boxes"]);
-            add_action("admin_post_nua-save-api-key", [$this, "save_api_key"]);
             add_action("admin_footer", [$this, "highlight_nua_menu"]);
         }
 
@@ -111,6 +109,22 @@ if (!class_exists("PW_New_User_Approve_Admin_Approve")) {
                     5
                 );
 
+                $menu_text = sprintf( 
+                    '%s<span class="dashicons dashicons-smartphone"></span><span class="menu-counter">%s</span>', 
+                    __( "Mobile App", "new-user-approve" ), 
+                    __( "New", "new-user-approve" ) 
+                );
+
+                $hook = add_submenu_page(
+                    "new-user-approve-admin",
+                    __("New User Approve", "new-user-approve"),
+                    $menu_text,
+                    "nua_mobile_app_cap",
+                    "new-user-approve-admin#/action=mobile-app",
+                    [$this, "menu_options_page"],
+                    8
+                );
+
                 add_action("load-" . $hook, [$this, "admin_enqueue_scripts"]);
             }
         }
@@ -121,17 +135,33 @@ if (!class_exists("PW_New_User_Approve_Admin_Approve")) {
                 "new_user_approve_show_admin_page",
                 true
             );
-            if ($show_admin_page) {
+
+            $_admin_upgrade_page = "https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=get_pro_menu";
+
+            $now         = current_time('timestamp');
+            $bf_deadline = strtotime('2025-12-10 23:59:59');
+
+            $label_main = __("Upgrade To", "new-user-approve");
+            $label_pro  = __("Pro", "new-user-approve");
+
+            if ( $now < $bf_deadline ) {
+                $label_main = __("Black Friday", "new-user-approve");
+                $label_pro  = __("Deals", "new-user-approve");
+
+                $_admin_upgrade_page = "https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=plugins_page_bf";
+            }
+
+            if ( $show_admin_page ) {
                 add_submenu_page(
                     $this->_admin_page,
-                    __("👉 Get Pro Bundle", "new-user-approve"),
+                    __("🎁 Get Pro Bundle", "new-user-approve"),
                     sprintf(
-                        '<span style="color:#adff2f!important;">👉 %1$s <b>%2$s</b>&nbsp;&nbsp;➤</span>',
-                        __("Get", "new-user-approve"),
-                        __("Pro", "new-user-approve")
+                       '<span style="color:#adff2f!important;">🎁 %1$s <b>%2$s</b></span>',
+                        $label_main,
+                        $label_pro
                     ),
                     "nua_main_menu",
-                    $this->_admin_upgrade_page,
+                    $_admin_upgrade_page,
                     "",
                     7
                 );
@@ -585,264 +615,6 @@ if (!class_exists("PW_New_User_Approve_Admin_Approve")) {
             wp_enqueue_script("post");
         }
 
-        public function _add_meta_boxes()
-        {
-            add_meta_box(
-                "nua-approve-admin",
-                __("Approve Users", "new-user-approve"),
-                [$this, "metabox_main"],
-                "users_page_new-user-approve-admin",
-                "main",
-                "high"
-            );
-            add_meta_box(
-                "nua-support",
-                __("Support", "new-user-approve"),
-                [$this, "metabox_support"],
-                "users_page_new-user-approve-admin",
-                "side",
-                "default"
-            );
-            add_meta_box(
-                "nua-feedback",
-                __("Feedback", "new-user-approve"),
-                [$this, "metabox_feedback"],
-                "users_page_new-user-approve-admin",
-                "side",
-                "default"
-            );
-        }
-
-        public function metabox_main()
-        {
-            $active_tab = isset($_GET["tab"])
-                ? sanitize_text_field(wp_unslash($_GET["tab"]))
-                : "pending_users"; ?>
-		<h3 class="nav-tab-wrapper" style="padding-bottom: 0; border-bottom: none;">
-			<?php
-   $page = isset($_GET["page"]) ? sanitize_text_field($_GET["page"]) : "";
-   $tab = isset($_GET["tab"]) ? sanitize_text_field($_GET["tab"]) : "";
-   $search_query = isset($_GET["nua_search_box"])
-       ? sanitize_text_field($_GET["nua_search_box"])
-       : "";
-   ?>
-			<form id="nua_search_form" method="get">
-				<input type="search" name="nua_search_box" id="nua_search_box" placeholder="Search" data-list=".nua-user-list" value="<?php echo esc_attr(
-        $search_query
-    ); ?>">
-				<input type="hidden" name="page" value="<?php echo esc_attr($page); ?>" />
-				<?php if (!empty($tab)): ?>
-					<input type="hidden" name="tab" value="<?php echo esc_attr($tab); ?>" />
-				<?php endif; ?>
-				<input type="submit" value="Search" id="nua-search-btn" name="nua-search-btn" />
-			</form> 
-			<a href="<?php echo esc_url(
-       admin_url("admin.php?page=new-user-approve-admin&tab=pending_users")
-   ); ?>"
-				class="nav-tab<?php echo $active_tab == "pending_users"
-        ? " nav-tab-active"
-        : ""; ?>"><span><?php esc_html_e(
-    "Pending Users",
-    "new-user-approve"
-); ?></span></a>
-			<a href="<?php echo esc_url(
-       admin_url("admin.php?page=new-user-approve-admin&tab=approved_users")
-   ); ?>"
-			   class="nav-tab<?php echo $active_tab == "approved_users"
-          ? " nav-tab-active"
-          : ""; ?>"><span><?php esc_html_e(
-    "Approved Users",
-    "new-user-approve"
-); ?></span></a>
-			<a href="<?php echo esc_url(
-       admin_url("admin.php?page=new-user-approve-admin&tab=denied_users")
-   ); ?>"
-			   class="nav-tab<?php echo $active_tab == "denied_users"
-          ? " nav-tab-active"
-          : ""; ?>"><span><?php esc_html_e(
-    "Denied Users",
-    "new-user-approve"
-); ?></span></a>
-			<a href="<?php echo esc_url(
-       admin_url("admin.php?page=new-user-approve-admin&tab=zapier")
-   ); ?>"
-			   class="nav-tab<?php echo $active_tab == "zapier"
-          ? " nav-tab-active"
-          : ""; ?>"><span><?php esc_html_e(
-    "Zapier",
-    "new-user-approve"
-); ?></span></a>
-			<a href="<?php echo esc_url(
-       admin_url("admin.php?page=new-user-approve-admin&tab=pro_features")
-   ); ?>"
-				class="nav-tab<?php echo $active_tab == "pro_features"
-        ? " nav-tab-active"
-        : ""; ?>"><span><?php esc_html_e(
-    "Pro Features",
-    "new-user-approve"
-); ?></span></a>
-		 </h3>
-
-	<?php if ($active_tab == "pending_users"): ?>
-	<div id="pw_pending_users">
-				<?php $this->user_table("pending"); ?>
-	</div>
-				<?php elseif ($active_tab == "approved_users"): ?>
-	<div id="pw_approved_users">
-				<?php $this->user_table("approved"); ?>
-	</div>
-		<?php elseif ($active_tab == "denied_users"): ?>
-	<div id="pw_denied_users">
-		<?php $this->user_table("denied"); ?>
-	</div>
-	<?php elseif ($active_tab == "zapier"): ?>
-	<div id="pw_denied_users">
-		<?php $this->zapier(); ?>
-	</div>
-	<?php elseif ($active_tab == "pro_features"): ?>
-	<div id="pw_pro_features">
-		<?php $this->pro_features(); ?>
-	</div>
-	<?php endif;
-        }
-
-        public function pro_features()
-        {
-            ?>
-		<h3>Premium Features</h3>
-		<ul style="padding-left: 30px; list-style-type: disc;">
-			<li>Provides Ability To remove plugin stats from admin dashboard.</li>
-			<li>Remove the admin panel specifically added to update a user's status, from wordpress dashboard.</li>
-			<li>Customize the welcome message displayed above wordpress login form.</li>
-			<li>Customize the 'Pending error message' displayed when user tries to login but his account is still pending approval.</li>
-			<li>Customize the 'Denied error message' displayed when user tries to login but his account is denied approval.</li>
-			<li>Customize the welcome message displayed above wordpress Registration form.</li>
-			<li>Customize the Registration complete message displayed after user submits Registration form for approval.</li>
-			<li>Provide Ability To Send Approval notification emails to all admins</li>
-			<li>Notify admins when a user's status is updated</li>
-			<li>Disable notification emails to current site admin</li>
-			<li>Customize the email sent to admin when a user registers for the site</li>
-			<li>Customize the email sent to user when his profile is approved.</li>
-			<li>Customize the email sent to user when his profile is denied.</li>
-			<li>Suppress denial email notification</li>
-			<li>Provides option to send all email notifications as html.</li>
-			<li>It Provides you Different template tags which can be used in Notification Emails and Other messages on site.</li>
-		</ul>
-
-		<p>Please Visit this link For <a class="button" href="https://newuserapprove.com/pricing/?utm_source=wordpress&utm_medium=plugin#lifetime-plan" target="_blank" >Premium Plugin </a> </p>
-			<?php
-        }
-
-        /**
-         * Renders Zapier Tab
-         * @since 2.0
-         * @version 1.0
-         */
-        public function zapier()
-        {
-            $triggers = [
-                __("Triggers when a user is Approved.", "new-user-approve"),
-                __("Triggers when a user is Denied.", "new-user-approve"),
-                __(
-                    "Triggers when a user is registered (pending)",
-                    "new-user-approve"
-                ),
-            ];
-
-            $api_key = \NewUserApproveZapier\RestRoutes::api_key()
-                ? "value='" . \NewUserApproveZapier\RestRoutes::api_key() . "'"
-                : "";
-            ?>
-		   <?php $get_api_key = get_option("nua_api_key", $api_key); ?>
-		<html>
-
-		<p class="status_heading"> <?php esc_html_e(
-      "Zapier Settings",
-      "new-user-approve"
-  ); ?>  </p>
-
-		<table cellpadding='10'>
-			<tr>
-				<td> <?php esc_html_e("Website URL: ", "new-user-approve"); ?> </td>
-				<td>  <?php echo esc_url(get_site_url()); ?> </td>
-			</tr>
-			<tr>
-				<td> <?php esc_html_e("API Key: ", "new-user-approve"); ?> </td>
-				<td>
-					<form action=<?php echo esc_url(admin_url("admin-post.php")); ?> method="POST">
-						<?php $nonce = wp_create_nonce("api-generate-nonce"); ?>
-						<input type='text' name='nua_api_key' id='nua-api' value = "<?php $get_api_key
-          ? esc_attr_e($get_api_key)
-          : ""; ?>"  />
-						<button id='nua-generate-api' class='button'>Generate API Key</button>
-						<input type='hidden' name='wp-api-generate-nonce' value='<?php esc_attr_e(
-          $nonce
-      ); ?>' />
-						<input type='hidden' name='action' value='nua-save-api-key' />
-						<input type='submit' value='Save' name='nua_save_api'  class='button'/>
-					</form>
-				</td>
-			</tr>
-		</table>
-
-		<p class="status_heading"> <?php esc_html_e(
-      "Triggers",
-      "new-user-approve"
-  ); ?> </p>
-		<ul style='padding-left: 30px; list-style-type: disc;'>
-		  <?php foreach ($triggers as $trigger): ?>
-
-				  <li> <?php esc_html_e($trigger); ?> </li>
-
-		  <?php endforeach; ?>
-	   </ul>
-		</html>
-		<?php
-        }
-
-        public function save_api_key()
-        {
-            if (
-                isset($_REQUEST["wp-api-generate-nonce"]) &&
-                isset($_POST["action"]) &&
-                $_POST["action"] == "nua-save-api-key"
-            ) {
-                $nonce = sanitize_text_field(
-                    wp_unslash($_REQUEST["wp-api-generate-nonce"])
-                );
-                if (
-                    wp_verify_nonce($nonce, "api-generate-nonce") &&
-                    isset($_POST["nua_api_key"])
-                ) {
-                    $api_key = sanitize_text_field(
-                        wp_unslash($_POST["nua_api_key"])
-                    );
-
-                    update_option("nua_api_key", $api_key);
-
-                    wp_redirect(
-                        admin_url(
-                            "admin.php?page=new-user-approve-admin&tab=zapier"
-                        )
-                    );
-                }
-            }
-        }
-
-        public function metabox_support()
-        {
-            ?>
-		<p>If you haven't already, check out the <a href="https://wordpress.org/plugins/new-user-approve/faq/" target="_blank">Frequently Asked Questions</a>.</p>
-		<p>Still not fixed? Please <a href="https://wordpress.org/support/plugin/new-user-approve" target="_blank">start a support topic</a> and I or someone from the community will be able to assist you.</p>
-	<?php
-        }
-
-        public function metabox_feedback()
-        {
-            ?>
-		<p>Please show your appreciation for New User Approve by giving it a positive <a href="https://wordpress.org/support/view/plugin-reviews/new-user-approve#postform" target="_blank">review</a> in the plugin repository!</p>
-	<?php
-        }
     }
 }
 // phpcs:ignore
