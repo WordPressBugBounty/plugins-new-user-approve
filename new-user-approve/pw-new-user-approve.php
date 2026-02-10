@@ -7,7 +7,8 @@ if (!defined("ABSPATH")) {
 
 if (!class_exists("PW_New_User_Approve")) {
     #[AllowDynamicProperties]
-    class PW_New_User_Approve {
+    class PW_New_User_Approve
+    {
         /**
          * The only instance of PW_New_User_Approve.
          *
@@ -22,7 +23,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @return PW_New_User_Approve
          */
-        public static function instance() {
+        public static function instance()
+        {
             if (!isset(self::$instance)) {
                 self::$instance = new PW_New_User_Approve();
                 self::$instance->includes();
@@ -32,7 +34,8 @@ if (!class_exists("PW_New_User_Approve")) {
             return self::$instance;
         }
 
-        private function __construct() {
+        private function __construct()
+        {
             // Load up the localization file if we're using WordPress in a different language
             // Just drop it in this plugin's "localization" folder and name it "new-user-approve-[value in wp-config].mo"
             // load_plugin_textdomain( 'new-user-approve', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
@@ -73,26 +76,28 @@ if (!class_exists("PW_New_User_Approve")) {
             add_filter('plugin_action_links_' . plugin_basename(NUA_FILE), [$this, 'plugin_action_links'], 10, 4);
         }
 
-        public function plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
+        public function plugin_action_links($actions, $plugin_file, $plugin_data, $context)
+        {
             // Black Friday Deal - Expires Dec 15th, 2025
-            if ( current_time( 'timestamp' ) < strtotime( '2025-12-10 23:59:59' ) ) {
+            if (current_time('timestamp') < strtotime('2025-12-10 23:59:59')) {
                 $actions['black_friday'] = '<a href="https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=plugins_page_bf" target="_blank" style="color: green; font-weight: bold;">Black Friday Deals</a>';
-            }
-            else{
+            } else {
                 $actions['black_friday'] = '<a href="https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=plugins_page" target="_blank" style="color: green; font-weight: bold;">Upgrade To Pro</a>';
 
             }
 
-            ksort( $actions );
+            ksort($actions);
             return $actions;
 
         }
 
-        public function allow_pmpro_setup_user( $proceed, $user_id, $user_data, $level ) {
+        public function allow_pmpro_setup_user($proceed, $user_id, $user_data, $level)
+        {
             return true;
         }
 
-        public function logout_after_pmpro_registration($user_id) {
+        public function logout_after_pmpro_registration($user_id)
+        {
             if (get_current_user_id() === (int) $user_id) {
                 wp_logout();
                 wp_redirect(
@@ -102,8 +107,9 @@ if (!class_exists("PW_New_User_Approve")) {
             }
         }
 
-        public function nua_show_pending_user_message($content) {
-            if ( isset($_GET["nua_status"]) && $_GET["nua_status"] === "pending" ) {
+        public function nua_show_pending_user_message($content)
+        {
+            if (isset($_GET["nua_status"]) && $_GET["nua_status"] === "pending") {
                 $message = '<div class="nua-pending-message" style="background:#00a6361f;padding:15px;border-left:4px solid #00a636;margin-bottom:20px;">' .
                     __(
                         "Thank you for registering. Your account is currently pending approval. Please wait for admin approval before attempting to log in.",
@@ -117,15 +123,18 @@ if (!class_exists("PW_New_User_Approve")) {
             return $content;
         }
 
-        public function wpdocs_load_textdomain() {
+        public function wpdocs_load_textdomain()
+        {
             load_plugin_textdomain("new-user-approve", false, dirname(plugin_basename(__FILE__)) . "/languages");
         }
 
-        public function nua_init_admin_functions() {
+        public function nua_init_admin_functions()
+        {
             $this->nua_register_caps();
         }
 
-        private function get_caps() {
+        private function get_caps()
+        {
             return [
                 "nua_main_menu",
                 "nua_users_cap",
@@ -137,7 +146,8 @@ if (!class_exists("PW_New_User_Approve")) {
             ];
         }
 
-        public function nua_register_caps() {
+        public function nua_register_caps()
+        {
             // List of all plugin-specific capabilities
             $role = get_role("administrator");
             if ($role) {
@@ -149,7 +159,8 @@ if (!class_exists("PW_New_User_Approve")) {
             }
         }
 
-        public function admin_menu_link() {
+        public function admin_menu_link()
+        {
             $hook = add_menu_page(
                 __("New User Approve", "new-user-approve"),
                 __("New User Approve", "new-user-approve"),
@@ -165,11 +176,13 @@ if (!class_exists("PW_New_User_Approve")) {
             ]);
         }
 
-        public function empty_admin_page() {
+        public function empty_admin_page()
+        {
             echo '<div class="wrap"></div>';
         }
 
-        public function admin_custom_icon_style() {
+        public function admin_custom_icon_style()
+        {
             echo '<style>
 				.dashicons-nua-main:before {
 					content: "\e900";
@@ -177,12 +190,14 @@ if (!class_exists("PW_New_User_Approve")) {
 				}
 			</style>';
         }
-        
-        public function get_plugin_url() {
+
+        public function get_plugin_url()
+        {
             return plugin_dir_url(__FILE__);
         }
 
-        public function get_plugin_dir() {
+        public function get_plugin_dir()
+        {
             return plugin_dir_path(__FILE__);
         }
 
@@ -194,11 +209,15 @@ if (!class_exists("PW_New_User_Approve")) {
          * @since 2.1 `required` zapier.php
          * @return void
          */
-        private function includes() {
+        private function includes()
+        {
             require_once $this->get_plugin_dir() . "includes/email-tags.php";
             require_once $this->get_plugin_dir() . "includes/messages.php";
             require_once $this->get_plugin_dir() . "includes/invitation-code.php";
             require_once $this->get_plugin_dir() . "includes/zapier/zapier.php";
+            if (file_exists($this->get_plugin_dir() . "/includes/nua_jetformbuilder.php")) {
+                require_once $this->get_plugin_dir() . "/includes/nua_jetformbuilder.php";
+            }
         }
 
         /**
@@ -206,7 +225,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @uses register_activation_hook
          */
-        public function activation() {
+        public function activation()
+        {
             global $wp_version;
             $min_wp_version = "3.5.1";
             // translators: %s is for wordpress version
@@ -227,17 +247,21 @@ if (!class_exists("PW_New_User_Approve")) {
         /**
          * @uses register_deactivation_hook
          */
-        public function deactivation() {
+        public function deactivation()
+        {
             do_action("new_user_approve_deactivate");
         }
 
-        public function change_background_color() {
+        public function change_background_color()
+        {
             ?>
-		    <style> 
-			#wpwrap { background-color:#F4F4F4; }
-		    </style>
+            <style>
+                #wpwrap {
+                    background-color: #F4F4F4;
+                }
+            </style>
 
-			<?php
+            <?php
         }
 
         /**
@@ -246,7 +270,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @uses wp_loaded
          */
-        public function admin_loaded() {
+        public function admin_loaded()
+        {
             $user_admin_integration = apply_filters("new_user_approve_user_admin_integration", true);
             if ($user_admin_integration) {
                 require_once __DIR__ . "/includes/user-list.php";
@@ -268,7 +293,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param int $user_id
          * @return string the status of the user
          */
-        public function get_user_status($user_id) {
+        public function get_user_status($user_id)
+        {
             $user_status = get_user_meta($user_id, "pw_user_status", true);
             if (empty($user_status)) {
                 $user_status = "approved";
@@ -284,7 +310,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @return boolean
          */
-        public function update_user_status($user, $status) {
+        public function update_user_status($user, $status)
+        {
             $user_id = absint($user);
             if (!$user_id) {
                 return false;
@@ -311,7 +338,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @return array
          */
-        public function get_valid_statuses() {
+        public function get_valid_statuses()
+        {
             return ["pending", "approved", "denied"];
         }
 
@@ -323,7 +351,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param int $user_id
          * @param string $status either 'approve' or 'deny'
          */
-        public function validate_status_update($do_update, $user_id, $status) {
+        public function validate_status_update($do_update, $user_id, $status)
+        {
             $current_status = pw_new_user_approve()->get_user_status($user_id);
 
             if ($status == "approve") {
@@ -344,7 +373,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @return string
          */
-        public function default_authentication_message($status) {
+        public function default_authentication_message($status)
+        {
             $message = "";
 
             if ($status == "pending") {
@@ -365,7 +395,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @uses wp_authenticate_user
          * @param array $userdata
          */
-        public function authenticate_user($userdata) {
+        public function authenticate_user($userdata)
+        {
             $status = $this->get_user_status($userdata->ID);
             if (empty($status)) {
                 // the user does not have a status so let's assume the user is good to go
@@ -388,7 +419,8 @@ if (!class_exists("PW_New_User_Approve")) {
             return $message;
         }
         //updated function for user count fix
-        public function _get_user_statuses($count = true) {
+        public function _get_user_statuses($count = true)
+        {
             global $wpdb;
 
             $statuses = [];
@@ -421,7 +453,8 @@ if (!class_exists("PW_New_User_Approve")) {
         /**
          * Get a list of statuses with a count of users using WPQuery not transient
          */
-        public function _get_users_by_status($count = true, $status = "") {
+        public function _get_users_by_status($count = true, $status = "")
+        {
             $paged = isset($_REQUEST["paged"]) && !empty($_REQUEST["paged"]) ? absint($_REQUEST["paged"]) : 1;
 
             $statuses = [];
@@ -477,7 +510,8 @@ if (!class_exists("PW_New_User_Approve")) {
         /**
          * Get a list of statuses with a count of users with that status
          */
-        public function get_count_of_user_statuses() {
+        public function get_count_of_user_statuses()
+        {
             $user_statuses = get_option("new_user_approve_user_statuses_count", []);
             if (empty($user_statuses)) {
                 $user_statuses = $this->_get_user_statuses();
@@ -487,7 +521,8 @@ if (!class_exists("PW_New_User_Approve")) {
             return $user_statuses;
         }
 
-        public function get_user_statuses($status) {
+        public function get_user_statuses($status)
+        {
             $nua_users_transient = apply_filters("nua_users_transient", true);
             $user_statuses = [];
 
@@ -515,7 +550,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @uses new_user_approve_approve_user
          * @uses new_user_approve_deny_user
          */
-        public function delete_new_user_approve_transient() {
+        public function delete_new_user_approve_transient()
+        {
             delete_transient("new_user_approve_user_statuses");
         }
 
@@ -530,10 +566,11 @@ if (!class_exists("PW_New_User_Approve")) {
          * Add scripts and styles for New User Approve admin pages
          * @since 2.0 `nua-admin` enqueued for zapier
          */
-        public function nua_admin_scripts() {
+        public function nua_admin_scripts()
+        {
             $mobile_app_auth_token = wp_generate_password(20, false);
             update_option("nua_app_auth_token", $mobile_app_auth_token);
-            
+
             $pages = [
                 "new-user-approve-auto-approve",
                 "nua-invitation-code",
@@ -549,7 +586,9 @@ if (!class_exists("PW_New_User_Approve")) {
                 wp_enqueue_script("new-user-approve-buildjs", plugins_url("/build/index.js", __FILE__), ["wp-blocks", "wp-block-library", "wp-element", "wp-i18n", "wp-components", "wp-editor", "wp-data"], NUA_VERSION, true);
                 wp_enqueue_style("new-user-approve-buildcss", plugins_url("/build/style-index.css", __FILE__));
                 wp_enqueue_style("nua-admin-style", plugins_url("/assets/css/nua-admin-style.css", __FILE__), ["nua-fonts"], NUA_VERSION);
-                wp_localize_script("new-user-approve-buildjs", "siteDetail", 
+                wp_localize_script(
+                    "new-user-approve-buildjs",
+                    "siteDetail",
                     [
                         "siteUrl" => get_site_url(),
                         "app_auth_token" => $mobile_app_auth_token,
@@ -602,19 +641,21 @@ if (!class_exists("PW_New_User_Approve")) {
             }
         }
 
-        public function dashboard_stats() {
+        public function dashboard_stats()
+        {
             $user_status = $this->get_count_of_user_statuses(); ?>
-		    <div>
-			    <p>
-				    <span style="font-weight:bold;">
-					    <a href="<?php echo wp_kses_post(apply_filters("new_user_approve_dashboard_link", "users.php")); ?>"><?php esc_html_e("Users", "new-user-approve"); ?></a>
-				    </span>:
-				    <?php foreach ($user_status as $status => $count) {
+            <div>
+                <p>
+                    <span style="font-weight:bold;">
+                        <a
+                            href="<?php echo wp_kses_post(apply_filters("new_user_approve_dashboard_link", "users.php")); ?>"><?php esc_html_e("Users", "new-user-approve"); ?></a>
+                    </span>:
+                    <?php foreach ($user_status as $status => $count) {
                         print esc_html_e(ucwords($status), "new-user-approve") . "(" . esc_attr($count) . ")&nbsp;&nbsp;&nbsp;";
                     } ?>
-			    </p>
-		    </div>
-		    <?php
+                </p>
+            </div>
+            <?php
         }
 
         /**
@@ -623,25 +664,62 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param $user_login username
          * @param $user_email email address of the user
          */
-        public function admin_approval_email($user_login, $user_email){
-            $default_admin_url = admin_url("admin.php?page=new-user-approve-admin#/action=users/tab=pending-users");
-            $admin_url = apply_filters("new_user_approve_admin_link", $default_admin_url);
+        public function admin_approval_email($user_login, $user_email)
+        {
+            add_filter(
+                "woocommerce_email_recipient_customer_new_account",
+                function ($recipient, $order) {
+                    return ""; // Return an empty string to prevent the email from being sent
+                },
+                10,
+                2
+            );
+            $default_admin_url = admin_url(
+                "admin.php?page=new-user-approve-admin#/action=users/tab=pending-users"
+            );
+            $admin_url = apply_filters(
+                "new_user_approve_admin_link",
+                $default_admin_url
+            );
             /* send email to admin for approval */
-            $message = apply_filters("new_user_approve_request_approval_message_default", nua_default_notification_message());
+            $message = apply_filters(
+                "new_user_approve_request_approval_message_default",
+                nua_default_notification_message()
+            );
             $message = nua_do_email_tags($message, [
                 "context" => "request_admin_approval_email",
                 "user_login" => $user_login,
                 "user_email" => $user_email,
                 "admin_url" => $admin_url,
             ]);
-            $message = apply_filters("new_user_approve_request_approval_message", $message, $user_login, $user_email);
-            // translators: %s is for blogname of admin notify email subject
-            $subject = sprintf(__("[%s] User Approval", "new-user-approve"), wp_specialchars_decode(get_option("blogname"), ENT_QUOTES));
-            $subject = apply_filters("new_user_approve_request_approval_subject", $subject);
-            $to = apply_filters("new_user_approve_email_admins", [get_option("admin_email")]);
+            $message = apply_filters(
+                "new_user_approve_request_approval_message",
+                $message,
+                $user_login,
+                $user_email
+            );
+            if (get_option('nua_notification_email_message_as_html') == '1') {
+                add_filter('wp_mail_content_type', [$this, 'welcome_html_content_type']);
+                $message .= "\n\n<br><br><button style='padding: 10px 20px; background-color: green; color: white; border: none; margin-right: 10px;'>Approve</button><button style='padding: 10px 20px; background-color: red; color: white; border: none;'>Deny</button><br><br>\n\n";
+            }
+            // translators: [%s] is for blogname in admin approve email subject
+            $subject = sprintf(
+                __("[%s] User Approval", "new-user-approve"),
+                wp_specialchars_decode(get_option("blogname"), ENT_QUOTES)
+            );
+            $subject = apply_filters(
+                "new_user_approve_request_approval_subject",
+                $subject
+            );
+            $to = apply_filters("new_user_approve_email_admins", [
+                get_option("admin_email"),
+            ]);
             $to = array_unique($to);
             // send the mail
             wp_mail($to, $subject, $message, $this->email_message_headers());
+            if (get_option('nua_notification_email_message_as_html') == '1') {
+                remove_filter('wp_mail_content_type', [$this, 'welcome_html_content_type']);
+            }
         }
 
         /**
@@ -653,11 +731,21 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param string $user_email
          * @param object $errors
          */
-        public function request_admin_approval_email($user_login, $user_email, $errors) {
+        public function request_admin_approval_email(
+            $user_login,
+            $user_email,
+            $errors
+        ) {
             if ($errors->get_error_code()) {
-                return $errors;
+                return;
             }
-            $this->admin_approval_email($user_login, $user_email);
+            $user = get_user_by('email', $user_email);
+            if ($user) {
+                $status = $this->get_user_status($user->ID);
+                if ($status == 'pending') {
+                    $this->admin_approval_email($user_login, $user_email);
+                }
+            }
         }
 
         /**
@@ -666,11 +754,15 @@ if (!class_exists("PW_New_User_Approve")) {
          * @uses user_register
          * @param int $user_id
          */
-        public function request_admin_approval_email_2($user_id) {
+        public function request_admin_approval_email_2($user_id)
+        {
             $user = new WP_User($user_id);
             $user_login = stripslashes($user->data->user_login);
             $user_email = stripslashes($user->data->user_email);
-            $this->admin_approval_email($user_login, $user_email);
+            $status = $this->get_user_status($user_id);
+            if ($status == 'pending') {
+                $this->admin_approval_email($user_login, $user_email);
+            }
         }
 
         /**
@@ -684,7 +776,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param string $user_email
          * @param object $errors
          */
-        public function create_new_user($user_login, $user_email, $errors) {
+        public function create_new_user($user_login, $user_email, $errors)
+        {
             if ($errors->get_error_code()) {
                 return;
             }
@@ -712,7 +805,8 @@ if (!class_exists("PW_New_User_Approve")) {
             }
         }
 
-        public function nua_welcome_email_woo_new_user($customer_id) {
+        public function nua_welcome_email_woo_new_user($customer_id)
+        {
             $customer = new WC_Customer($customer_id);
             // pw_new_user_approve()->nua_invitation_status_code_field_validation();
             // nua_invitation_code()->nua_invitation_status_code_field_validation($user_login, $user_email, $errors);
@@ -743,7 +837,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @return boolean
          */
-        public function do_password_reset($user_id) {
+        public function do_password_reset($user_id)
+        {
             // Default behavior is to reset password
             $do_password_reset = true;
             // Get the current user status. By default each user is given a pending
@@ -770,7 +865,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @uses new_user_approve_approve_user
          */
-        public function approve_user($user_id) {
+        public function approve_user($user_id)
+        {
             $user = new WP_User($user_id);
             wp_cache_delete($user->ID, "users");
             wp_cache_delete($user->data->user_login, "userlogins");
@@ -806,7 +902,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @uses new_user_approve_deny_user
          */
-        public function deny_user($user_id) {
+        public function deny_user($user_id)
+        {
             $user = new WP_User($user_id);
 
             $disable = apply_filters("new_user_approve_denied_email", false, $user_id);
@@ -837,7 +934,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @uses new_user_approve_deny_user
          */
-        public function update_deny_status($user_id) {
+        public function update_deny_status($user_id)
+        {
             $user = new WP_User($user_id);
             //to update statuses count
             $this->update_users_statuses_count("denied", $user_id);
@@ -848,7 +946,8 @@ if (!class_exists("PW_New_User_Approve")) {
             do_action("new_user_approve_user_denied", $user);
         }
 
-        public function email_message_headers() {
+        public function email_message_headers()
+        {
             $admin_email = get_option("admin_email");
             if (isset($_SERVER["SERVER_NAME"]) && empty($admin_email)) {
                 $admin_email = "support@" . sanitize_text_field(wp_unslash($_SERVER["SERVER_NAME"]));
@@ -864,7 +963,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @uses registration_errors
          */
-        public function show_user_pending_message($errors) {
+        public function show_user_pending_message($errors)
+        {
             $nonce = "";
             if (wp_verify_nonce($nonce)) {
                 return;
@@ -907,7 +1007,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @uses lostpassword_post
          */
-        public function lost_password($errors, $user_data) {
+        public function lost_password($errors, $user_data)
+        {
             $user_login = $user_data->user_login;
             if (empty($user_login)) {
                 return;
@@ -936,7 +1037,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param string $message
          * @return string
          */
-        public function welcome_user($message) {
+        public function welcome_user($message)
+        {
             if (!isset($_GET["action"])) {
                 $welcome = nua_default_welcome_message();
                 $welcome = nua_do_email_tags($welcome, [
@@ -972,7 +1074,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @uses user_register
          * @param int $user_id
          */
-        public function add_user_status($user_id) {
+        public function add_user_status($user_id)
+        {
             $status = "pending";
             // This check needs to happen when a user is created in the admin
             if (isset($_REQUEST["action"]) && "createuser" == $_REQUEST["action"]) {
@@ -985,7 +1088,7 @@ if (!class_exists("PW_New_User_Approve")) {
             update_user_meta($user_id, "pw_user_status_time", gmdate("Y-m-d h:i:s"));
 
             // Sends push notification to NUA Mobile Application
-		    do_action( 'nua_app_push_notif', $user_id );
+            do_action('nua_app_push_notif', $user_id);
         }
 
         /**
@@ -995,7 +1098,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param $error_codes
          * @return array
          */
-        public function failure_shake($error_codes) {
+        public function failure_shake($error_codes)
+        {
             $error_codes[] = "pending_approval";
             $error_codes[] = "denied_access";
             return $error_codes;
@@ -1009,10 +1113,11 @@ if (!class_exists("PW_New_User_Approve")) {
          * @param $user_login
          * @param $user
          */
-        public function login_user($user_login, $user = null) {
+        public function login_user($user_login, $user = null)
+        {
             if ($user != null && is_object($user)) {
                 if (!get_user_meta($user->ID, "pw_new_user_approve_has_signed_in")) {
-                    add_user_meta($user->ID,"pw_new_user_approve_has_signed_in", time());
+                    add_user_meta($user->ID, "pw_new_user_approve_has_signed_in", time());
                 }
             }
         }
@@ -1022,7 +1127,8 @@ if (!class_exists("PW_New_User_Approve")) {
          *
          * @return boolean
          */
-        public function disable_woo_auto_login($new_customer) {
+        public function disable_woo_auto_login($new_customer)
+        {
             return false;
         }
 
@@ -1030,7 +1136,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * Disable auto login on WooCommerce checkout
          *
          */
-        public function disable_woo_auto_login_on_checkout() {
+        public function disable_woo_auto_login_on_checkout()
+        {
             // destroying session when pending user trying to checkout
             $boolean = false;
             $boolean = apply_filters("new_user_approve_woo_checkout_process_logout", $boolean);
@@ -1051,7 +1158,8 @@ if (!class_exists("PW_New_User_Approve")) {
          * Update users statuses count
          *
          */
-        public function update_users_statuses_count($new_status, $user_id) {
+        public function update_users_statuses_count($new_status, $user_id)
+        {
             $old_status = get_user_meta($user_id, "pw_user_status", true);
 
             if ($old_status == $new_status) {

@@ -23,8 +23,6 @@ if (!class_exists("NUA_Invitation_Code")) {
     class NUA_Invitation_Code
     {
         private static $instance;
-
-        private $screen_name = "nua-invitation-code";
         public $code_post_type = "invitation_code";
         public $usage_limit_key = "_nua_usage_limit";
         public $expiry_date_key = "_nua_code_expiry";
@@ -49,21 +47,9 @@ if (!class_exists("NUA_Invitation_Code")) {
 
         private function __construct()
         {
-            //Action
-            add_action("admin_init", [$this, "nua_deactivate_code"]);
 
             //Filter
-            add_filter("manage_" . $this->code_post_type . "_posts_columns", [
-                $this,
-                "invitation_code_columns",
-            ]);
-            add_action(
-                "manage_" . $this->code_post_type . "_posts_custom_column",
-                [$this, "invitation_code_columns_content"],
-                10,
-                2
-            );
-            add_action("admin_head", [$this, "invitation_code_edit_page_css"]);
+
             add_filter(
                 "nua_disable_welcome_email",
                 [$this, "nua_disable_welcome_email_callback"],
@@ -111,21 +97,21 @@ if (!class_exists("NUA_Invitation_Code")) {
                     1
                 );
                 add_action(
-                    "um_submit_form_errors_hook__registration", 
-                    [$this, "um_invite_code_check"], 
-                    20, 
+                    "um_submit_form_errors_hook__registration",
+                    [$this, "um_invite_code_check"],
+                    20,
                     1
                 );
                 add_action(
-                    "um_submit_form_errors_hook__profile", 
-                    [$this, "um_invite_code_check"], 
-                    20, 
+                    "um_submit_form_errors_hook__profile",
+                    [$this, "um_invite_code_check"],
+                    20,
                     1
                 );
                 add_action(
-                    "um_submit_form_errors_hook_login", 
-                    [$this, "um_invite_code_check"], 
-                    20, 
+                    "um_submit_form_errors_hook_login",
+                    [$this, "um_invite_code_check"],
+                    20,
                     1
                 );
                 add_action(
@@ -149,40 +135,45 @@ if (!class_exists("NUA_Invitation_Code")) {
                 );
             }
 
-            add_action("admin_notices", [$this, "nua_invite_code_errors"]);
         }
 
-        public function um_nua_invitation_code_field( $args ) {
-            $flag = apply_filters( "um_nua_hide_invitation_code_field", false, $args );
+        public function um_nua_invitation_code_field($args)
+        {
+            $flag = apply_filters("um_nua_hide_invitation_code_field", false, $args);
 
-			if ( $flag ) {
-				return;
-			}
+            if ($flag) {
+                return;
+            }
 
             $form_id = $args['form_id'];
-			$options = get_option("new_user_approve_options");
+            $options = get_option("new_user_approve_options");
             ?>
 
-            <div id="um_field_<?php echo esc_attr( $form_id ); ?>_nua_invitation_code" class="um-field um-field-text  um-field-nua_invitation_code um-field-text um-field-type_text" data-key="nua_invitation_code">
+            <div id="um_field_<?php echo esc_attr($form_id); ?>_nua_invitation_code"
+                class="um-field um-field-text  um-field-nua_invitation_code um-field-text um-field-type_text"
+                data-key="nua_invitation_code">
                 <div class="um-field-area">
-                    <input autocomplete="off" class="um-form-field" type="text" name="nua_invitation_code" id="nua_invitation_code-<?php echo esc_attr( $form_id ); ?>" value="<?php echo esc_attr( $_POST["nua_invitation_code-" . esc_attr( $form_id )] ); ?>">
+                    <input autocomplete="off" class="um-form-field" type="text" name="nua_invitation_code"
+                        id="nua_invitation_code-<?php echo esc_attr($form_id); ?>"
+                        value="<?php echo esc_attr($_POST["nua_invitation_code-" . esc_attr($form_id)]); ?>">
                     <?php wp_nonce_field("nua_invitation_code_action", "nua_invitation_code_nonce"); ?>
                 </div>
-                <?php if ( isset( UM()->form()->errors["nua_invitation_code"] ) ) : ?>
-                    <div class="um-field-error" id="um-error-for-nua_invitation_code-<?php echo esc_attr( $form_id ); ?>">
+                <?php if (isset(UM()->form()->errors["nua_invitation_code"])): ?>
+                    <div class="um-field-error" id="um-error-for-nua_invitation_code-<?php echo esc_attr($form_id); ?>">
                         <span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>
-                        <?php echo esc_html( UM()->form()->errors["nua_invitation_code"] ); ?>
+                        <?php echo esc_html(UM()->form()->errors["nua_invitation_code"]); ?>
                     </div>
                 <?php endif; ?>
             </div>
             <?php
-	    }
+        }
 
-        public function um_invite_code_check( $submitted_data ) {
+        public function um_invite_code_check($submitted_data)
+        {
             $options = get_option("new_user_approve_options");
 
-            if ( isset( $submitted_data["nua_invitation_code_nonce"] ) && wp_verify_nonce( $submitted_data["nua_invitation_code_nonce"], "nua_invitation_code_action" ) ) {
-                if ( isset( $submitted_data["nua_invitation_code"] ) && ! empty( $submitted_data["nua_invitation_code"] ) ) {
+            if (isset($submitted_data["nua_invitation_code_nonce"]) && wp_verify_nonce($submitted_data["nua_invitation_code_nonce"], "nua_invitation_code_action")) {
+                if (isset($submitted_data["nua_invitation_code"]) && !empty($submitted_data["nua_invitation_code"])) {
                     $args = [
                         "numberposts" => -1,
                         "post_type" => $this->code_post_type,
@@ -216,35 +207,35 @@ if (!class_exists("NUA_Invitation_Code")) {
                         ],
                     ];
 
-                    $posts = get_posts( $args );
+                    $posts = get_posts($args);
                     $flag = true;
 
-                    foreach ( $posts as $post_inv ) {
-                        $code_inv = get_post_meta( $post_inv->ID, $this->code_key, true );
+                    foreach ($posts as $post_inv) {
+                        $code_inv = get_post_meta($post_inv->ID, $this->code_key, true);
 
-                        if ( $code_inv === sanitize_text_field( $submitted_data["nua_invitation_code"] ) ) {
+                        if ($code_inv === sanitize_text_field($submitted_data["nua_invitation_code"])) {
                             $flag = false;
                             global $inv_file_lock;
 
-                            $inv_file_lock = $this->invite_code_hold( $post_inv->ID );
-                            if ( $inv_file_lock === false ) {
-                                UM()->form()->add_error( 'nua_invitation_code', "Server is busy, please try again!" );
+                            $inv_file_lock = $this->invite_code_hold($post_inv->ID);
+                            if ($inv_file_lock === false) {
+                                UM()->form()->add_error('nua_invitation_code', "Server is busy, please try again!");
                             }
                         }
                     }
 
-                    if ( $flag ) {
-                        UM()->form()->add_error( "nua_invitation_code", "The Invitation code is invalid" );
+                    if ($flag) {
+                        UM()->form()->add_error("nua_invitation_code", "The Invitation code is invalid");
                     }
 
-                    if ( isset( $submitted_data["nua_invitation_code"] ) && isset( $options["nua_registration_deadline"] ) && ! isset( $options["nua_auto_approve_deadline"] ) ) {
-                        UM()->form()->add_error( "nua_invitation_code", "Cannot use Code because deadline exceeded." );
+                    if (isset($submitted_data["nua_invitation_code"]) && isset($options["nua_registration_deadline"]) && !isset($options["nua_auto_approve_deadline"])) {
+                        UM()->form()->add_error("nua_invitation_code", "Cannot use Code because deadline exceeded.");
                     }
-                } elseif ( ! isset( $submitted_data["nua_invitation_code"] ) || ( isset( $submitted_data["nua_invitation_code"] ) && empty( $submitted_data["nua_invitation_code"] ) && ! empty( $options["nua_checkbox_textbox"] ) ) ) {
-                    UM()->form()->add_error( "nua_invitation_code", "Please add an Invitation code." );
+                } elseif (!isset($submitted_data["nua_invitation_code"]) || (isset($submitted_data["nua_invitation_code"]) && empty($submitted_data["nua_invitation_code"]) && !empty($options["nua_checkbox_textbox"]))) {
+                    UM()->form()->add_error("nua_invitation_code", "Please add an Invitation code.");
                 }
-            } elseif ( ! isset( $submitted_data["nua_invitation_code"] ) || ( isset( $submitted_data["nua_invitation_code"] ) && empty( $submitted_data["nua_invitation_code"] ) && ! empty( $options["nua_checkbox_textbox"] ) ) ) {
-                UM()->form()->add_error( "nua_invitation_code", "Something went wrong.");
+            } elseif (!isset($submitted_data["nua_invitation_code"]) || (isset($submitted_data["nua_invitation_code"]) && empty($submitted_data["nua_invitation_code"]) && !empty($options["nua_checkbox_textbox"]))) {
+                UM()->form()->add_error("nua_invitation_code", "Something went wrong.");
             }
         }
 
@@ -259,28 +250,28 @@ if (!class_exists("NUA_Invitation_Code")) {
                 $required = true;
             }
             ?>
-		
-		<p class="nua_inv_field form-group"> 
-		<?php if ($required == true): ?>
-			<!-- snfr -->
-			<label for="invitation_code"><?php esc_html_e(
-       "Invitation Code",
-       "new-user-approve"
-   ); ?>&nbsp;
-			  <span id="nua-required" aria-hidden="true" style="color:#a00">*</span>
-			  <span class="screen-reader-text">Required</span>
-			</label>
-			<?php else: ?>
-				<!-- snfr -->
-				<label> <?php esc_html_e("Invitation Code", "new-user-approve"); ?></label>
-			<?php endif; ?>
-			<input type="text" class="nua_invitation_code form-control" name="nua_invitation_code"/>
-			<?php wp_nonce_field(
-       "nua_invitation_code_action",
-       "nua_invitation_code_nonce"
-   ); ?>
-		</p>
-		<?php
+
+            <p class="nua_inv_field form-group">
+                <?php if ($required == true): ?>
+                    <!-- snfr -->
+                    <label for="invitation_code"><?php esc_html_e(
+                        "Invitation Code",
+                        "new-user-approve"
+                    ); ?>&nbsp;
+                        <span id="nua-required" aria-hidden="true" style="color:#a00">*</span>
+                        <span class="screen-reader-text">Required</span>
+                    </label>
+                <?php else: ?>
+                    <!-- snfr -->
+                    <label> <?php esc_html_e("Invitation Code", "new-user-approve"); ?></label>
+                <?php endif; ?>
+                <input type="text" class="nua_invitation_code form-control" name="nua_invitation_code" />
+                <?php wp_nonce_field(
+                    "nua_invitation_code_action",
+                    "nua_invitation_code_nonce"
+                ); ?>
+            </p>
+            <?php
         }
 
         public function uwp_invite_code_check($errors, $data, $type)
@@ -418,294 +409,7 @@ if (!class_exists("NUA_Invitation_Code")) {
             return $disabled;
         }
 
-        public function nua_deactivate_code()
-        {
-            if (
-                isset($_GET["post_type"]) &&
-                $_GET["post_type"] == $this->code_post_type &&
-                is_admin()
-            ) {
-                if (
-                    isset($_GET["post_id"]) &&
-                    check_admin_referer(
-                        "nua_deactivateactivate-" . absint($_GET["post_id"]),
-                        "nonce"
-                    )
-                ) {
-                    if (
-                        isset($_GET["nua_action"]) &&
-                        "activate" == $_GET["nua_action"]
-                    ) {
-                        update_post_meta(
-                            absint($_GET["post_id"]),
-                            $this->status_key,
-                            "Active"
-                        );
-                    } else {
-                        update_post_meta(
-                            absint($_GET["post_id"]),
-                            $this->status_key,
-                            "InActive"
-                        );
-                    }
-                }
-            }
-        }
 
-        public function invitation_code_edit_page_css()
-        {
-            if (
-                isset($_GET["post_type"]) &&
-                $_GET["post_type"] == $this->code_post_type
-            ) { ?>
-			<style>
-				.widefat td,
-				.widefat th {
-					height: 36px;
-				}
-			</style>
-			<?php }
-        }
-
-        /**
-         * Output the settings
-         */
-        public function invitation_code_settings()
-        {
-            $action = isset($_GET["action"])
-                ? sanitize_text_field(wp_unslash($_GET["action"]))
-                : "add-codes"; ?>
-		<div class="wrap">
-			<div id="icon-options-general" class="icon32"><br /></div>
-			<h2 class="nua-settings-heading"><?php esc_html_e(
-       "Invitation Code Settings",
-       "new-user-approve"
-   ); ?></h2>
-
-			<div class="nav-tab-wrapper">
-				
-				<div id="nua-invitation-layout" style="position:relative;">
-					
-				</div>
-			
-			</div>
-			<?php
-        }
-
-        public function get_the_required_tab($action, $tab)
-        {
-            if ("add-codes" == $action) {
-                if ("manual" == $tab) {
-                    $this->manual_add_codes();
-                } else {
-                    // 'auto' == $tab
-                    $this->auto_add_codes();
-                }
-            } elseif ("import-codes" == $action) {
-                $this->import_codes();
-            } elseif ("email" == $action) {
-                $this->email();
-            }
-            // else if ('Settings' == $action) {
-            //  $this->option_invitation_code();
-            // }
-        }
-
-        public function manual_add_codes()
-        {
-            $count = 0;
-            $code_already_exists = [];
-            if (isset($_POST["nua_manual_add"])) {
-                if (!empty($_POST["nua-manual-add-nonce-field"])) {
-                    $nonce = sanitize_text_field(
-                        wp_unslash($_POST["nua-manual-add-nonce-field"])
-                    );
-                }
-                if (!wp_verify_nonce($nonce, "nua-manual-add-nonce")) {
-                    return;
-                }
-
-                $limit = empty($_POST["nua_manual_add"]["usage_limit"])
-                    ? 1
-                    : absint($_POST["nua_manual_add"]["usage_limit"]);
-                $expiry = !empty($_POST["nua_manual_add"]["expiry_date"])
-                    ? sanitize_text_field(
-                        wp_unslash($_POST["nua_manual_add"]["expiry_date"])
-                    )
-                    : "";
-                $Status = "Active";
-                //$dateTime = new DateTime(str_replace('/','-',$expiry));
-                //$expiry_timestamp = $dateTime->format('U');
-                $expiry_timestamp = strtotime("$expiry 23:59:59");
-
-                $code = !empty($_POST["nua_manual_add"]["codes"])
-                    ? sanitize_textarea_field(
-                        wp_unslash($_POST["nua_manual_add"]["codes"])
-                    )
-                    : "";
-                $code = explode("\n", $code);
-
-                foreach ($code as $in_code) {
-                    if (empty(trim($in_code))) {
-                        continue;
-                    }
-
-                    if ($this->invitation_code_already_exists($in_code)) {
-                        $code_already_exists[] = $in_code;
-                        continue;
-                    }
-
-                    $my_post = [
-                        "post_title" => sanitize_text_field($in_code),
-                        "post_status" => "publish",
-                        "post_type" => $this->code_post_type,
-                    ];
-
-                    $post_code = wp_insert_post($my_post);
-                    if (!empty($post_code)) {
-                        update_post_meta(
-                            $post_code,
-                            $this->code_key,
-                            sanitize_text_field($in_code)
-                        );
-                        update_post_meta(
-                            $post_code,
-                            $this->usage_limit_key,
-                            $limit
-                        );
-                        update_post_meta(
-                            $post_code,
-                            $this->total_code_key,
-                            $limit
-                        );
-                        update_post_meta(
-                            $post_code,
-                            $this->expiry_date_key,
-                            $expiry_timestamp
-                        );
-                        update_post_meta(
-                            $post_code,
-                            $this->status_key,
-                            $Status
-                        );
-
-                        $count++;
-                    }
-                }
-                if (!empty($count)) {
-                    $inv_code_success_msg =
-                        $count > 1
-                            ? "Codes Have Been Added Successfully"
-                            : "Code Has Been Added Successfully"; ?>
-				<p class="nua-success  nua-message" id="successMessage" > 
-					<?php echo esc_html($inv_code_success_msg, "new-user-approve"); ?>
-				</p> 
-					<?php if (!empty($code_already_exists)) {
-         $inv_code_exist_msg =
-             count($code_already_exists) > 1
-                 ? "Codes Already Exist"
-                 : "Code Already Exists"; ?>
-					<p class="nua-already-exists nua-error nua-message" id="errorMessage" > 
-						<?php echo esc_html(
-          sprintf(
-              "%s " . $inv_code_exist_msg,
-              implode(", ", $code_already_exists)
-          ),
-          "new-user-approve"
-      ); ?>
-					</p> 
-						<?php
-     }
-                } elseif (empty($count) && !empty($code_already_exists)) {
-                    $inv_code_exist_msg =
-                        count($code_already_exists) > 1
-                            ? "Codes Already Exist."
-                            : "Code Already Exists."; ?>
-					<p class="nua-already-exists nua-error nua-message" id="errorMessage" > 
-					<?php echo esc_html(
-         sprintf(
-             "%s " . $inv_code_exist_msg,
-             implode(", ", $code_already_exists)
-         ),
-         "new-user-approve"
-     ); ?>
-					</p> 
-					<?php
-                } else {
-                     ?>
-				<p class="nua-fail nua-error nua-message" id="failMessage" > 
-					<?php echo esc_html(sprintf("Code Not Added.", "new-user-approve")); ?>
-				</p> 
-					<?php
-                }
-            }
-            ?>
-			<form method="post" action=''>
-				<?php $nonce = wp_create_nonce("nua-manual-add-nonce"); ?>
-				<table class="form-table" role="presentation">
-					<tbody>
-						<tr>
-							<th><?php esc_html_e("Add Codes", "new-user-approve"); ?></th>
-							<td>
-								<div style="max-width: 600px;">
-									<textarea id="nua_manual_add_add_codes" name="nua_manual_add[codes]" required class="nua-textarea"></textarea>
-								</div>
-								<p class="description"><?php esc_html_e(
-            "Enter one code per line.",
-            "new-user-approve"
-        ); ?></p>
-							</td>
-						</tr>
-						<tr>
-							<th><?php esc_html_e("Usage Limit", "new-user-approve"); ?></th>
-							<td>
-								<input id="nua_manual_add_usage_limit" name="nua_manual_add[usage_limit]" placeholder="1" size="40" type="text" class="nua-text-field">
-								<input type = "hidden"  name="nua-manual-add-nonce-field" value = "<?php esc_attr_e(
-            $nonce
-        ); ?>">
-
-							</td>
-						</tr>
-						<tr>
-							<th><?php esc_html_e("Expiry Date", "new-user-approve"); ?></th>
-							<td>
-								<input id="nua_manual_add_expiry_date" name="nua_manual_add[expiry_date]" size="40" type="date" class="nua-text-field">
-
-							</td>
-						</tr>
-						<tr>
-							<th colspan="2">
-								<p class="submit nua-submit"><input type="submit" name="nua_manual_add[submit]" id="submit" class="button button-primary" value="Save Changes"></p>
-
-							</th>
-						</tr>
-					</tbody>
-			</form>
-			</table>
-		<?php
-        }
-
-        public function auto_add_codes()
-        {
-            ?>
-		<h2>Get pro version to avail these feature<br></h2>
-		<h3><a href='https://newuserapprove.com/pricing/?utm_source=wordpress&utm_medium=plugin#lifetime-plan' target = _blank>Click here to get the Pro Version</a></h3>
-			<?php
-        }
-        public function import_codes()
-        {
-            ?>
-		<h2>Get pro version to avail these feature<br></h2>
-		<h3><a href='https://newuserapprove.com/pricing/?utm_source=wordpress&utm_medium=plugin#lifetime-plan' target = _blank>Click here to get the Pro Version</a></h3>
-			<?php
-        }
-        public function email()
-        {
-            ?>
-		<h2>Get pro version to avail these feature<br></h2>
-		<h3><a href='https://newuserapprove.com/pricing/?utm_source=wordpress&utm_medium=plugin#lifetime-plan' target = _blank>Click here to get the Pro Version</a></h3>
-			<?php
-        }
 
         /**
          *
@@ -862,19 +566,19 @@ if (!class_exists("NUA_Invitation_Code")) {
                 $required = " (optional)";
             }
             ?>
-			<?php $nonce = wp_create_nonce("nua-invitation-code-nonce"); ?>
+            <?php $nonce = wp_create_nonce("nua-invitation-code-nonce"); ?>
 
-			<p>
-				<label> <?php esc_html_e(
-        "Invitation Code",
-        "new-user-approve"
-    ); ?><span><?php esc_attr_e($required); ?></span></label>
-				<input type="hidden"  name="nua_invitation_code_nonce_field" value = <?php esc_attr_e(
-        $nonce
-    ); ?>/>
-				<input type="text" class="nua_invitation_code" name="nua_invitation_code" />
-			</p>
-			<?php
+            <p>
+                <label> <?php esc_html_e(
+                    "Invitation Code",
+                    "new-user-approve"
+                ); ?><span><?php esc_attr_e($required); ?></span></label>
+                <input type="hidden" name="nua_invitation_code_nonce_field" value=<?php esc_attr_e(
+                    $nonce
+                ); ?> />
+                <input type="text" class="nua_invitation_code" name="nua_invitation_code" />
+            </p>
+            <?php
         }
 
         /**
@@ -1360,35 +1064,6 @@ if (!class_exists("NUA_Invitation_Code")) {
             );
         }
 
-        public function nua_invite_code_errors()
-        {
-            if (
-                isset($_GET["post_usage_left_error"]) &&
-                !empty($_GET["post_usage_left_error"])
-            ) {
-                $post_id = $_GET["post_usage_left_error"];
-                if (get_post($post_id)) {
-                    if (
-                        isset($_GET["error"]) &&
-                        "incorrect_date" == $_GET["error"]
-                    ) {
-                        wp_delete_post($post_id, true);
-                        printf(
-                            '<div class="error notice"><p>Error: given date is an incorrect </p></div>',
-                            "new-user-approve"
-                        );
-                        return;
-                    } elseif (!isset($_GET["error"])) {
-                        wp_delete_post($post_id, true);
-                        printf(
-                            '<div class="error notice"><p>Error: usage left number must not greater than total limit </p></div>',
-                            "new-user-approve"
-                        );
-                        return;
-                    }
-                }
-            }
-        }
 
         public function msg_on_auto_approve_invitation_callback($message)
         {
@@ -1401,114 +1076,6 @@ if (!class_exists("NUA_Invitation_Code")) {
             ]);
             // $message=pw_new_user_approve_options()->auto_approve_registration_complete_message($message);
             return $message;
-        }
-
-        public function invitation_code_columns($columns)
-        {
-            unset($columns["date"]);
-            unset($columns["title"]);
-            $columns["inv_code"] = __("Invitation Code", "new-user-approve");
-            $columns["usage"] = __("Uses Remaining", "new-user-approve");
-            $columns["expiry"] = __("Expiry", "new-user-approve");
-            $columns["status"] = __("Status", "new-user-approve");
-            $columns["actions"] = __("Actions", "new-user-approve");
-
-            return $columns;
-        }
-
-        public function invitation_code_columns_content($column, $post_id)
-        {
-            switch ($column) {
-                case "usage":
-                    echo esc_attr(
-                        get_post_meta($post_id, $this->usage_limit_key, true) .
-                            "/" .
-                            get_post_meta($post_id, $this->total_code_key, true)
-                    );
-                    break;
-
-                case "expiry":
-                    $exp_date = get_post_meta(
-                        $post_id,
-                        $this->expiry_date_key,
-                        true
-                    );
-                    if (!empty($exp_date)) {
-                        echo esc_attr(gmdate("Y-m-d", $exp_date));
-                    }
-                    break;
-                case "status":
-                    echo esc_attr(
-                        get_post_meta($post_id, $this->status_key, true)
-                    );
-                    break;
-                case "inv_code":
-                    echo esc_attr(
-                        get_post_meta($post_id, $this->code_key, true)
-                    );
-                    break;
-                case "actions":
-                    if ("trash" != get_post_status($post_id)) {
-                        if (
-                            "InActive" ==
-                            get_post_meta($post_id, $this->status_key, true)
-                        ) {
-
-                            $activation_link = admin_url(
-                                "edit.php?post_type=" . $this->code_post_type
-                            );
-                            $activation_link .=
-                                "&nua_action=activate&post_id=" .
-                                $post_id .
-                                "&nonce=" .
-                                wp_create_nonce(
-                                    "nua_deactivateactivate-" . $post_id
-                                );
-                            ?>
-								<a href="<?php echo esc_url($activation_link); ?>"><?php esc_html_e(
-										"Activate",
-										"new-user-approve-options"
-									); ?></a> | <a href="<?php echo esc_url(
-										get_edit_post_link($post_id)
-									); ?>"><?php esc_html_e(
-										"Edit",
-										"new-user-approve-options"
-									); ?></a> | <a href="<?php echo esc_url(
-										get_delete_post_link($post_id)
-									); ?>"><?php esc_html_e("Delete", "new-user-approve-options"); ?>
-								</a>
-							<?php
-                        } else {
-
-                            $deactivate_link = admin_url(
-                                "edit.php?post_type=" . $this->code_post_type
-                            );
-                            $deactivate_link .=
-                                "&nua_action=deactivate&post_id=" .
-                                $post_id .
-                                "&nonce=" .
-                                wp_create_nonce(
-                                    "nua_deactivateactivate-" . $post_id
-                                );
-                            ?>
-								<a href="<?php echo esc_url($deactivate_link); ?>"><?php esc_html_e(
-									"Deactivate",
-									"new-user-approve"
-								); ?></a> | <a href="<?php echo esc_url(
-									get_edit_post_link($post_id)
-								); ?>"><?php esc_html_e(
-									"Edit",
-									"new-user-approve"
-								); ?></a> | <a href="<?php echo esc_url(
-									get_delete_post_link($post_id)
-								); ?>"><?php esc_html_e("Delete", "new-user-approve"); ?>
-								</a>
-							<?php
-                        }
-                    }
-
-                    break;
-            }
         }
 
     } // End Class
