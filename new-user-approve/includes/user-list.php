@@ -603,7 +603,7 @@ if (!class_exists("Pw_New_User_Approve_User_List")) {
            "new-user-approve"
        ); ?></option>
 						<?php endif; ?>
-						<?php foreach (["approve", "deny"] as $status): ?>
+						<?php foreach (["approved", "denied"] as $status): ?>
 							<option
 								value="<?php echo esc_attr($status); ?>"<?php selected(
     $status,
