@@ -1,6 +1,6 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 
-const WPEditor = ({editorId, editorName, onChange, editorContent}) => {
+const WPEditor = ({ editorId, editorName, onChange, editorContent }) => {
   const [content, setContent] = useState(editorContent);
   const [loading, setLoading] = useState(true);
   const editorRef = useRef(null);
@@ -48,7 +48,7 @@ const WPEditor = ({editorId, editorName, onChange, editorContent}) => {
             editor.on("change", function () {
               const newContent = editor.getContent();
               setContent(newContent);
-              handleEditorChange({editorName, editorContent: newContent});
+              handleEditorChange({ editorName, editorContent: newContent });
             });
           },
         },
@@ -57,14 +57,14 @@ const WPEditor = ({editorId, editorName, onChange, editorContent}) => {
     });
   };
 
-  const handleEditorChange = ({editorName, editorContent}) => {
+  const handleEditorChange = ({ editorName, editorContent }) => {
     if (onChange) {
-      onChange({editorName, editorContent});
+      onChange({ editorName, editorContent });
     }
   };
 
   return (
-    <div style={{position: "relative"}}>
+    <div style={{ position: "relative" }}>
       <textarea
         id={editorId}
         name={editorName}
@@ -72,9 +72,9 @@ const WPEditor = ({editorId, editorName, onChange, editorContent}) => {
         onChange={(e) => {
           const newContent = e.target.value;
           setContent(newContent);
-          handleEditorChange({editorName, editorContent: newContent});
+          handleEditorChange({ editorName, editorContent: newContent });
         }}
-        style={{position: "relative", zIndex: 0}}
+        style={{ position: "relative", zIndex: 0 }}
         disabled={true} // disabled the editor while loading
       ></textarea>
     </div>

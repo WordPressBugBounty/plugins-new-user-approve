@@ -1,3 +1,5 @@
+import { __ } from "@wordpress/i18n";
+
 const images = require.context(
   "../../assets/images",
   false,
@@ -10,7 +12,7 @@ function Logo() {
 
   return (
     <div className="logo">
-      <img src={dash_icon} alt={"nua-logo"} />
+      <img src={dash_icon} alt={__("nua-logo", "new-user-approve")} />
     </div>
   );
 }
@@ -49,14 +51,14 @@ function GetProButton() {
   const isBlackFriday = now < BF_DEADLINE;
 
   const promoTitle = isBlackFriday
-    ? "🎉 Black Friday Sale is On!"
+    ? __("🎉 Black Friday Sale is On!", "new-user-approve")
     : "";
 
   const promoSubText = isBlackFriday
-    ? "Grab the biggest deals of the year before they’re gone!"
+    ? __("Grab the biggest deals of the year before they’re gone!", "new-user-approve")
     : "";
 
-  const buttonLabel = isBlackFriday ? "Black Friday Deals" : "Upgrade To Pro";
+  const buttonLabel = isBlackFriday ? __("Black Friday Deals", "new-user-approve") : __("Upgrade To Pro", "new-user-approve");
 
   const buttonClass = isBlackFriday ? "ProButton bf-button" : "ProButton regular-button";
 
@@ -83,7 +85,6 @@ function GetProButton() {
           {!isBlackFriday && crownIcon}
           {buttonLabel}
         </button>
-
       </div>
     </div>
   );

@@ -402,7 +402,7 @@ const Pending_Users = () => {
             <input
               type="text"
               className="nua-search-field"
-              placeholder="Search User"
+              placeholder={__("Search User", "new-user-approve")}
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPage(1);
@@ -457,8 +457,11 @@ const Pending_Users = () => {
               {__("Bulk actions", "new-user-approve")}:
             </span>{" "}
             <span className="nua_bulkLength">
-              {`${selectedUsers.length} `}
-              {__("user(s) selected", "new-user-approve")}
+              {sprintf(
+                // translators: %s: number of selected users
+                __("%s user(s) selected", "new-user-approve"),
+                selectedUsers.length
+              )}
             </span>
           </Typography>
           <Button
@@ -578,7 +581,9 @@ const Pending_Users = () => {
                         <TableCell key={col.key}>
                           <div className="nua-status-container">
                             <span className={"user-" + row.nua_status}>
-                              {row.nua_status.charAt(0).toUpperCase() +
+                              {row.nua_status === "pending"
+                                ? __("Pending", "new-user-approve")
+                                : row.nua_status.charAt(0).toUpperCase() +
                                 row.nua_status.slice(1)}
                             </span>
                             <span>
@@ -610,8 +615,12 @@ const Pending_Users = () => {
                                 data-value={status}
                                 className={status}
                                 title={
-                                  status.charAt(0).toUpperCase() +
-                                  status.slice(1)
+                                  status === "approve"
+                                    ? __("Approve", "new-user-approve")
+                                    : status === "deny"
+                                      ? __("Deny", "new-user-approve")
+                                      : status.charAt(0).toUpperCase() +
+                                      status.slice(1)
                                 }
                               >
                                 <div className="statusDiv">
@@ -681,7 +690,13 @@ const Pending_Users = () => {
           className="nua-nav-pagination"
         />
         <Typography variant="body2" className="nua-table-total-data">
-          {`${startIndex}–${endIndex} of ${totalUsers}`}
+          {sprintf(
+            // translators: 1: start index, 2: end index, 3: total users
+            __("%1$s–%2$s of %3$s", "new-user-approve"),
+            startIndex,
+            endIndex,
+            totalUsers
+          )}
           <span style={{ marginLeft: 5 }}>
             {__("entries", "new-user-approve")}
           </span>

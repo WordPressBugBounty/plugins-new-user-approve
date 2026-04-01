@@ -494,7 +494,7 @@ const General_Settings = () => {
                               isMulti
                               classNamePrefix="Select Roles"
                               onChange={handleUserRoleListChange}
-                              placeholder="Select Roles"
+                              placeholder={__("Select Roles", "new-user-approve")}
                             />
                           </div>
                         </div>
@@ -559,7 +559,7 @@ const General_Settings = () => {
                       <div className="nua-setting-control">
                         <p id="nua-to-copy-shortcode" onClick={PopupShow}>
                           [nua_user_role_request]
-                          <ContentCopyIcon title="Copy" id="nua-copy-icon" />
+                          <ContentCopyIcon title={__("Copy", "new-user-approve")} id="nua-copy-icon" />
                         </p>
                       </div>
                     </div>
@@ -656,7 +656,7 @@ const General_Settings = () => {
                           name="nua_admin_email_address"
                           type="text"
                           className="auto-code-field"
-                          placeholder="Enter Email Address"
+                          placeholder={__("Enter Email Address", "new-user-approve")}
                           value={""}
                           onClick={PopupShow}
                           onChange={handleAdminAddressChange}

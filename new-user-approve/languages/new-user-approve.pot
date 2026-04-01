@@ -448,6 +448,82 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: includes/admin-approve.php:114
+#: src/components/dashboard/tabs.jsx:125
+msgid "Mobile App"
+msgstr ""
+
+#: includes/admin-approve.php:115
+#: src/components/dashboard/tabs.jsx:126
+msgid "New"
+msgstr ""
+
+#: src/components/dashboard/topbar.jsx:58
+msgid "Grab the biggest deals of the year before they're gone!"
+msgstr ""
+
+#: pw-new-user-approve.php:85
+#: src/components/dashboard/topbar.jsx:61
+msgid "Black Friday Deals"
+msgstr ""
+
+#: pw-new-user-approve.php:87
+#: src/components/dashboard/topbar.jsx:61
+msgid "Upgrade To Pro"
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:20
+msgid "Manage User Requests With Your Finger Tips."
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:21
+msgid "Download the New User Approve Mobile App today!"
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:38
+msgid "Open 📱 "
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:38
+msgid "NUA Mobile App"
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:38
+msgid " on your Android or iOS device."
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:39
+msgid "Tap on "
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:39
+msgid "scan QR code"
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:39
+msgid " button to integrate your mobile device with NUA Plugin."
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:40
+msgid "Place your mobile device before this screen to "
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:40
+msgid "capture the QR Code."
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:43
+msgid "And you are done 👍"
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:46
+msgid "Want more details? Check out our complete guide 📖 "
+msgstr ""
+
+#: src/components/dashboard/mobile-app.jsx:49
+msgid "NUA plugin with mobile app"
+msgstr ""
+
 #: src/components/dashboard/users-sub-tabs.jsx:42
 msgid "Approved"
 msgstr ""
@@ -1066,4 +1142,66 @@ msgstr ""
 
 #: src/components/settings/tabs/user-notification.jsx:222
 msgid "Users will receive Welcome emails when they register to the site."
+msgstr ""
+
+#: src/components/dashboard/recent_updates.jsx:22
+msgid "approved"
+msgstr ""
+
+#: src/components/dashboard/recent_updates.jsx:24
+msgid "pending"
+msgstr ""
+
+#: src/components/dashboard/recent_updates.jsx:26
+msgid "denied"
+msgstr ""
+
+#: src/components/dashboard/recent_updates.jsx:81
+msgid "User registration request %s for "
+msgstr ""
+
+#: includes/end-points/users-api.php:961
+msgid "%d year ago"
+msgid_plural "%d years ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/end-points/users-api.php:972
+msgid "%d month ago"
+msgid_plural "%d months ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/end-points/users-api.php:983
+msgid "%d week ago"
+msgid_plural "%d weeks ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/end-points/users-api.php:994
+msgid "%d day ago"
+msgid_plural "%d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/end-points/users-api.php:1005
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/end-points/users-api.php:1016
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/end-points/users-api.php:1027
+msgid "%d second ago"
+msgid_plural "%d seconds ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/end-points/users-api.php:1037
+msgid "just now"
 msgstr ""

@@ -306,7 +306,7 @@ const All_Users = () => {
             <input
               type="text"
               className="nua-search-field"
-              placeholder="Search User"
+              placeholder={__("Search User", "new-user-approve")}
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPage(1);
@@ -419,8 +419,14 @@ const All_Users = () => {
                         <TableCell key={col.key}>
                           <div className="nua-status-container">
                             <span className={"user-" + row.nua_status}>
-                              {row.nua_status.charAt(0).toUpperCase() +
-                                row.nua_status.slice(1)}
+                              {row.nua_status === "approved"
+                                ? __("Approved", "new-user-approve")
+                                : row.nua_status === "pending"
+                                  ? __("Pending", "new-user-approve")
+                                  : row.nua_status === "denied"
+                                    ? __("Denied", "new-user-approve")
+                                    : row.nua_status.charAt(0).toUpperCase() +
+                                    row.nua_status.slice(1)}
                             </span>
                             <span>
                               {selectedUserId === row.ID && loading === true ? (
@@ -454,7 +460,7 @@ const All_Users = () => {
                                 : null
                             }
                             data-value="approve"
-                            title="Approve"
+                            title={__("Approve", "new-user-approve")}
                             style={{ paddingLeft: "0" }}
                             disabled={row.nua_status === "approved"}
                           >
@@ -475,7 +481,7 @@ const All_Users = () => {
                                 : null
                             }
                             data-value="deny"
-                            title="Deny"
+                            title={__("Deny", "new-user-approve")}
                             disabled={row.nua_status === "denied"}
                           >
                             <div
@@ -545,7 +551,13 @@ const All_Users = () => {
             className="nua-nav-pagination"
           />
           <Typography variant="body2" className="nua-table-total-data">
-            {`${startIndex}–${endIndex} of ${totalUsers}`}
+            {sprintf(
+              // translators: 1: start index, 2: end index, 3: total users
+              __("%1$s–%2$s of %3$s", "new-user-approve"),
+              startIndex,
+              endIndex,
+              totalUsers
+            )}
             <span style={{ marginLeft: 5 }}>
               {__("entries", "new-user-approve")}
             </span>

@@ -16,6 +16,19 @@ import { get_activity_log } from "../../functions";
 
 import { site_url } from "../../functions";
 
+const getStatusLabel = (status) => {
+  switch (status) {
+    case "approved":
+      return __("approved", "new-user-approve");
+    case "pending":
+      return __("pending", "new-user-approve");
+    case "denied":
+      return __("denied", "new-user-approve");
+    default:
+      return status;
+  }
+};
+
 const Recent_Updates = ({ statusUpdated = false }) => {
   const [user_logs, setUserLogs] = useState([]);
   let [frames, Frames] = useState([]);
@@ -55,32 +68,34 @@ const Recent_Updates = ({ statusUpdated = false }) => {
                 <div className="activity-container">
                   <div className="activity-header">
                     <span className="activity-title">
-                      {__(status, "new-user-approve")}
+                      {getStatusLabel(status)}
                     </span>
                     <span className="activity-period">
                       {log ? log.status_time : ""}
                     </span>
                   </div>
                   <span className={`activity-desc ${status}-desc`}>
-                    {log
-                      ? __(
-                          <>
-                            User registration request {status} for{" "}
-                            <a
-                              href={`${site_url()}/wp-admin/user-edit.php?user_id=${
-                                log.ID
-                              }`}
-                              style={{
-                                textDecoration: "none",
-                                color: "#618E5F",
-                              }}
-                            >
-                              {log.display_name}
-                            </a>
-                          </>,
-                          "new-user-approve"
-                        )
-                      : __("No recent activities", "new-user-approve")}
+                    {log ? (
+                      <>
+                        {sprintf(
+                          __("User registration request %s for ", "new-user-approve"),
+                          getStatusLabel(status)
+                        )}
+                        <a
+                          href={`${site_url()}/wp-admin/user-edit.php?user_id=${
+                            log.ID
+                          }`}
+                          style={{
+                            textDecoration: "none",
+                            color: "#618E5F",
+                          }}
+                        >
+                          {log.display_name}
+                        </a>
+                      </>
+                    ) : (
+                      __("No recent activities", "new-user-approve")
+                    )}
                   </span>
 
                   {/* See All on the last frame */}

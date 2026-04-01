@@ -106,7 +106,7 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
             <h4> {__("Registration Page", "new-user-approve")} </h4>
             <PageSelect
               className="basic-single invite-email-select"
-              placeholder="Select a page"
+              placeholder={__("Select a page", "new-user-approve")}
               name="page-select"
               onFocus={setPopupVisible}
               value={regPage}
@@ -122,7 +122,7 @@ const Invitation_Email = forwardRef(({ closeModal }, ref) => {
             <h4> {__("Invitation Code", "new-user-approve")} </h4>
             <CodeSelect
               className="basic-single invite-email-select"
-              placeholder="Select a code"
+              placeholder={__("Select a code", "new-user-approve")}
               id="select-invite-code"
               name="code-select"
               onFocus={setPopupVisible}

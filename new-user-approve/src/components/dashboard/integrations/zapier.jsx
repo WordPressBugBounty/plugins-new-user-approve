@@ -121,7 +121,7 @@ const Zapier = () => {
               type="text"
               className="auto-code-field api-key"
               value={api_key}
-              placeholder="Zapier API Key..."
+              placeholder={__("Zapier API Key...", "new-user-approve")}
               onChange={handleChange}
             />
 

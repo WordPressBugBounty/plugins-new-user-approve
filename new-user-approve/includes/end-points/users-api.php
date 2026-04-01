@@ -956,28 +956,85 @@ class Users_API
         $weeks = floor($diff->d / 7);
         $diff->d -= $weeks * 7;
 
-        $string = [
-            "y" => "year",
-            "m" => "month",
-            "w" => "week", // Handle weeks manually
-            "d" => "day",
-            "h" => "hour",
-            "i" => "minute",
-            "s" => "second",
-        ];
-
-        $result = [];
-
-        foreach ($string as $k => $v) {
-            if ($k === "w" && $weeks) {
-                $result[$k] = $weeks . " " . $v . ($weeks > 1 ? "s" : "");
-            } elseif ($k !== "w" && $diff->$k) {
-                $result[$k] = $diff->$k . " " . $v . ($diff->$k > 1 ? "s" : "");
-            }
+        if ($diff->y > 0) {
+            return sprintf(
+                _n(
+                    "%d year ago",
+                    "%d years ago",
+                    $diff->y,
+                    "new-user-approve"
+                ),
+                $diff->y
+            );
+        }
+        if ($diff->m > 0) {
+            return sprintf(
+                _n(
+                    "%d month ago",
+                    "%d months ago",
+                    $diff->m,
+                    "new-user-approve"
+                ),
+                $diff->m
+            );
+        }
+        if ($weeks > 0) {
+            return sprintf(
+                _n(
+                    "%d week ago",
+                    "%d weeks ago",
+                    $weeks,
+                    "new-user-approve"
+                ),
+                $weeks
+            );
+        }
+        if ($diff->d > 0) {
+            return sprintf(
+                _n(
+                    "%d day ago",
+                    "%d days ago",
+                    $diff->d,
+                    "new-user-approve"
+                ),
+                $diff->d
+            );
+        }
+        if ($diff->h > 0) {
+            return sprintf(
+                _n(
+                    "%d hour ago",
+                    "%d hours ago",
+                    $diff->h,
+                    "new-user-approve"
+                ),
+                $diff->h
+            );
+        }
+        if ($diff->i > 0) {
+            return sprintf(
+                _n(
+                    "%d minute ago",
+                    "%d minutes ago",
+                    $diff->i,
+                    "new-user-approve"
+                ),
+                $diff->i
+            );
+        }
+        if ($diff->s > 0) {
+            return sprintf(
+                _n(
+                    "%d second ago",
+                    "%d seconds ago",
+                    $diff->s,
+                    "new-user-approve"
+                ),
+                $diff->s
+            );
         }
 
-        $result = array_slice($result, 0, 1);
-        return $result ? implode(", ", $result) . " ago" : "just now";
+        return __("just now", "new-user-approve");
     }
 
     // users api permission callback

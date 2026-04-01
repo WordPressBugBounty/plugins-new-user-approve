@@ -49,8 +49,7 @@ const Recent_Users_Table = () => {
       setLoading(true); // Set loading state to true before fetch
 
       const response = await axios.get(
-        `${
-          NUARestAPI.recent_user + NUARestAPI.permalink_delimeter
+        `${NUARestAPI.recent_user + NUARestAPI.permalink_delimeter
         }filter_by=${filter_by}`,
         {
           headers: {
@@ -341,9 +340,8 @@ const Recent_Users_Table = () => {
                         return (
                           <TableCell key={col.key}>
                             <a
-                              href={`${site_url()}/wp-admin/user-edit.php?user_id=${
-                                row.ID
-                              }`}
+                              href={`${site_url()}/wp-admin/user-edit.php?user_id=${row.ID
+                                }`}
                               style={{
                                 textDecoration: "none",
                                 color: "#858585",
@@ -360,12 +358,18 @@ const Recent_Users_Table = () => {
                           <TableCell key={col.key}>
                             <div className="nua-status-container">
                               <span className={"user-" + row.nua_status}>
-                                {row.nua_status.charAt(0).toUpperCase() +
-                                  row.nua_status.slice(1)}
+                                {row.nua_status === "approved"
+                                  ? __("Approved", "new-user-approve")
+                                  : row.nua_status === "pending"
+                                    ? __("Pending", "new-user-approve")
+                                    : row.nua_status === "denied"
+                                      ? __("Denied", "new-user-approve")
+                                      : row.nua_status.charAt(0).toUpperCase() +
+                                      row.nua_status.slice(1)}
                               </span>
                               <span>
                                 {selectedUserId === row.ID &&
-                                loading === true ? (
+                                  loading === true ? (
                                   <div className="new-user-approve-loading">
                                     <div className="nua-spinner"></div>
                                   </div>
@@ -396,16 +400,15 @@ const Recent_Users_Table = () => {
                                   : null
                               }
                               data-value="approve"
-                              title="Approve"
+                              title={__("Approve", "new-user-approve")}
                               style={{ paddingLeft: "0" }}
                               disabled={row.nua_status === "approved"}
                             >
                               <div
-                                className={`status-icon ${
-                                  row.nua_status === "approved"
+                                className={`status-icon ${row.nua_status === "approved"
                                     ? "inactive"
                                     : "active"
-                                }`}
+                                  }`}
                               >
                                 {iconApprove}
                               </div>
@@ -418,15 +421,14 @@ const Recent_Users_Table = () => {
                                   : null
                               }
                               data-value="deny"
-                              title="Deny"
+                              title={__("Deny", "new-user-approve")}
                               disabled={row.nua_status === "denied"}
                             >
                               <div
-                                className={`status-icon ${
-                                  row.nua_status === "denied"
+                                className={`status-icon ${row.nua_status === "denied"
                                     ? "inactive"
                                     : "active"
-                                }`}
+                                  }`}
                               >
                                 {iconDeny}
                               </div>

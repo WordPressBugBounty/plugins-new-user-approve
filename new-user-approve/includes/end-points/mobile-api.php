@@ -139,7 +139,7 @@ if ( ! class_exists( 'NUAF_Mobile_API' ) ) {
 
             $response_body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-            if ( $response_body && $response_body['success'] ) {
+            if ( $response_body && $response_body['success'] && !empty( $response_body['logged_time'] ) ) {
                 $logged_date = new DateTime( $response_body['logged_time'] );
                 $current_date = new DateTime('now');
                 $diff = date_diff( $logged_date, $current_date );

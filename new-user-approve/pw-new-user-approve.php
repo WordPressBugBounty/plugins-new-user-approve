@@ -74,15 +74,17 @@ if (!class_exists("PW_New_User_Approve")) {
             add_action("pmpro_after_checkout", [$this, "logout_after_pmpro_registration"], 20);
             add_action("the_content", [$this, "nua_show_pending_user_message"], 20);
             add_filter('plugin_action_links_' . plugin_basename(NUA_FILE), [$this, 'plugin_action_links'], 10, 4);
+            add_action('admin_init', [$this, 'nua_synchronize_script_translations']);
+            
         }
 
         public function plugin_action_links($actions, $plugin_file, $plugin_data, $context)
         {
             // Black Friday Deal - Expires Dec 15th, 2025
             if (current_time('timestamp') < strtotime('2025-12-10 23:59:59')) {
-                $actions['black_friday'] = '<a href="https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=plugins_page_bf" target="_blank" style="color: green; font-weight: bold;">Black Friday Deals</a>';
+                $actions['black_friday'] = '<a href="https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=plugins_page_bf" target="_blank" style="color: green; font-weight: bold;">' . esc_html__( 'Black Friday Deals', 'new-user-approve' ) . '</a>';
             } else {
-                $actions['black_friday'] = '<a href="https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=plugins_page" target="_blank" style="color: green; font-weight: bold;">Upgrade To Pro</a>';
+                $actions['black_friday'] = '<a href="https://newuserapprove.com/pricing/?utm_source=plugin&utm_medium=plugins_page" target="_blank" style="color: green; font-weight: bold;">' . esc_html__( 'Upgrade To Pro', 'new-user-approve' ) . '</a>';
 
             }
 
@@ -215,8 +217,13 @@ if (!class_exists("PW_New_User_Approve")) {
             require_once $this->get_plugin_dir() . "includes/messages.php";
             require_once $this->get_plugin_dir() . "includes/invitation-code.php";
             require_once $this->get_plugin_dir() . "includes/zapier/zapier.php";
+            // check if jetformbuilder is active before including the integration file.
             if (file_exists($this->get_plugin_dir() . "/includes/nua_jetformbuilder.php")) {
                 require_once $this->get_plugin_dir() . "/includes/nua_jetformbuilder.php";
+            }
+             // check if gravity forms is active before including the integration file.
+            if (file_exists($this->get_plugin_dir() . "premium-files/includes/nua_gravityforms.php")) {
+                require_once $this->get_plugin_dir() . "premium-files/includes/nua_gravityforms.php";
             }
         }
 
@@ -1186,5 +1193,90 @@ if (!class_exists("PW_New_User_Approve")) {
             }
             update_option("new_user_approve_user_statuses_count", $user_statuses);
         }
+
+        /**
+         * Translation function for strings.
+         */
+       public function nua_synchronize_script_translations()
+        {
+            if (!is_admin()) {
+                return;
+            }
+
+            $languages_dir = $this->get_plugin_dir() . 'languages/';
+            if (!is_dir($languages_dir)) {
+                return;
+            }
+
+            $files = glob($languages_dir . 'new-user-approve-*-*.json');
+            if (!$files) {
+                return;
+            }
+
+            $handle = 'new-user-approve-buildjs';
+            $domain = 'new-user-approve';
+            $locales = [];
+
+            foreach ($files as $file) {
+                $filename = basename($file);
+                if (preg_match('/^' . preg_quote($domain) . '-(.+)-([a-f0-9]{32})\.json$/', $filename, $matches)) {
+                    $locale = $matches[1];
+                    $locales[$locale][] = $file;
+                }
+            }
+
+            foreach ($locales as $locale => $source_files) {
+                $target_filename = "{$domain}-{$locale}-{$handle}.json";
+                $target_file = $languages_dir . $target_filename;
+
+                $merged_data = [
+                    'translation-revision-date' => '',
+                    'generator' => 'New User Approve Translation Sync',
+                    'domain' => $domain,
+                    'locale_data' => [
+                        $domain => [
+                            '' => [
+                                'domain' => '',
+                                'lang' => $locale,
+                                'plural-forms' => 'nplurals=2; plural=n > 1;'
+                            ]
+                        ]
+                    ]
+                ];
+
+                $needs_update = false;
+                $latest_mtime = 0;
+
+                foreach ($source_files as $source_file) {
+                    $content = json_decode(file_get_contents($source_file), true);
+                    if ($content && isset($content['locale_data'][$domain])) {
+                        // Merge strings
+                        foreach ($content['locale_data'][$domain] as $msgid => $translation) {
+                            if ($msgid === '') {
+
+                                if (isset($translation['plural-forms'])) {
+                                    $merged_data['locale_data'][$domain]['']['plural-forms'] = $translation['plural-forms'];
+                                }
+                                continue;
+                            }
+                            $merged_data['locale_data'][$domain][$msgid] = $translation;
+                        }
+
+                        if (isset($content['translation-revision-date']) && $content['translation-revision-date'] > $merged_data['translation-revision-date']) {
+                            $merged_data['translation-revision-date'] = $content['translation-revision-date'];
+                        }
+                    }
+
+                    if (filemtime($source_file) > $latest_mtime) {
+                        $latest_mtime = filemtime($source_file);
+                    }
+                }
+
+                if (!file_exists($target_file) || $latest_mtime > filemtime($target_file)) {
+                    file_put_contents($target_file, json_encode($merged_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                }
+            }
+        }
+
     }
 }

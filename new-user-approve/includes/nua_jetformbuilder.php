@@ -26,6 +26,8 @@ class NUA_JetFormBuilder
 
     public function render_invitation_code_field()
     {
+        $options = get_option('new_user_approve_options');
+        $required = !empty($options['nua_checkbox_textbox']);
 
         ob_start();
         ?>
@@ -34,7 +36,9 @@ class NUA_JetFormBuilder
                 <label class="jet-form-builder__label">
                     <span
                         class="jet-form-builder__label-text"><?php esc_html_e('Invitation Code', 'new-user-approve'); ?></span>
-
+                    <?php if ($required): ?>
+                        <span class="jet-form-builder__required-mark">*</span>
+                    <?php endif; ?>
                 </label>
                 <div class="jet-form-builder__field-container">
                     <input type="text" name="nua_invitation_code" class="jet-form-builder__field text-field"
@@ -69,8 +73,17 @@ class NUA_JetFormBuilder
 
         // Get code from POST
         $code = isset($_POST['nua_invitation_code']) ? sanitize_text_field($_POST['nua_invitation_code']) : '';
+        $options = get_option('new_user_approve_options');
+        $required = !empty($options['nua_checkbox_textbox']);
 
         if (empty($code)) {
+            if ($required) {
+
+                throw new \Jet_Form_Builder\Exceptions\Request_Exception(
+                    'Please add an Invitation code.',
+                    array('nua_invitation_code' => 'Please add an Invitation code.')
+                );
+            }
             return;
         }
 

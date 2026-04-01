@@ -285,8 +285,7 @@ const Add_Code_SubTabs = () => {
   const get_codes = async () => {
     try {
       const response = await axios.get(
-        `${
-          NUARestAPI.get_nua_invite_codes + NUARestAPI.permalink_delimeter
+        `${NUARestAPI.get_nua_invite_codes + NUARestAPI.permalink_delimeter
         }page=${page}&limit=${rowsPerPage}&search=${searchTerm}`,
         {
           headers: {
@@ -318,10 +317,10 @@ const Add_Code_SubTabs = () => {
 
       const formattedUsage = Array.isArray(data)
         ? data.map((item) => ({
-            code_id: item.code_id,
-            uses_left: item.uses_left,
-            total_remaining: item.usage_limit, // usage_limit renamed as total_remaining
-          }))
+          code_id: item.code_id,
+          uses_left: item.uses_left,
+          total_remaining: item.usage_limit, // usage_limit renamed as total_remaining
+        }))
         : [];
 
       setUsageData(data);
@@ -1054,8 +1053,8 @@ const Add_Code_SubTabs = () => {
                   value={selectedStatus}
                   onChange={(e) => setSelectedStatus(e.target.value)}
                 >
-                  <option value="Active">Active</option>
-                  <option value="InActive">InActive</option>
+                  <option value="Active">{__("Active", "new-user-approve")}</option>
+                  <option value="InActive">{__("InActive", "new-user-approve")}</option>
                   {/* <option value="Expired">Expired</option> */}
                 </select>
               </span>
@@ -1348,7 +1347,7 @@ const Add_Code_SubTabs = () => {
             >
               <TextField
                 className="nua-code-search"
-                placeholder="Search codes..."
+                placeholder={__("Search codes...", "new-user-approve")}
                 variant="outlined"
                 size="small"
                 value={searchTerm}
@@ -1454,433 +1453,432 @@ const Add_Code_SubTabs = () => {
             <TableBody>
               {loading
                 ? Array.from({ length: 5 }).map((_, index) => (
-                    <TableRow key={index}>
-                      <TableCell>
-                        <Skeleton variant="text" height={20} />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton variant="text" height={20} />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton variant="text" height={20} />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton variant="text" height={20} />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton variant="text" height={20} width={100} />
-                      </TableCell>
-                    </TableRow>
-                  ))
+                  <TableRow key={index}>
+                    <TableCell>
+                      <Skeleton variant="text" height={20} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" height={20} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" height={20} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" height={20} />
+                    </TableCell>
+                    <TableCell>
+                      <Skeleton variant="text" height={20} width={100} />
+                    </TableCell>
+                  </TableRow>
+                ))
                 : rows.map((item, index) => {
-                    return (
-                      <TableRow class key={index}>
-                        <TableCell>
-                          <input
-                            type="checkbox"
-                            className="nua_checkbox"
-                            checked={selectedCodes.includes(item.code_id)}
-                            onChange={() => handleSelectOne(item.code_id)}
-                          />
-                          {item.invitation_code}
-                        </TableCell>
+                  return (
+                    <TableRow class key={index}>
+                      <TableCell>
+                        <input
+                          type="checkbox"
+                          className="nua_checkbox"
+                          checked={selectedCodes.includes(item.code_id)}
+                          onChange={() => handleSelectOne(item.code_id)}
+                        />
+                        {item.invitation_code}
+                      </TableCell>
 
-                        <TableCell>
-                          {(() => {
-                            const match = usageData.find(
-                              (e) => e.code_id === item.code_id
-                            );
-                            return match
-                              ? `${match.uses_left}/${match.usage_limit}`
-                              : "N/A";
-                          })()}
-                        </TableCell>
+                      <TableCell>
+                        {(() => {
+                          const match = usageData.find(
+                            (e) => e.code_id === item.code_id
+                          );
+                          return match
+                            ? `${match.uses_left}/${match.usage_limit}`
+                            : "N/A";
+                        })()}
+                      </TableCell>
 
-                        <TableCell>
-                          {(() => {
-                            const expiryItem = expiryData.find(
-                              (e) => e.code_id === item.code_id
-                            );
-                            return expiryItem
-                              ? expiryItem.expiry_data
-                              : "No Date";
-                          })()}
-                        </TableCell>
+                      <TableCell>
+                        {(() => {
+                          const expiryItem = expiryData.find(
+                            (e) => e.code_id === item.code_id
+                          );
+                          return expiryItem
+                            ? expiryItem.expiry_data
+                            : "No Date";
+                        })()}
+                      </TableCell>
 
-                        <TableCell>
-                          {(() => {
-                            const codeStatusObj = Array.isArray(statusList)
-                              ? statusList.find(
-                                  (s) => s.code_id === item.code_id
-                                )
-                              : null;
+                      <TableCell>
+                        {(() => {
+                          const codeStatusObj = Array.isArray(statusList)
+                            ? statusList.find(
+                              (s) => s.code_id === item.code_id
+                            )
+                            : null;
 
-                            const statusLabel = codeStatusObj
-                              ? codeStatusObj.code_status
-                              : "No status";
+                          const statusLabel = codeStatusObj
+                            ? codeStatusObj.code_status
+                            : "No status";
 
-                            return (
-                              <Chip
-                                label={statusLabel}
-                                color="default"
-                                sx={{
-                                  backgroundColor:
-                                    statusLabel === "Active"
-                                      ? "#EDFFEF"
-                                      : statusLabel === "Expired"
+                          return (
+                            <Chip
+                              label={statusLabel}
+                              color="default"
+                              sx={{
+                                backgroundColor:
+                                  statusLabel === "Active"
+                                    ? "#EDFFEF"
+                                    : statusLabel === "Expired"
                                       ? "#FFEDED"
                                       : "#f0f0f0",
-                                  color:
-                                    statusLabel === "Active"
-                                      ? "#537A52"
-                                      : statusLabel === "Expired"
+                                color:
+                                  statusLabel === "Active"
+                                    ? "#537A52"
+                                    : statusLabel === "Expired"
                                       ? "#BD5E5E"
                                       : "#666",
-                                  fontWeight: 500,
-                                }}
-                              />
-                            );
-                          })()}
-                        </TableCell>
+                                fontWeight: 500,
+                              }}
+                            />
+                          );
+                        })()}
+                      </TableCell>
 
-                        <TableCell className="actionsRow">
-                          <Dialog
-                            open={openViewModal}
-                            onClose={handleCloseViewModal}
-                            maxWidth="md"
-                            fullWidth={true}
-                            className="openNuaModal NuaModal"
+                      <TableCell className="actionsRow">
+                        <Dialog
+                          open={openViewModal}
+                          onClose={handleCloseViewModal}
+                          maxWidth="md"
+                          fullWidth={true}
+                          className="openNuaModal NuaModal"
+                        >
+                          <DialogTitle>
+                            {__("View Invitation Code", "new-user-approve")}
+                          </DialogTitle>
+                          <IconButton
+                            aria-label="close"
+                            className="nua-modal-close"
+                            onClick={handleCloseViewModal}
+                            sx={(theme) => ({
+                              position: "absolute",
+                              right: 8,
+                              top: 12,
+                              color: theme.palette.grey[500],
+                            })}
                           >
-                            <DialogTitle>
-                              {__("View Invitation Code", "new-user-approve")}
-                            </DialogTitle>
-                            <IconButton
-                              aria-label="close"
-                              className="nua-modal-close"
-                              onClick={handleCloseViewModal}
-                              sx={(theme) => ({
-                                position: "absolute",
-                                right: 8,
-                                top: 12,
-                                color: theme.palette.grey[500],
-                              })}
-                            >
-                              <CloseIcon />
-                            </IconButton>
-                            {selectedRow && (
-                              <div className="inv-code-details">
-                                <div className="inv-field-group-initial">
+                            <CloseIcon />
+                          </IconButton>
+                          {selectedRow && (
+                            <div className="inv-code-details">
+                              <div className="inv-field-group-initial">
+                                <label className="invitation-field__label">
+                                  {__("Invitation Code", "new-user-approve")}
+                                </label>
+                                <input
+                                  readOnly="true"
+                                  className="invitation-field__input"
+                                  value={selectedRow.invitation_code}
+                                />
+                              </div>
+
+                              <div className="inv-field-group">
+                                <div className="invitation-field">
                                   <label className="invitation-field__label">
-                                    {__("Invitation Code", "new-user-approve")}
+                                    {__("Uses Left", "new-user-approve")}
                                   </label>
                                   <input
                                     readOnly="true"
                                     className="invitation-field__input"
-                                    value={selectedRow.invitation_code}
+                                    value={selectedRow.uses_left}
                                   />
                                 </div>
 
-                                <div className="inv-field-group">
-                                  <div className="invitation-field">
-                                    <label className="invitation-field__label">
-                                      {__("Uses Left", "new-user-approve")}
-                                    </label>
-                                    <input
-                                      readOnly="true"
-                                      className="invitation-field__input"
-                                      value={selectedRow.uses_left}
-                                    />
-                                  </div>
-
-                                  <div className="invitation-field">
-                                    <label className="invitation-field__label">
-                                      {__("Usage Limit", "new-user-approve")}
-                                    </label>
-                                    <input
-                                      readOnly="true"
-                                      className="invitation-field__input"
-                                      value={selectedRow.usage_limit}
-                                    />
-                                  </div>
-
-                                  <div className="invitation-field">
-                                    <label className="invitation-field__label">
-                                      {__("Expiry Date", "new-user-approve")}
-                                    </label>
-                                    <input
-                                      readOnly="true"
-                                      className="invitation-field__input"
-                                      value={
-                                        expiryData.find(
-                                          (e) =>
-                                            e.code_id === selectedRow.code_id
-                                        )?.expiry_data || "No Date"
-                                      }
-                                    />
-                                  </div>
-
-                                  <div className="invitation-field">
-                                    <label className="invitation-field__label">
-                                      {__("Status", "new-user-approve")}
-                                    </label>
-                                    <input
-                                      readOnly="true"
-                                      className="invitation-field__input"
-                                      value={
-                                        statusList.find(
-                                          (e) =>
-                                            e.code_id === selectedRow.code_id
-                                        )?.code_status || "No status"
-                                      }
-                                    />
-                                  </div>
+                                <div className="invitation-field">
+                                  <label className="invitation-field__label">
+                                    {__("Usage Limit", "new-user-approve")}
+                                  </label>
+                                  <input
+                                    readOnly="true"
+                                    className="invitation-field__input"
+                                    value={selectedRow.usage_limit}
+                                  />
                                 </div>
-                              </div>
-                            )}
-                            <DialogContent className="viewCode-dialog" dividers>
-                              {selectedRow && (
-                                <div>
-                                  <span className="users-reg-text">
-                                    {__(
-                                      "Users that have registered by using this invitation code",
-                                      "new-user-approve"
-                                    )}
-                                  </span>
-                                  {getInvitedUsersForCode(selectedRow.code_id)
-                                    .length > 0 ? (
-                                    <TableContainer
-                                      className="users-reg-table"
-                                      component={Paper}
-                                      sx={{ mt: 2 }}
-                                    >
-                                      <Table size="small">
-                                        <TableHead>
-                                          <TableRow>
-                                            <TableCell>
-                                              {__(" User ID")}
-                                            </TableCell>
-                                            <TableCell>
-                                              {__(" User Email")}
-                                            </TableCell>
-                                            <TableCell>
-                                              {__(" User Name")}
-                                            </TableCell>
-                                          </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                          {getInvitedUsersForCode(
-                                            selectedRow.code_id
-                                          ).map((user, index) => (
-                                            <TableRow key={index}>
-                                              <TableCell>
-                                                {user.user_id || "N/A"}
-                                              </TableCell>
-                                              <TableCell>
-                                                {user.user_email}
-                                              </TableCell>
-                                              <TableCell>
-                                                {user.user_link ? (
-                                                  <a
-                                                    href={user.user_link}
-                                                    target="_blank"
-                                                    rel="noopener"
-                                                  >
-                                                    {user.user_name}
-                                                  </a>
-                                                ) : (
-                                                  "N/A"
-                                                )}
-                                              </TableCell>
-                                            </TableRow>
-                                          ))}
-                                        </TableBody>
-                                      </Table>
-                                    </TableContainer>
-                                  ) : (
-                                    <Typography variant="body2" sx={{ mt: 1 }}>
-                                      <Table size="small">
-                                        <TableHead>
-                                          <TableRow>
-                                            <TableCell>
-                                              {__(" User ID")}
-                                            </TableCell>
-                                            <TableCell>
-                                              {__(" User Email")}
-                                            </TableCell>
-                                            <TableCell>
-                                              {__(" User Name")}
-                                            </TableCell>
-                                          </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                          <TableRow>
-                                            <TableCell>
-                                              {__(" No User Found.")}
-                                            </TableCell>
-                                            <TableCell>{}</TableCell>
-                                            <TableCell>{}</TableCell>
-                                          </TableRow>
-                                        </TableBody>
-                                      </Table>
-                                    </Typography>
-                                  )}
-                                </div>
-                              )}
-                            </DialogContent>
-                            <DialogActions></DialogActions>
-                          </Dialog>
 
-                          {/* View Button */}
-                          <IconButton onClick={() => handleOpenViewModal(item)}>
-                            <span className="actionsIcon">{viewIcon}</span>
-                          </IconButton>
-
-                          <Dialog
-                            open={openEditModal}
-                            onClose={handleCloseEditModal}
-                            maxWidth="md"
-                            fullWidth
-                            className="openNuaModal NuaModal openNuaTabsModal"
-                          >
-                            <DialogTitle>
-                              {__("Edit Invitation Code", "new-user-approve")}
-                            </DialogTitle>
-                            <IconButton
-                              aria-label="close"
-                              className="nua-modal-close"
-                              onClick={handleCloseEditModal}
-                              sx={(theme) => ({
-                                position: "absolute",
-                                right: 8,
-                                top: 12,
-                                color: theme.palette.grey[500],
-                              })}
-                            >
-                              <CloseIcon />
-                            </IconButton>
-                            <DialogContent dividers>
-                              {selectedRow && (
-                                <>
-                                  <EditInvitationCode
-                                    ref={editRef}
-                                    fetchAutoCodes={fetchAutoCodes}
-                                    codeId={selectedRow.code_id}
-                                    code={selectedRow.invitation_code}
-                                    handleCloseEditModal={handleCloseEditModal}
-                                    usesLeft={selectedRow.uses_left}
-                                    usageLimit={selectedRow.usage_limit}
-                                    expiryDate={
+                                <div className="invitation-field">
+                                  <label className="invitation-field__label">
+                                    {__("Expiry Date", "new-user-approve")}
+                                  </label>
+                                  <input
+                                    readOnly="true"
+                                    className="invitation-field__input"
+                                    value={
                                       expiryData.find(
-                                        (e) => e.code_id === selectedRow.code_id
+                                        (e) =>
+                                          e.code_id === selectedRow.code_id
                                       )?.expiry_data || "No Date"
                                     }
-                                    status={
+                                  />
+                                </div>
+
+                                <div className="invitation-field">
+                                  <label className="invitation-field__label">
+                                    {__("Status", "new-user-approve")}
+                                  </label>
+                                  <input
+                                    readOnly="true"
+                                    className="invitation-field__input"
+                                    value={
                                       statusList.find(
-                                        (e) => e.code_id === selectedRow.code_id
+                                        (e) =>
+                                          e.code_id === selectedRow.code_id
                                       )?.code_status || "No status"
                                     }
                                   />
-                                </>
-                              )}
-
-                              {/* code */}
-                            </DialogContent>
-                            <DialogActions style={{ padding: "20px" }}>
-                              <Button
-                                className="cancelBtn"
-                                onClick={handleCloseEditModal}
-                                color="primary"
-                              >
-                                {__("Cancel", "new-user-approve")}
-                              </Button>
-                              <Button
-                                className={` importBtn nua-btn save-changes ${
-                                  loading ? "loading" : ""
-                                }`}
-                                onClick={handleEditClick}
-                              >
-                                {__("Save Changes", "new-user-approve")}
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
-                          <IconButton onClick={() => handleOpenEditModal(item)}>
-                            <span className="actionsIcon">{editIcon}</span>
-                          </IconButton>
-
-                          <Dialog
-                            open={openDeleteModal}
-                            onClose={handleCloseDeleteModal}
-                            maxWidth="xs"
-                            fullWidth={true}
-                            className="openNuaModal delete-inv-modal openNuaTabsModal NuaModal"
-                          >
-                            {/* uzair */}
-                            <DialogTitle className="delete-title"></DialogTitle>
-                            <IconButton
-                              aria-label="close"
-                              className="nua-modal-close"
-                              onClick={handleCloseDeleteModal}
-                              sx={(theme) => ({
-                                position: "absolute",
-                                right: 8,
-                                top: 12,
-                                color: theme.palette.grey[500],
-                              })}
-                            >
-                              <CloseIcon />
-                            </IconButton>
-
-                            <DialogContent
-                              dividers
-                              className="delete-confirmation"
-                            >
-                              <div className="sure-icon">
-                                {deleteConfirmation}
+                                </div>
                               </div>
-                              <div className="delete-text">
-                                <h3>{__("Are you sure?")}</h3>
-                                <p>
+                            </div>
+                          )}
+                          <DialogContent className="viewCode-dialog" dividers>
+                            {selectedRow && (
+                              <div>
+                                <span className="users-reg-text">
                                   {__(
-                                    "The invitation code(s) will be permanently deleted and you won’t be able to see it again.",
+                                    "Users that have registered by using this invitation code",
                                     "new-user-approve"
                                   )}
-                                </p>
-                              </div>
-                            </DialogContent>
-                            <DialogActions style={{ padding: "20px" }}>
-                              <Button
-                                className="cancelBtn"
-                                onClick={handleCloseDeleteModal}
-                                color="primary"
-                              >
-                                {__("Cancel", "new-user-approve")}
-                              </Button>
-
-                              <Button
-                                className="importBtn nua-btn"
-                                onClick={handleBulkDeleteConfirmation}
-                              >
-                                {__("Delete", "new-user-approve")}
-                                {loading == true ? (
-                                  <div className="new-user-approve-loading">
-                                    <div className="nua-spinner"></div>
-                                  </div>
+                                </span>
+                                {getInvitedUsersForCode(selectedRow.code_id)
+                                  .length > 0 ? (
+                                  <TableContainer
+                                    className="users-reg-table"
+                                    component={Paper}
+                                    sx={{ mt: 2 }}
+                                  >
+                                    <Table size="small">
+                                      <TableHead>
+                                        <TableRow>
+                                          <TableCell>
+                                            {__("User ID", "new-user-approve")}
+                                          </TableCell>
+                                          <TableCell>
+                                            {__("User Email", "new-user-approve")}
+                                          </TableCell>
+                                          <TableCell>
+                                            {__("User Name", "new-user-approve")}
+                                          </TableCell>
+                                        </TableRow>
+                                      </TableHead>
+                                      <TableBody>
+                                        {getInvitedUsersForCode(
+                                          selectedRow.code_id
+                                        ).map((user, index) => (
+                                          <TableRow key={index}>
+                                            <TableCell>
+                                              {user.user_id || "N/A"}
+                                            </TableCell>
+                                            <TableCell>
+                                              {user.user_email}
+                                            </TableCell>
+                                            <TableCell>
+                                              {user.user_link ? (
+                                                <a
+                                                  href={user.user_link}
+                                                  target="_blank"
+                                                  rel="noopener"
+                                                >
+                                                  {user.user_name}
+                                                </a>
+                                              ) : (
+                                                "N/A"
+                                              )}
+                                            </TableCell>
+                                          </TableRow>
+                                        ))}
+                                      </TableBody>
+                                    </Table>
+                                  </TableContainer>
                                 ) : (
-                                  ""
+                                  <Typography variant="body2" sx={{ mt: 1 }}>
+                                    <Table size="small">
+                                      <TableHead>
+                                        <TableRow>
+                                          <TableCell>
+                                            {__("User ID", "new-user-approve")}
+                                          </TableCell>
+                                          <TableCell>
+                                            {__("User Email", "new-user-approve")}
+                                          </TableCell>
+                                          <TableCell>
+                                            {__("User Name", "new-user-approve")}
+                                          </TableCell>
+                                        </TableRow>
+                                      </TableHead>
+                                      <TableBody>
+                                        <TableRow>
+                                          <TableCell>
+                                            {__("No User Found.", "new-user-approve")}
+                                          </TableCell>
+                                          <TableCell>{ }</TableCell>
+                                          <TableCell>{ }</TableCell>
+                                        </TableRow>
+                                      </TableBody>
+                                    </Table>
+                                  </Typography>
                                 )}
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
+                              </div>
+                            )}
+                          </DialogContent>
+                          <DialogActions></DialogActions>
+                        </Dialog>
 
+                        {/* View Button */}
+                        <IconButton onClick={() => handleOpenViewModal(item)}>
+                          <span className="actionsIcon">{viewIcon}</span>
+                        </IconButton>
+
+                        <Dialog
+                          open={openEditModal}
+                          onClose={handleCloseEditModal}
+                          maxWidth="md"
+                          fullWidth
+                          className="openNuaModal NuaModal openNuaTabsModal"
+                        >
+                          <DialogTitle>
+                            {__("Edit Invitation Code", "new-user-approve")}
+                          </DialogTitle>
                           <IconButton
-                            onClick={() => handleOpenDeleteModal(item.code_id)}
+                            aria-label="close"
+                            className="nua-modal-close"
+                            onClick={handleCloseEditModal}
+                            sx={(theme) => ({
+                              position: "absolute",
+                              right: 8,
+                              top: 12,
+                              color: theme.palette.grey[500],
+                            })}
                           >
-                            <span className="actionsIcon">{deleteIcon}</span>
+                            <CloseIcon />
                           </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                          <DialogContent dividers>
+                            {selectedRow && (
+                              <>
+                                <EditInvitationCode
+                                  ref={editRef}
+                                  fetchAutoCodes={fetchAutoCodes}
+                                  codeId={selectedRow.code_id}
+                                  code={selectedRow.invitation_code}
+                                  handleCloseEditModal={handleCloseEditModal}
+                                  usesLeft={selectedRow.uses_left}
+                                  usageLimit={selectedRow.usage_limit}
+                                  expiryDate={
+                                    expiryData.find(
+                                      (e) => e.code_id === selectedRow.code_id
+                                    )?.expiry_data || "No Date"
+                                  }
+                                  status={
+                                    statusList.find(
+                                      (e) => e.code_id === selectedRow.code_id
+                                    )?.code_status || "No status"
+                                  }
+                                />
+                              </>
+                            )}
+
+                            {/* code */}
+                          </DialogContent>
+                          <DialogActions style={{ padding: "20px" }}>
+                            <Button
+                              className="cancelBtn"
+                              onClick={handleCloseEditModal}
+                              color="primary"
+                            >
+                              {__("Cancel", "new-user-approve")}
+                            </Button>
+                            <Button
+                              className={` importBtn nua-btn save-changes ${loading ? "loading" : ""
+                                }`}
+                              onClick={handleEditClick}
+                            >
+                              {__("Save Changes", "new-user-approve")}
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                        <IconButton onClick={() => handleOpenEditModal(item)}>
+                          <span className="actionsIcon">{editIcon}</span>
+                        </IconButton>
+
+                        <Dialog
+                          open={openDeleteModal}
+                          onClose={handleCloseDeleteModal}
+                          maxWidth="xs"
+                          fullWidth={true}
+                          className="openNuaModal delete-inv-modal openNuaTabsModal NuaModal"
+                        >
+                          {/* uzair */}
+                          <DialogTitle className="delete-title"></DialogTitle>
+                          <IconButton
+                            aria-label="close"
+                            className="nua-modal-close"
+                            onClick={handleCloseDeleteModal}
+                            sx={(theme) => ({
+                              position: "absolute",
+                              right: 8,
+                              top: 12,
+                              color: theme.palette.grey[500],
+                            })}
+                          >
+                            <CloseIcon />
+                          </IconButton>
+
+                          <DialogContent
+                            dividers
+                            className="delete-confirmation"
+                          >
+                            <div className="sure-icon">
+                              {deleteConfirmation}
+                            </div>
+                            <div className="delete-text">
+                              <h3>{__("Are you sure?")}</h3>
+                              <p>
+                                {__(
+                                  "The invitation code(s) will be permanently deleted and you won’t be able to see it again.",
+                                  "new-user-approve"
+                                )}
+                              </p>
+                            </div>
+                          </DialogContent>
+                          <DialogActions style={{ padding: "20px" }}>
+                            <Button
+                              className="cancelBtn"
+                              onClick={handleCloseDeleteModal}
+                              color="primary"
+                            >
+                              {__("Cancel", "new-user-approve")}
+                            </Button>
+
+                            <Button
+                              className="importBtn nua-btn"
+                              onClick={handleBulkDeleteConfirmation}
+                            >
+                              {__("Delete", "new-user-approve")}
+                              {loading == true ? (
+                                <div className="new-user-approve-loading">
+                                  <div className="nua-spinner"></div>
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+
+                        <IconButton
+                          onClick={() => handleOpenDeleteModal(item.code_id)}
+                        >
+                          <span className="actionsIcon">{deleteIcon}</span>
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
             </TableBody>
           </Table>
           {rows.length === 0 ? (

@@ -59,7 +59,7 @@ const Update_User_Role_Modal = ({ user_id, open, handleClose, setReload }) => {
 
     if (result.status == "success") {
       // display successful message and close the modal also
-      setSuccessMessage("user has been updated");
+      setSuccessMessage(__("User has been updated successfully", "new-user-approve"));
       setTimeout(() => {
         setSuccessMessage("");
         handleClose();
@@ -102,7 +102,7 @@ const Update_User_Role_Modal = ({ user_id, open, handleClose, setReload }) => {
               ) : (
                 <RoleSelect
                   className="basic-single invite-email-select"
-                  placeholder="Select a Role"
+                  placeholder={__("Select a Role", "new-user-approve")}
                   id="select-roles"
                   name="code-select"
                   value={newRole}

@@ -374,7 +374,7 @@ const Denied_Users = () => {
             <input
               type="text"
               className="nua-search-field"
-              placeholder="Search User"
+              placeholder={__("Search User", "new-user-approve")}
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPage(1);
@@ -429,8 +429,11 @@ const Denied_Users = () => {
               {__("Bulk actions", "new-user-approve")}:
             </span>{" "}
             <span className="nua_bulkLength">
-              {`${selectedUsers.length} `}
-              {__("user(s) selected", "new-user-approve")}
+              {sprintf(
+                // translators: %s: number of selected users
+                __("%s user(s) selected", "new-user-approve"),
+                selectedUsers.length
+              )}
             </span>
           </Typography>
           <Button
@@ -540,7 +543,9 @@ const Denied_Users = () => {
                         <TableCell key={col.key}>
                           <div className="nua-status-container">
                             <span className={"user-" + row.nua_status}>
-                              {row.nua_status.charAt(0).toUpperCase() +
+                              {row.nua_status === "denied"
+                                ? __("Denied", "new-user-approve")
+                                : row.nua_status.charAt(0).toUpperCase() +
                                 row.nua_status.slice(1)}
                             </span>
                           </div>
@@ -563,7 +568,7 @@ const Denied_Users = () => {
                                   handleMenuAction(event, row.ID)
                                 }
                                 data-value={status}
-                                title="Approve"
+                                title={__("Approve", "new-user-approve")}
                               >
                                 {iconApprove}
                               </IconButton>
@@ -633,7 +638,13 @@ const Denied_Users = () => {
           className="nua-nav-pagination"
         />
         <Typography variant="body2" className="nua-table-total-data">
-          {`${startIndex}–${endIndex} of ${totalUsers}`}
+          {sprintf(
+            // translators: 1: start index, 2: end index, 3: total users
+            __("%1$s–%2$s of %3$s", "new-user-approve"),
+            startIndex,
+            endIndex,
+            totalUsers
+          )}
           <span style={{ marginLeft: 5 }}>
             {__("entries", "new-user-approve")}
           </span>
