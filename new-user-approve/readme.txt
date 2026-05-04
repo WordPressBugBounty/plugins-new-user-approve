@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 6.9
-Stable tag: 3.2.6
+Stable tag: 3.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -175,6 +175,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Settings.
 
 == Changelog ==
+
+= 3.2.7 =
+* Fixed - Code improvement and fixes.
 
 = 3.2.6 =
 * Added - Compatibility with Gravity Forms.

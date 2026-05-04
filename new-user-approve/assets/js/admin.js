@@ -1,31 +1,29 @@
-jQuery( document ).ready( function(){
-	jQuery( document ).on( 'click', '#nua-generate-api', function( e ){
-		e.preventDefault();
-		var apiKey = btoa( nuaAdmin.info );
-		jQuery( '#nua-api' ).val( apiKey );
-	} );
-} );
-
+jQuery(document).ready(function () {
+  jQuery(document).on("click", "#nua-generate-api", function (e) {
+    e.preventDefault();
+    var apiKey = btoa(nuaAdmin.info);
+    jQuery("#nua-api").val(apiKey);
+  });
+});
+console.log("admin.js loaded");
 /**
- * 
+ *
  * Invitation code Messages
  */
-jQuery(document).ready(function() {
-	const errorMessage = jQuery('#errorMessage');
-	const successMessage = jQuery('#successMessage');
-    const failMessage    = jQuery("#failMessage");
-	
-	showMessage(errorMessage);
-	showMessage(successMessage);
-	showMessage(failMessage );
+jQuery(document).ready(function () {
+  const errorMessage = jQuery("#errorMessage");
+  const successMessage = jQuery("#successMessage");
+  const failMessage = jQuery("#failMessage");
 
-   
-	function showMessage(messageElement) {
-	  messageElement.fadeIn();
-  
-	  setTimeout(function() {
-		messageElement.fadeOut();
-	  }, 3000); 
-	}
+  showMessage(errorMessage);
+  showMessage(successMessage);
+  showMessage(failMessage);
 
-  });
+  function showMessage(messageElement) {
+    messageElement.fadeIn();
+
+    setTimeout(function () {
+      messageElement.fadeOut();
+    }, 3000);
+  }
+});

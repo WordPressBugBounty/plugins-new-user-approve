@@ -2,10 +2,15 @@
 /**
  * Contains all functionality to make the New User Approve plugin
  * compatible with other plugins.
+ *
+ * @package New_User_Approve
  */
 
-/*
- * Don't show the error if the s2member plugin is active
+/**
+ * Don't show the error if the s2member plugin is active.
+ *
+ * @param bool $show_notice Whether to show the notice.
+ * @return bool
  */
 function nua_c2member_dismiss_membership_notice( $show_notice ) {
 	if ( class_exists( 'c_ws_plugin__s2member_constants' ) ) {

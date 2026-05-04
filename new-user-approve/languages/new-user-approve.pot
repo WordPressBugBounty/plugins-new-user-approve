@@ -448,12 +448,12 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin-approve.php:114
+#: includes/class-pw-new-user-approve-admin-approve.php.php:114
 #: src/components/dashboard/tabs.jsx:125
 msgid "Mobile App"
 msgstr ""
 
-#: includes/admin-approve.php:115
+#: includes/class-pw-new-user-approve-admin-approve.php.php:115
 #: src/components/dashboard/tabs.jsx:126
 msgid "New"
 msgstr ""
@@ -1160,48 +1160,48 @@ msgstr ""
 msgid "User registration request %s for "
 msgstr ""
 
-#: includes/end-points/users-api.php:961
+#: includes/end-points/class-users-api.php:961
 msgid "%d year ago"
 msgid_plural "%d years ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/end-points/users-api.php:972
+#: includes/end-points/class-users-api.php:972
 msgid "%d month ago"
 msgid_plural "%d months ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/end-points/users-api.php:983
+#: includes/end-points/class-users-api.php:983
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/end-points/users-api.php:994
+#: includes/end-points/class-users-api.php:994
 msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/end-points/users-api.php:1005
+#: includes/end-points/class-users-api.php:1005
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/end-points/users-api.php:1016
+#: includes/end-points/class-users-api.php:1016
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/end-points/users-api.php:1027
+#: includes/end-points/class-users-api.php:1027
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/end-points/users-api.php:1037
+#: includes/end-points/class-users-api.php:1037
 msgid "just now"
 msgstr ""

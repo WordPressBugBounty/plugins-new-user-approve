@@ -1,175 +1,267 @@
 <?php
+/**
+ * MemberPress integration for New User Approve.
+ *
+ * @package New_User_Approve
+ */
 
-add_action(
-    "mepr-product-registration-metabox",
-    "nuamp_add_registration_field",
-    10,
-    3
-);
-
-function nuamp_add_registration_field($product)
-{
-    $nua_approval = get_post_meta(
-        $product->rec->ID,
-        "_mepr_nua_approval",
-        true
-    ); ?>
- <div id="nua-mp-require-approval" class="mepr-product-adv-item">
-	<input type="checkbox" name="_mepr_nua_approval" id="_mepr_nua_approval" <?php echo esc_attr(
-     $nua_approval
- )
-     ? "checked"
-     : ""; ?> />
-	<label for="_mepr_nua_approval"><?php esc_html_e(
-     "Members Require NUA Approval",
-     "new-user-approve"
- ); ?></label>
-	<?php wp_nonce_field("mepr_nua_approval_action", "mepr_nua_approval_nonce"); ?>
-
-	<?php MeprAppHelper::info_tooltip(
-     "_mepr_nua_approval",
-     __("Members Require NUA Approval", "new-user-approve"),
-     __(
-         "Enable this option if you want membership to be only activated after user profile is approved using New User Approve settings, If users profile is denied then the membership will become inactive",
-         "new-user-approve"
-     )
- );
+/**
+ * Check whether the NUA invitation code feature is enabled.
+ *
+ * @return bool
+ */
+function nuamp_is_invitation_code_enabled() {
+	$options = get_option( 'new_user_approve_options' );
+	return isset( $options['nua_free_invitation'] ) && 'enable' === $options['nua_free_invitation'];
 }
 
-add_action(
-    "mepr-membership-save-meta",
-    "nuamp_add_registration_field_save",
-    10,
-    3
-);
+/**
+ * Render the NUA invitation code field on the MemberPress checkout form.
+ *
+ * @param int $product_id The MemberPress product ID.
+ */
+function nuamp_checkout_invitation_code_field( $product_id ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	if ( ! nuamp_is_invitation_code_enabled() ) {
+		return;
+	}
 
-function nuamp_add_registration_field_save($product)
-{
-    if (
-        isset($_POST["mepr_nua_approval_nonce"]) &&
-        wp_verify_nonce(
-            $_POST["mepr_nua_approval_nonce"],
-            "mepr_nua_approval_action"
-        )
-    ) {
-        if (isset($_POST["post_ID"])) {
-            $nua_approval = 0;
-            if (
-                isset($_POST["_mepr_nua_approval"]) &&
-                $_POST["_mepr_nua_approval"] == "on"
-            ) {
-                $nua_approval = 1;
-            }
-
-            update_post_meta(
-                absint($_POST["post_ID"]),
-                "_mepr_nua_approval",
-                $nua_approval
-            );
-        }
-    }
+	$options  = get_option( 'new_user_approve_options' );
+	$required = ! empty( $options['nua_checkbox_textbox'] );
+	?>
+	<div class="mepr-form-row mepr-nua-invitation-code-row">
+		<label for="nua_invitation_code">
+			<?php esc_html_e( 'Invitation Code', 'new-user-approve' ); ?>
+			<?php if ( $required ) : ?>
+				<span class="mepr-required" aria-hidden="true"> *</span>
+				<span class="screen-reader-text"><?php esc_html_e( 'Required', 'new-user-approve' ); ?></span>
+			<?php else : ?>
+				<span class="mepr-optional"> (<?php esc_html_e( 'optional', 'new-user-approve' ); ?>)</span>
+			<?php endif; ?>
+		</label>
+		<input type="text" name="nua_invitation_code" id="nua_invitation_code"
+			class="mepr-form-input"
+			value="<?php echo esc_attr( isset( $_POST['nua_invitation_code'] ) ? sanitize_text_field( wp_unslash( $_POST['nua_invitation_code'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification.Missing ?>"
+			autocomplete="off" />
+		<?php wp_nonce_field( 'nua_invitation_code_action', 'nua_invitation_code_nonce' ); ?>
+	</div>
+	<?php
 }
 
-function memberpress_add_nua_cloumn($cols)
-{
-    $cols["col_nua_approval"] = __("Approval", "new-user-approve");
-    return $cols;
+add_action( 'mepr-checkout-before-submit', 'nuamp_checkout_invitation_code_field', 10, 1 );
+
+/**
+ * Validate the NUA invitation code on MemberPress signup.
+ *
+ * Hooked into mepr-validate-signup which passes an array of error strings and
+ * expects the (possibly extended) array back.
+ *
+ * @param array $errors Existing validation errors.
+ * @return array
+ */
+function nuamp_validate_invitation_code( $errors ) {
+	if ( ! nuamp_is_invitation_code_enabled() ) {
+		return $errors;
+	}
+
+	$options      = get_option( 'new_user_approve_options' );
+	$required     = ! empty( $options['nua_checkbox_textbox'] );
+	$code_entered = isset( $_POST['nua_invitation_code'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		? sanitize_text_field( wp_unslash( $_POST['nua_invitation_code'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		: '';
+
+	// Nonce verification (optional field, used when present).
+	$nonce_valid = isset( $_POST['nua_invitation_code_nonce'] ) &&
+		wp_verify_nonce(
+			sanitize_text_field( wp_unslash( $_POST['nua_invitation_code_nonce'] ) ),
+			'nua_invitation_code_action'
+		);
+
+	if ( empty( $code_entered ) ) {
+		if ( $required ) {
+			$errors[] = __( 'Please add an Invitation code.', 'new-user-approve' );
+		}
+		return $errors;
+	}
+
+	if ( ! $nonce_valid ) {
+		$errors[] = __( 'Security check failed. Please reload the page and try again.', 'new-user-approve' );
+		return $errors;
+	}
+
+	$inv = nua_invitation_code();
+
+	// Check existence, expiry and usage limit using NUA helpers.
+	$exists = $inv->invitation_code_already_exists( $code_entered );
+
+	if ( ! $exists ) {
+		$errors[] = __( 'The Invitation code is invalid.', 'new-user-approve' );
+		return $errors;
+	}
+
+	$expired       = $inv->invitation_code_expiry_check( $code_entered );
+	$within_limit  = $inv->invitation_code_limit_check( $code_entered );
+
+	if ( $expired ) {
+		$errors[] = __( 'Invitation code has been expired.', 'new-user-approve' );
+		return $errors;
+	}
+
+	if ( ! $within_limit ) {
+		$errors[] = __( 'Invitation code limit exceeded.', 'new-user-approve' );
+		return $errors;
+	}
+
+	// Acquire a file lock to prevent race conditions on heavily-used codes.
+	$args = array(
+		'numberposts' => -1,
+		'post_type'   => $inv->code_post_type,
+		'post_status' => 'publish',
+		'meta_query'  => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			'relation' => 'AND',
+			array(
+				array(
+					'key'     => $inv->code_key,
+					'value'   => $code_entered,
+					'compare' => '=',
+				),
+				array(
+					'key'     => $inv->usage_limit_key,
+					'value'   => '1',
+					'compare' => '>=',
+				),
+				array(
+					'key'     => $inv->expiry_date_key,
+					'value'   => time(),
+					'compare' => '>=',
+				),
+				array(
+					'key'     => $inv->status_key,
+					'value'   => 'Active',
+					'compare' => '=',
+				),
+			),
+		),
+	);
+
+	$posts = get_posts( $args );
+
+	foreach ( $posts as $post_inv ) {
+		$code_inv = get_post_meta( $post_inv->ID, $inv->code_key, true );
+		if ( $code_entered === $code_inv ) {
+			global $nuamp_inv_file_lock, $nuamp_inv_post_id;
+			$nuamp_inv_post_id   = $post_inv->ID;
+			$nuamp_inv_file_lock = $inv->invite_code_hold( $post_inv->ID );
+			if ( false === $nuamp_inv_file_lock ) {
+				$errors[] = __( 'Server is busy, please try again.', 'new-user-approve' );
+			}
+			return $errors;
+		}
+	}
+
+	$errors[] = __( 'The Invitation code is invalid.', 'new-user-approve' );
+	return $errors;
 }
-add_filter("mepr-admin-members-cols", "memberpress_add_nua_cloumn");
 
-function memberpress_add_nua_rows(
-    $attributes,
-    $rec,
-    $column_name,
-    $column_display_name
-) {
-    if ($column_name == "col_nua_approval") {
+add_filter( 'mepr-validate-signup', 'nuamp_validate_invitation_code', 10, 1 );
 
-        $user_status = pw_new_user_approve()->get_user_status($rec->ID);
+/**
+ * Consume the invitation code and auto-approve the user after a successful MemberPress signup.
+ *
+ * @param object $txn The MemberPress transaction object.
+ */
+function nuamp_process_invitation_code_on_signup( $txn ) {
+	if ( ! nuamp_is_invitation_code_enabled() ) {
+		return;
+	}
 
-        $approve_link = add_query_arg([
-            "nua-action" => "approve",
-            "user" => $rec->ID,
-        ]);
-        $approve_link = remove_query_arg(["new_role"], $approve_link);
-        $approve_link = wp_nonce_url($approve_link, "new-user-approve-mempr");
+	$code_entered = isset( $_POST['nua_invitation_code'] ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		? sanitize_text_field( wp_unslash( $_POST['nua_invitation_code'] ) ) // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		: '';
 
-        $deny_link = add_query_arg([
-            "nua-action" => "deny",
-            "user" => $rec->ID,
-        ]);
-        $deny_link = remove_query_arg(["new_role"], $deny_link);
-        $deny_link = wp_nonce_url($deny_link, "new-user-approve-mempr");
+	if ( empty( $code_entered ) ) {
+		return;
+	}
 
-        $approve_action =
-            '<a style="color:green" href="' .
-            esc_url($approve_link) .
-            '">' .
-            __("Approve", "new-user-approve") .
-            "</a>";
-        $deny_action =
-            '<a style="color:red" href="' .
-            esc_url($deny_link) .
-            '">' .
-            __("Deny", "new-user-approve") .
-            "</a>";
+	// Nonce was already verified in nuamp_validate_invitation_code(); trust it here.
+	global $nuamp_inv_file_lock, $nuamp_inv_post_id;
 
-        if ($user_status == "pending") { ?>
-			<td> 
-			<p><?php echo esc_attr(ucfirst($user_status)); ?> </p>
-			<?php if ($rec->ID != get_current_user_id() && !is_super_admin($rec->ID)) { ?>
-				<p><?php echo esc_attr($approve_action); ?> | <?php echo esc_attr(
-     $deny_action
- ); ?></p>
-				</td>
-				<?php }} elseif ($user_status == "approved") { ?>
-			<td > 
-			<p><?php echo esc_attr(ucfirst($user_status)); ?> </p>
-			<?php if ($rec->ID != get_current_user_id() && !is_super_admin($rec->ID)) { ?>
-				<p><?php echo esc_attr($deny_action); ?></p>
-				</td>
-				<?php }} elseif ($user_status == "denied") { ?>
-			<td > 
-			<p><?php echo esc_attr(ucfirst($user_status)); ?> </p>
-			<?php if ($rec->ID != get_current_user_id() && !is_super_admin($rec->ID)) { ?>
-				<p><?php echo esc_attr($approve_action); ?></p>
-				</td>
-				<?php }}
-        ?>
-		
-		<?php
-    }
+	$inv     = nua_invitation_code();
+	$user_id = $txn->user_id;
+
+	// Fall back to a fresh post lookup if globals were not set (e.g. AJAX path).
+	if ( empty( $nuamp_inv_post_id ) ) {
+		$args = array(
+			'numberposts' => 1,
+			'post_type'   => $inv->code_post_type,
+			'post_status' => 'publish',
+			'meta_query'  => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+				'relation' => 'AND',
+				array(
+					array(
+						'key'     => $inv->code_key,
+						'value'   => $code_entered,
+						'compare' => '=',
+					),
+					array(
+						'key'     => $inv->usage_limit_key,
+						'value'   => '1',
+						'compare' => '>=',
+					),
+					array(
+						'key'     => $inv->expiry_date_key,
+						'value'   => time(),
+						'compare' => '>=',
+					),
+					array(
+						'key'     => $inv->status_key,
+						'value'   => 'Active',
+						'compare' => '=',
+					),
+				),
+			),
+		);
+		$posts = get_posts( $args );
+		foreach ( $posts as $post_inv ) {
+			$code_inv = get_post_meta( $post_inv->ID, $inv->code_key, true );
+			if ( $code_entered === $code_inv ) {
+				$nuamp_inv_post_id = $post_inv->ID;
+				break;
+			}
+		}
+	}
+
+	if ( empty( $nuamp_inv_post_id ) ) {
+		return;
+	}
+
+	$inv_id = $nuamp_inv_post_id;
+
+	// Record user against the invitation code.
+	$registered_users = get_post_meta( $inv_id, $inv->registered_users, true );
+	if ( empty( $registered_users ) ) {
+		update_post_meta( $inv_id, $inv->registered_users, array( $user_id ) );
+	} else {
+		$registered_users[] = $user_id;
+		update_post_meta( $inv_id, $inv->registered_users, $registered_users );
+	}
+
+	// Decrement usage limit.
+	$current_usage = (int) get_post_meta( $inv_id, $inv->usage_limit_key, true );
+	--$current_usage;
+	update_post_meta( $inv_id, $inv->usage_limit_key, $current_usage );
+
+	// Release the file lock.
+	$inv->invite_code_release( $nuamp_inv_file_lock, $inv_id );
+
+	// Expire the code if the limit has reached zero.
+	if ( 0 === $current_usage ) {
+		update_post_meta( $inv_id, $inv->status_key, 'Expired' );
+	}
+
+	// Auto-approve the user.
+	pw_new_user_approve()->approve_user( $user_id );
+
+	do_action( 'nua_invited_user', $user_id, $code_entered );
 }
 
-add_action("mepr_members_list_table_row", "memberpress_add_nua_rows", 10, 4);
-
-add_action("admin_head", "memberpress_nua_col_width");
-
-function memberpress_nua_col_width()
-{
-    echo '<style>
-    .column-col_nua_approval {
-        width: 10%;
-    } 
-  </style>';
-}
-
-add_action(
-    "memberpress_page_memberpress-members",
-    "update_user_status_from_memberpress_members_page"
-);
-
-function update_user_status_from_memberpress_members_page()
-{
-    if (
-        isset($_GET["nua-action"]) &&
-        in_array($_GET["nua-action"], ["approve", "deny"]) &&
-        !isset($_GET["new_role"])
-    ) {
-        check_admin_referer("new-user-approve-mempr");
-        $status = sanitize_key($_GET["nua-action"]);
-        $user = absint($_GET["user"]);
-
-        pw_new_user_approve()->update_user_status($user, $status);
-    }
-}
+add_action( 'mepr-signup', 'nuamp_process_invitation_code_on_signup', 10, 1 );
