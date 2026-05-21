@@ -3,8 +3,8 @@ Contributors: wpexpertsio
 Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
-Tested up to: 6.9
-Stable tag: 3.2.7
+Tested up to: 7.0
+Stable tag: 3.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -175,6 +175,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Settings.
 
 == Changelog ==
+
+= 3.2.8 =
+* Tweak – Compatible with WordPress Version 7.0
 
 = 3.2.7 =
 * Fixed - Code improvement and fixes.
