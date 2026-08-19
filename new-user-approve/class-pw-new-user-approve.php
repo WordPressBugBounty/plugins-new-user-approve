@@ -1230,9 +1230,17 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 		 */
 		public function add_user_status( $user_id ) {
 			$status = 'pending';
-			// This check needs to happen when a user is created in the admin.
-			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			if ( isset( $_REQUEST['action'] ) && 'createuser' === $_REQUEST['action'] ) {
+			// Auto-approve only when an admin creates the user from wp-admin/user-new.php.
+			if (
+				isset( $_REQUEST['action'] ) && 'createuser' === $_REQUEST['action'] // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				&& is_user_logged_in()
+				&& current_user_can( 'create_users' )
+				&& isset( $_REQUEST['_wpnonce_create-user'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				&& wp_verify_nonce(
+					sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce_create-user'] ) ), // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					'create-user'
+				)
+			) {
 				$status = 'approved';
 			}
 			$status = apply_filters( 'new_user_approve_default_status', $status, $user_id );
