@@ -58,6 +58,14 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @since 2.1
 		 */
 		public function register_routes() {
+			$args = array(
+				'api_key' => array(
+					'required'          => true,
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+			);
+
 			register_rest_route(
 				'nua-zapier',
 				'/v1/auth',
@@ -65,6 +73,7 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'authenticate' ),
 					'permission_callback' => '__return_true',
+					'args'                => $args,
 				)
 			);
 
@@ -75,6 +84,7 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'user_approved' ),
 					'permission_callback' => '__return_true',
+					'args'                => $args,
 				)
 			);
 
@@ -85,6 +95,7 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'user_denied' ),
 					'permission_callback' => '__return_true',
+					'args'                => $args,
 				)
 			);
 
@@ -95,6 +106,7 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'user_invcode' ),
 					'permission_callback' => '__return_true',
+					'args'                => $args,
 				)
 			);
 
@@ -105,6 +117,7 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'user_pending' ),
 					'permission_callback' => '__return_true',
+					'args'                => $args,
 				)
 			);
 
@@ -115,6 +128,7 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'user_whitelisted' ),
 					'permission_callback' => '__return_true',
+					'args'                => $args,
 				)
 			);
 
@@ -125,6 +139,7 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'user_approved_via_role' ),
 					'permission_callback' => '__return_true',
+					'args'                => $args,
 				)
 			);
 		}
@@ -141,6 +156,45 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		}
 
 		/**
+		 * Validate API key from request.
+		 *
+		 * @param WP_REST_Request $request The request object.
+		 * @version 3.3.0
+		 * @since 3.3.0
+		 * @return true|WP_Error True if valid, WP_Error otherwise.
+		 */
+		private function validate_api_key( $request ) {
+			$api_key    = $request->get_param( 'api_key' );
+			$stored_key = $this->api_key();
+
+			if ( ! is_string( $api_key ) || '' === $api_key ) {
+				return new \WP_Error(
+					'nua_zapier_invalid_key',
+					__( 'Invalid API Key', 'new-user-approve' ),
+					array( 'status' => 401 )
+				);
+			}
+
+			if ( empty( $stored_key ) || ! is_string( $stored_key ) ) {
+				return new \WP_Error(
+					'nua_zapier_no_key_configured',
+					__( 'API Key not configured', 'new-user-approve' ),
+					array( 'status' => 401 )
+				);
+			}
+
+			if ( ! hash_equals( $stored_key, $api_key ) ) {
+				return new \WP_Error(
+					'nua_zapier_invalid_key',
+					__( 'Invalid API Key', 'new-user-approve' ),
+					array( 'status' => 401 )
+				);
+			}
+
+			return true;
+		}
+
+		/**
 		 * Authenticate API request.
 		 *
 		 * @param WP_REST_Request $request The request object.
@@ -149,26 +203,12 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return WP_REST_Response|WP_Error
 		 */
 		public function authenticate( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key ) {
-				return new \WP_Error(
-					400,
-					__( 'Required Parameter Missing', 'new-user-approve' ),
-					'api_key required'
-				);
+			$auth = $this->validate_api_key( $request );
+			if ( is_wp_error( $auth ) ) {
+				return $auth;
 			}
 
-			if ( $api_key === $this->api_key() ) {
-				return new \WP_REST_Response( true, 200 );
-			}
-
-			// else invalid key.
-			return new \WP_Error(
-				400,
-				__( 'Invalid API Key', 'new-user-approve' ),
-				'invalid api_key'
-			);
+			return new \WP_REST_Response( true, 200 );
 		}
 
 		/**
@@ -178,22 +218,9 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return array|WP_Error
 		 */
 		public function user_whitelisted( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key ) {
-				return new \WP_Error(
-					400,
-					__( 'Required Parameter Missing', 'new-user-approve' ),
-					'api_key required'
-				);
-			}
-
-			if ( $api_key !== $this->api_key() ) {
-				return new \WP_Error(
-					401,
-					__( 'Invalid API Key', 'new-user-approve' ),
-					'invalid api_key'
-				);
+			$auth = $this->validate_api_key( $request );
+			if ( is_wp_error( $auth ) ) {
+				return $auth;
 			}
 
 			return $this->user_data( 'nua_user_whitelisted' );
@@ -207,22 +234,9 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return array|WP_Error
 		 */
 		public function user_pending( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key ) {
-				return new \WP_Error(
-					400,
-					__( 'Required Parameter Missing', 'new-user-approve' ),
-					'api_key required'
-				);
-			}
-
-			if ( $api_key !== $this->api_key() ) {
-				return new \WP_Error(
-					401,
-					__( 'Invalid API Key', 'new-user-approve' ),
-					'invalid api_key'
-				);
+			$auth = $this->validate_api_key( $request );
+			if ( is_wp_error( $auth ) ) {
+				return $auth;
 			}
 
 			return $this->user_data( 'nua_user_pending' );
@@ -236,22 +250,9 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return array|WP_Error
 		 */
 		public function user_invcode( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key ) {
-				return new \WP_Error(
-					400,
-					__( 'Required Parameter Missing', 'new-user-approve' ),
-					'api_key required'
-				);
-			}
-
-			if ( $api_key !== $this->api_key() ) {
-				return new \WP_Error(
-					401,
-					__( 'Invalid API Key', 'new-user-approve' ),
-					'invalid api_key'
-				);
+			$auth = $this->validate_api_key( $request );
+			if ( is_wp_error( $auth ) ) {
+				return $auth;
 			}
 
 			return $this->user_data( 'nua_user_invcode' );
@@ -264,22 +265,9 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return array|WP_Error
 		 */
 		public function user_approved( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key ) {
-				return new \WP_Error(
-					400,
-					__( 'Required Parameter Missing', 'new-user-approve' ),
-					'api_key required'
-				);
-			}
-
-			if ( $api_key !== $this->api_key() ) {
-				return new \WP_Error(
-					401,
-					__( 'Invalid API Key', 'new-user-approve' ),
-					'invalid api_key'
-				);
+			$auth = $this->validate_api_key( $request );
+			if ( is_wp_error( $auth ) ) {
+				return $auth;
 			}
 
 			return $this->user_data( 'nua_user_approved' );
@@ -293,22 +281,9 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return array|WP_Error
 		 */
 		public function user_approved_via_role( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key ) {
-				return new \WP_Error(
-					400,
-					__( 'Required Parameter Missing', 'new-user-approve' ),
-					'api_key required'
-				);
-			}
-
-			if ( $api_key !== $this->api_key() ) {
-				return new \WP_Error(
-					401,
-					__( 'Invalid API Key', 'new-user-approve' ),
-					'invalid api_key'
-				);
+			$auth = $this->validate_api_key( $request );
+			if ( is_wp_error( $auth ) ) {
+				return $auth;
 			}
 
 			return $this->user_data( 'nua_user_approved_via_role' );
@@ -322,22 +297,9 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return array|WP_Error
 		 */
 		public function user_denied( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key ) {
-				return new \WP_Error(
-					400,
-					__( 'Required Parameter Missing', 'new-user-approve' ),
-					'api_key required'
-				);
-			}
-
-			if ( $api_key !== $this->api_key() ) {
-				return new \WP_Error(
-					401,
-					__( 'Invalid API Key', 'new-user-approve' ),
-					'invalid api_key'
-				);
+			$auth = $this->validate_api_key( $request );
+			if ( is_wp_error( $auth ) ) {
+				return $auth;
 			}
 
 			return $this->user_data( 'nua_user_denied' );
@@ -434,9 +396,8 @@ if ( ! class_exists( 'RestRoutes' ) ) {
 		 * @return bool
 		 */
 		public function nua_zapier_permission_callback( $request ) {
-			$api_key = $request->get_param( 'api_key' );
-
-			if ( null === $api_key || $api_key !== $this->api_key() ) {
+			$result = $this->validate_api_key( $request );
+			if ( is_wp_error( $result ) ) {
 				return false;
 			}
 
