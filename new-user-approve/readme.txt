@@ -4,7 +4,7 @@ Donate link: https://newuserapprove.com
 Tags: User Management, User Registration, Registration, users, user approval
 Requires at least: 4.0
 Tested up to: 7.1
-Stable tag: 3.2.10
+Stable tag: 3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,19 @@ This makes it simple to **restrict user access before approval** and ensure only
 Already have users on your website? No problem. 
 
 Existing users stay approved automatically when you install New User Approve. You can also change someone’s approval status at any time, with easy search tools for managing pending, approved, or denied users.
+
+== **⭐ Built-In Role Editor ⭐** ==
+New User Approve includes a built-in role editor that lets you control what each user role can do without installing another plugin.
+
+**With the role editor, you can:**
+
+* Create custom roles with your own name and slug
+* Edit existing roles, including core WordPress roles
+* Assign or remove capabilities with simple checkboxes
+* Add custom capabilities for your own workflows
+* Use human-readable capability labels for easier scanning
+
+Core WordPress roles are protected. You can rename them, but they cannot be deleted and their slugs cannot be changed. This helps keep your site stable while you manage access for members, clients, and staff.
 
 ==⌛ Save Time with Zapier Automation==
 Want to work smarter? Connect **New User Approve** to Zapier to automate routine tasks.
@@ -175,6 +188,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Settings.
 
 == Changelog ==
+
+= 3.3 =
+* New - Added Role Editor and Capabilities.
 
 = 3.2.10 =
 * Fixed - Zapier API Key Validation fix.

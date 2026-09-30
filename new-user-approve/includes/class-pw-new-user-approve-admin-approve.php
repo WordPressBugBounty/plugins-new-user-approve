@@ -98,6 +98,18 @@ if ( ! class_exists( 'PW_New_User_Approve_Admin_Approve' ) ) {
 					array( $this, 'menu_options_page' ),
 					2
 				);
+				$cap_role_editor = current_user_can( 'manage_options' )
+					? 'manage_options'
+					: 'nua_role_editor_cap';
+				add_submenu_page(
+					'new-user-approve-admin',
+					__( 'Role Editor', 'new-user-approve' ),
+					__( 'Role Editor', 'new-user-approve' ),
+					$cap_role_editor, // phpcs:ignore WordPress.WP.Capabilities.Unknown
+					'new-user-approve-admin#/action=role-editor/tab=roles',
+					array( $this, 'menu_options_page' ),
+					3
+				);
 				$hook = add_submenu_page(
 					'new-user-approve-admin',
 					__( 'New User Approve', 'new-user-approve' ),
@@ -105,7 +117,7 @@ if ( ! class_exists( 'PW_New_User_Approve_Admin_Approve' ) ) {
 					'nua_view_invitation_tab', // phpcs:ignore WordPress.WP.Capabilities.Unknown
 					'new-user-approve-admin#/action=inv-codes/tab=all-codes',
 					array( $this, 'menu_options_page' ),
-					3
+					4
 				);
 				$hook = add_submenu_page(
 					'new-user-approve-admin',

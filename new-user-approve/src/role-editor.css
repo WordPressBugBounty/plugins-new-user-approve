@@ -1,0 +1,570 @@
+/* Role Editor styles */
+.nua-re-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  min-height: 500px;
+  font-family: "figtree", sans-serif;
+  padding: 0;
+}
+
+.nua-re-loading {
+  padding: 40px;
+  font-family: "figtree", sans-serif;
+  color: #666;
+}
+
+.nua-re-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 260px;
+  flex-shrink: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  padding: 20px 16px;
+  max-height: calc(100vh - 120px);
+  position: sticky;
+  top: 32px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.nua-re-sidebar-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nua-re-btn-block {
+  width: 100%;
+  text-align: center;
+}
+
+.nua-re-human-readable-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: #f8f9fa;
+  font-size: 14px;
+  color: #3c434a;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nua-re-role-search {
+  position: relative;
+  margin-top: 4px;
+}
+
+.nua-re-role-search-input {
+  width: 100%;
+  padding: 7px 30px 7px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: "figtree", sans-serif;
+  color: #333;
+  background: #f8f9fa;
+  box-sizing: border-box;
+}
+
+.nua-re-roles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.nua-re-role-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: "figtree", sans-serif;
+}
+
+.nua-re-role-item:hover {
+  background: #f0f6fc;
+  border-color: #d0e4f5;
+}
+
+.nua-re-role-item.active {
+  background: #eaf3fb;
+  border-color: #2271b1;
+}
+
+.nua-re-role-item-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1d2327;
+}
+
+.nua-re-role-item-slug {
+  font-size: 11px;
+  color: #888;
+  margin-top: 1px;
+}
+
+.nua-re-main {
+  flex: 1;
+  min-width: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  padding: 20px 24px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.nua-re-cap-section {
+  margin-bottom: 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.nua-re-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.nua-re-toolbar-search {
+  flex: 1;
+}
+
+.nua-re-search-bar {
+  position: relative;
+}
+
+.nua-re-search-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 36px 0 14px !important;
+  border: 1px solid rgba(0, 0, 0, 0.23) !important;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: "figtree", sans-serif;
+  box-sizing: border-box;
+}
+
+.nua-re-search-icon,
+.nua-re-search-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nua-re-search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nua-re-accordion-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.nua-re-accordion-header-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nua-re-bulk-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #2271b1;
+}
+
+.nua-re-accordion-icon.open {
+  transform: rotate(180deg);
+}
+
+.nua-re-accordion-body {
+  padding: 16px;
+}
+
+.nua-re-cap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.nua-re-cap-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.nua-re-cap-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.nua-re-cap-item.nua-cap-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.nua-re-cap-label {
+  font-size: 14px;
+  color: #3c434a;
+}
+
+.nua-re-cap-custom {
+  justify-content: space-between;
+}
+
+.nua-re-cap-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  align-items: center;
+}
+
+.nua-re-cap-custom:hover .nua-re-cap-actions {
+  opacity: 1;
+}
+
+.nua-re-empty,
+.nua-re-empty-caps {
+  padding: 40px;
+  text-align: center;
+  color: #999;
+}
+
+.nua-re-btn-icon {
+  background: none;
+  border: none;
+  padding: 4px 6px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.nua-re-cap-actions .nua-re-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #e6ebef;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.nua-re-cap-actions .nua-re-btn-icon .actionsIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  line-height: 0;
+}
+
+.nua-re-cap-actions .nua-re-btn-icon .actionsIcon svg {
+  display: block;
+}
+
+.nua-re-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nua-re-modal {
+  background: #fff;
+  border-radius: 10px;
+  width: 420px;
+  max-width: 95vw;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.nua-re-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.nua-re-modal-body {
+  padding: 20px;
+}
+
+.nua-re-form-group {
+  margin-bottom: 16px;
+}
+
+.nua-re-form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.nua-re-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.nua-roles-list-page {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 12px;
+}
+
+/* Role Editor — unified white card (tabs + content) */
+.role-editor-main-tabpanel {
+  background-color: #fff;
+  padding: 0;
+  margin-top: 12px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.role-editor-subtabs {
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.role-editor-subtabs .role-editor-subtabs-list.setting-main-tabpanel {
+  padding: 3px 30px;
+  margin-top: 0;
+  border-radius: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.roles-tabpanel,
+.role-editor-subtabs [role="tabpanel"] {
+  margin-top: 0;
+  padding: 24px;
+  background-color: #fff;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.roles-tabpanel:has(.nua-roles-list-page) {
+  padding-top: 0;
+}
+
+.nua-roles-list-page .all_users_list_header {
+  margin: 0;
+  padding: 0;
+}
+
+.nua-roles-list-page .users_list_title {
+  margin: 0;
+}
+
+.nua-roles-list-page .nua-header-filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nua-roles-list-page .nua-search-field {
+  margin-bottom: 0;
+}
+
+.nua-roles-list-page .nua-header-filters .MuiStack-root {
+  margin-bottom: 0 !important;
+}
+
+.nua-roles-list-page .nua-header-filters .nua-btn {
+  align-self: center;
+  flex-shrink: 0;
+  height: 40px;
+  width: auto;
+  min-width: 130px;
+  white-space: nowrap;
+}
+
+.nua-roles-table-container {
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.nua-sort-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nua-roles-table-role-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nua-roles-table-role-cell > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.nua-roles-table-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.nua-roles-table-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.nua-roles-badge-core {
+  background: #e8f4fd;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.nua-roles-table-slug {
+  font-family: monospace;
+  font-size: 12px;
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.nua-roles-table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+.nua-roles-table-actions .nua-re-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #e6ebef;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.nua-roles-table-actions .nua-re-btn-icon .actionsIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  line-height: 0;
+}
+
+.nua-roles-table-actions .nua-re-btn-icon .actionsIcon svg {
+  display: block;
+}
+
+.role-editor-subtabs-list {
+  display: flex;
+  padding: 3px 30px;
+  border-bottom: 1px solid #f0f0f0;
+  border-radius: 15px 15px 0 0;
+  background-color: #ffffff;
+  gap: 30px;
+  margin-top: 0;
+}
+
+.role-editor-subtabs-list button {
+  color: #858585;
+  height: 44px;
+  border: 0;
+  background-color: #ffffff;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.role-editor-subtabs-list button.nua_active_subtab {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.role-editor-subtabs-list button.nua_active_subtab::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 1px;
+  background-color: #333333;
+  transition: width 0.3s ease;
+}
+
+.nua-re-cap-item input.nua_checkbox,
+.nua-re-bulk-checkbox {
+  margin: 0;
+}
+
+.nua-roles-list-page .nua-btn {
+  background-color: #e8f5e7;
+  border: 1px solid #d0eacf;
+  color: #456644;
+}

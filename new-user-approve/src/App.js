@@ -19,6 +19,7 @@ class App extends Component {
             <Route path="/action=integrations" element={<NUA_Dashboard />} />
             <Route path="/action=settings/*" element={<NUA_Dashboard />} />
             <Route path="/action=mobile-app" element={<NUA_Dashboard />} />
+            <Route path="/action=role-editor/*" element={<NUA_Dashboard />} />
           </Routes>
         </Router>
       </>

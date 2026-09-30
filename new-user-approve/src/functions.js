@@ -541,3 +541,144 @@ export const format_selected_values = ({ valuesList }) => {
   }));
   return selected_values;
 };
+
+// Role Editor API
+
+const re_headers = () => ({
+  "Content-Type": "application/json",
+  "X-WP-Nonce": wpApiSettings.nonce,
+});
+
+export const re_get_roles = async ({
+  page = 1,
+  limit = 10,
+  search = "",
+} = {}) => {
+  try {
+    const res = await fetch(
+      `${NUARestAPI.re_get_roles}${NUARestAPI.permalink_delimeter}page=${page}&limit=${limit}&search=${search}`,
+      { headers: re_headers() }
+    );
+    const data = await res.json();
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_get_capabilities = async () => {
+  try {
+    const res = await fetch(NUARestAPI.re_get_capabilities, {
+      headers: re_headers(),
+    });
+    const data = await res.json();
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_create_role = async ({ display_name, role_slug }) => {
+  try {
+    const res = await fetch(NUARestAPI.re_create_role, {
+      method: "POST",
+      headers: re_headers(),
+      body: JSON.stringify({ display_name, role_slug }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { error: data?.message || "Failed" };
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_delete_role = async ({ role_slug }) => {
+  try {
+    const res = await fetch(NUARestAPI.re_delete_role, {
+      method: "POST",
+      headers: re_headers(),
+      body: JSON.stringify({ role_slug }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { error: data?.message || "Failed" };
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_rename_role = async ({ old_slug, display_name, new_slug }) => {
+  try {
+    const res = await fetch(NUARestAPI.re_rename_role, {
+      method: "POST",
+      headers: re_headers(),
+      body: JSON.stringify({ old_slug, display_name, new_slug }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { error: data?.message || "Failed" };
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_update_role_caps = async ({ role_slug, capabilities }) => {
+  try {
+    const res = await fetch(NUARestAPI.re_update_role_caps, {
+      method: "POST",
+      headers: re_headers(),
+      body: JSON.stringify({ role_slug, capabilities }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { error: data?.message || "Failed" };
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_add_custom_cap = async ({ cap_name }) => {
+  try {
+    const res = await fetch(NUARestAPI.re_add_custom_cap, {
+      method: "POST",
+      headers: re_headers(),
+      body: JSON.stringify({ cap_name }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { error: data?.message || "Failed" };
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_update_custom_cap = async ({ old_name, new_name }) => {
+  try {
+    const res = await fetch(NUARestAPI.re_update_custom_cap, {
+      method: "POST",
+      headers: re_headers(),
+      body: JSON.stringify({ old_name, new_name }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { error: data?.message || "Failed" };
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};
+
+export const re_delete_custom_cap = async ({ cap_name }) => {
+  try {
+    const res = await fetch(NUARestAPI.re_delete_custom_cap, {
+      method: "POST",
+      headers: re_headers(),
+      body: JSON.stringify({ cap_name }),
+    });
+    const data = await res.json();
+    if (!res.ok) return { error: data?.message || "Failed" };
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+};

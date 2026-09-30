@@ -1,3 +1,5 @@
+@import "./role-editor.css";
+
 @font-face {
   font-family: "figtree";
   src: url(".//assets/fonts/Figtree-Medium.ttf") format("truetype");

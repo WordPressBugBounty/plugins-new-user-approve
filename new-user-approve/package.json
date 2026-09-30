@@ -1,6 +1,6 @@
 {
   "name": "new-user-approve",
-  "version": "3.2.3",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "=== Plugin Name === Contributors: wpexpertsio Tags: users, registration, sign up, user management, login, options, addon Requires at least: 3.9.2 Tested up to: 6.5.3 Stable tag: 2.7 License: GPLv2 or later License URI: http://www.gnu.org/licenses/gpl-2.0.html",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
@@ -27,6 +27,7 @@
     "@wordpress/editor": "^14.4.0",
     "@wordpress/element": "^6.4.0",
     "axios": "^1.7.2",
+    "caniuse-lite": "^1.0.30001799",
     "he": "^1.2.0",
     "qrcode.react": "^4.2.0",
     "react": "^18.3.1",

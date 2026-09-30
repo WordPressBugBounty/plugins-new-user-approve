@@ -201,6 +201,7 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 				'nua_integration_cap',
 				'nua_settings_cap',
 				'nua_mobile_app_cap',
+				'nua_role_editor_cap',
 			);
 		}
 
@@ -216,6 +217,11 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 						$role->add_cap( $cap );
 					}
 				}
+			}
+
+			$user = wp_get_current_user();
+			if ( $user && in_array( 'administrator', (array) $user->roles, true ) ) {
+				$user->allcaps['nua_role_editor_cap'] = true;
 			}
 		}
 
@@ -363,6 +369,7 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 				require_once __DIR__ . '/includes/end-points/class-invitation-code-api.php';
 				require_once __DIR__ . '/includes/end-points/class-nua-settings-api.php';
 				require_once __DIR__ . '/includes/end-points/class-nuaf-mobile-api.php';
+				require_once __DIR__ . '/includes/end-points/class-role-editor-api.php';
 				require_once __DIR__ . '/includes/help.php';
 			}
 			$legacy_panel = apply_filters( 'new_user_approve_user_admin_legacy', true );
@@ -677,7 +684,7 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 				wp_enqueue_script( 'jquery' );
 				wp_enqueue_editor();
 				wp_enqueue_media();
-				wp_enqueue_script( 'new-user-approve-buildjs', plugins_url( '/build/index.js', __FILE__ ), array( 'wp-blocks', 'wp-block-library', 'wp-element', 'wp-i18n', 'wp-components', 'wp-editor', 'wp-data' ), NUA_VERSION, true );
+				wp_enqueue_script( 'new-user-approve-buildjs', plugins_url( '/build/index.js', __FILE__ ), array( 'wp-blocks', 'wp-block-library', 'wp-element', 'wp-i18n', 'wp-components', 'wp-editor', 'wp-data' ), filemtime( plugin_dir_path( __FILE__ ) . 'build/index.js' ), true );
 				wp_enqueue_style( 'new-user-approve-buildcss', plugins_url( '/build/style-index.css', __FILE__ ), array(), NUA_VERSION );
 				wp_enqueue_style( 'nua-admin-style', plugins_url( '/assets/css/nua-admin-style.css', __FILE__ ), array( 'nua-fonts' ), NUA_VERSION );
 				wp_localize_script(
@@ -722,6 +729,15 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 						'get_api_key'             => get_rest_url( null, 'nua-request/v1/get-api-key' ),
 						'update_api_key'          => get_rest_url( null, 'nua-request/v1/update-api-key' ),
 						'all_statuses_users'      => get_rest_url( null, 'nua-request/v1/get-all-statuses-users' ),
+						're_get_roles'            => get_rest_url( null, 'nua-request/v1/re/get-roles' ),
+						're_create_role'          => get_rest_url( null, 'nua-request/v1/re/create-role' ),
+						're_delete_role'          => get_rest_url( null, 'nua-request/v1/re/delete-role' ),
+						're_rename_role'          => get_rest_url( null, 'nua-request/v1/re/rename-role' ),
+						're_update_role_caps'     => get_rest_url( null, 'nua-request/v1/re/update-role-caps' ),
+						're_get_capabilities'     => get_rest_url( null, 'nua-request/v1/re/get-capabilities' ),
+						're_add_custom_cap'       => get_rest_url( null, 'nua-request/v1/re/add-custom-cap' ),
+						're_update_custom_cap'    => get_rest_url( null, 'nua-request/v1/re/update-custom-cap' ),
+						're_delete_custom_cap'    => get_rest_url( null, 'nua-request/v1/re/delete-custom-cap' ),
 					)
 				);
 
@@ -738,9 +754,34 @@ if ( ! class_exists( 'PW_New_User_Approve' ) ) {
 						'nua_settings_cap'        => current_user_can( 'nua_settings_cap' ),
 						'nua_users_cap'           => current_user_can( 'nua_users_cap' ),
 						'nua_mobile_app_cap'      => current_user_can( 'nua_mobile_app_cap' ),
+						'nua_role_editor_cap'     => current_user_can( 'nua_role_editor_cap' ),
 						// phpcs:enable WordPress.WP.Capabilities.Unknown
 					)
 				);
+
+				$role_editor_asset_path = plugin_dir_path( __FILE__ ) . 'build/role-editor.asset.php';
+				if ( file_exists( $role_editor_asset_path ) ) {
+					$role_editor_asset = include $role_editor_asset_path;
+					$role_editor_deps  = array_unique(
+						array_merge(
+							array( 'wp-element', 'wp-i18n', 'wp-api-request', 'new-user-approve-buildjs' ),
+							isset( $role_editor_asset['dependencies'] ) ? $role_editor_asset['dependencies'] : array()
+						)
+					);
+					wp_enqueue_script(
+						'new-user-approve-role-editor',
+						plugins_url( '/build/role-editor.js', __FILE__ ),
+						$role_editor_deps,
+						isset( $role_editor_asset['version'] ) ? $role_editor_asset['version'] : NUA_VERSION,
+						true
+					);
+					wp_enqueue_style(
+						'new-user-approve-role-editor',
+						plugins_url( '/build/role-editor.css', __FILE__ ),
+						array( 'new-user-approve-buildcss' ),
+						isset( $role_editor_asset['version'] ) ? $role_editor_asset['version'] : NUA_VERSION
+					);
+				}
 			}
 		}
 
